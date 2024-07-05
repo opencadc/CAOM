@@ -9,8 +9,6 @@ repositories {
     mavenLocal()
 }
 
-apply from: '../opencadc.gradle'
-
 sourceCompatibility = 1.8
 
 group = 'org.opencadc'
@@ -55,3 +53,11 @@ dependencies {
 
     testCompile 'junit:junit:4.13' 
 }
+
+test {
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED"
+        // "STARTED", 
+    }
+}
+
