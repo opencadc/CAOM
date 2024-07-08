@@ -3,7 +3,7 @@
 *******************  CANADIAN ASTRONOMY DATA CENTRE  *******************
 **************  CENTRE CANADIEN DE DONNÉES ASTRONOMIQUES  **************
 *
-*  (c) 2016.                            (c) 2016.
+*  (c) 2024.                            (c) 2024.
 *  Government of Canada                 Gouvernement du Canada
 *  National Research Council            Conseil national de recherches
 *  Ottawa, Canada, K1A 0R6              Ottawa, Canada, K1A 0R6
@@ -63,10 +63,9 @@
 *                                       <http://www.gnu.org/licenses/>.
 *
 ************************************************************************
-*/
+ */
 
 package ca.nrc.cadc.caom2;
-
 
 import ca.nrc.cadc.util.FileUtil;
 import ca.nrc.cadc.util.Log4jInit;
@@ -86,33 +85,30 @@ import org.junit.Test;
  *
  * @author pdowler
  */
-public class VODMLValidationTest 
-{
+public class VODMLValidationTest {
+
     private static final Logger log = Logger.getLogger(VODMLValidationTest.class);
 
     private static final String VODML_FILE_22 = "CAOM-2.2-vodml.xml";
     private static final String VODML_FILE_23 = "CAOM-2.3-vodml.xml";
     private static final String VODML_FILE_24 = "CAOM-2.4-vodml.xml";
-    
-    private static final String[] VODML_FILES = new String[]
-    {
+
+    private static final String[] VODML_FILES = new String[]{
         VODML_FILE_22, VODML_FILE_23, VODML_FILE_24
     };
-    
-    static
-    {
+
+    static {
         Log4jInit.setLevel("ca.nrc.cadc.caom2", Level.INFO);
         Log4jInit.setLevel("ca.nrc.cadc.vodml", Level.INFO);
     }
-    public VODMLValidationTest() { }
-    
+
+    public VODMLValidationTest() {
+    }
+
     @Test
-    public void testWellFormed()
-    {
-        for (String vodmlFile : VODML_FILES)
-        {
-            try
-            {
+    public void testWellFormed() {
+        for (String vodmlFile : VODML_FILES) {
+            try {
                 File testVODML = FileUtil.getFileFromResource(vodmlFile, VODMLValidationTest.class);
                 log.info("testWellFormed VO-DML/XML doc: " + testVODML);
 
@@ -125,22 +121,17 @@ public class VODMLValidationTest
                 w.write(doc, bos);
                 log.debug("well-formed document:\n" + bos.toString());
                 log.info("testWellFormed VO-DML/XML doc: OK");
-            }
-            catch(Exception unexpected)
-            {
+            } catch (Exception unexpected) {
                 log.error("unexpected exception", unexpected);
                 Assert.fail("unexpected exception: " + unexpected);
             }
         }
     }
-    
+
     @Test
-    public void testSchemaValid()
-    {
-        for (String vodmlFile : VODML_FILES)
-        {
-            try
-            {
+    public void testSchemaValid() {
+        for (String vodmlFile : VODML_FILES) {
+            try {
                 File testVODML = FileUtil.getFileFromResource(vodmlFile, VODMLValidationTest.class);
                 log.info("testSchemaValid VO-DML/XML doc: " + testVODML);
 
@@ -154,22 +145,17 @@ public class VODMLValidationTest
                 log.debug("schema-valid document:\n" + bos.toString());
                 log.info("testSchemaValid VO-DML/XML doc: OK");
 
-            }
-            catch(Exception unexpected)
-            {
+            } catch (Exception unexpected) {
                 log.error("unexpected exception", unexpected);
                 Assert.fail("unexpected exception: " + unexpected);
             }
         }
     }
-    
+
     @Test
-    public void testSchematronValid()
-    {
-        for (String vodmlFile : VODML_FILES)
-        {
-            try
-            {
+    public void testSchematronValid() {
+        for (String vodmlFile : VODML_FILES) {
+            try {
                 File testVODML = FileUtil.getFileFromResource(vodmlFile, VODMLValidationTest.class);
                 log.info("testSchematronValid VO-DML/XML doc: " + testVODML);
 
@@ -177,15 +163,12 @@ public class VODMLValidationTest
                 Document doc = wf.read(new FileInputStream(testVODML));
                 Assert.assertNotNull(doc);
                 log.info("testSchematronValid VO-DML/XML doc: OK");
-            }
-            catch(SchematronValidationException ex)
-            {
-                for (String msg : ex.getFailures())
+            } catch (SchematronValidationException ex) {
+                for (String msg : ex.getFailures()) {
                     log.error(msg);
+                }
                 Assert.fail("schematron validation failed: " + ex);
-            }
-            catch(Exception unexpected)
-            {
+            } catch (Exception unexpected) {
                 log.error("unexpected exception", unexpected);
                 Assert.fail("unexpected exception: " + unexpected);
             }
