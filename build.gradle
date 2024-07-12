@@ -20,7 +20,7 @@ jar {
 }
 defaultTasks 'build', 'xslt'
 
-task initHTML(type: Copy, dependsOn: test) {
+task initHTML(type: Copy) {
     
     project.mkdir('build/html')
         
@@ -31,7 +31,7 @@ task initHTML(type: Copy, dependsOn: test) {
 }
 
 xslt {
-    dependsOn test, initHTML
+    dependsOn initHTML
     
     stylesheet file('src/main/xsl/vo-dml2html.xsl')
     input file('src/main/resources/CAOM-' + project.version + '-vodml.xml')
@@ -54,10 +54,5 @@ dependencies {
     testCompile 'junit:junit:4.13' 
 }
 
-test {
-    testLogging {
-        events "PASSED", "FAILED", "SKIPPED"
-        // "STARTED", 
-    }
-}
+apply from: 'opencadc.gradle'
 
