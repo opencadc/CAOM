@@ -4,7 +4,7 @@
 *******************  CANADIAN ASTRONOMY DATA CENTRE  *******************
 **************  CENTRE CANADIEN DE DONNÉES ASTRONOMIQUES  **************
 *
-*  (c) 2019.                            (c) 2019.
+*  (c) 2024.                            (c) 2024.
 *  Government of Canada                 Gouvernement du Canada
 *  National Research Council            Conseil national de recherches
 *  Ottawa, Canada, K1A 0R6              Ottawa, Canada, K1A 0R6
@@ -57,8 +57,8 @@
     <uri/>
     <title>Common Archive Observation Model</title>
     <author>Patrick Dowler, Canadian Astronomy Data Centre</author>
-    <version>2.4</version>
-    <lastModified>2019-07-12T12:00:00</lastModified>
+    <version>2.5</version>
+    <lastModified>2024-07-10T12:00:00</lastModified>
     
     <import>
         <name>ivoa</name>
@@ -1502,6 +1502,19 @@
                     <maxOccurs>-1</maxOccurs>
                 </multiplicity>
             </attribute>
+            <attribute>
+                <vodml-id>Telescope.trackingMode</vodml-id>
+                <name>trackingMode</name>
+                <description>term from the (currently non-existent) IVOA Tracking vocabulary used to
+                    indicate how the telescope moves during data acquisition</description>
+                <datatype>
+                    <vodml-ref>caom2:VocabularyTerm</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
         </objectType>
         
         <objectType>
@@ -2100,6 +2113,20 @@
                     <vodml-ref>caom2:Shape</vodml-ref>
                 </datatype>
                 <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Position.minBounds</vodml-id>
+                <name>minBounds</name>
+                <description>minimum spatial boundary that includes the data; this value is smaller than
+                    the bounds (maximum) when the field-of-view varies because it is dependent on another 
+                    axis (usually energy)</description>
+                <datatype>
+                    <vodml-ref>caom2:Shape</vodml-ref>
+                </datatype>
+                <multiplicity>
                     <minOccurs>0</minOccurs>
                     <maxOccurs>1</maxOccurs>
                 </multiplicity>
@@ -2117,9 +2144,21 @@
                 </multiplicity>
             </attribute>
             <attribute>
+                <vodml-id>Position.maxAngularScale</vodml-id>
+                <name>maxAngularScale</name>
+                <description>maximum size of spatial structure (signal) that can be recovered or seen in the data</description>
+                <datatype>
+                    <vodml-ref>caom2:Interval</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
                 <vodml-id>Position.resolution</vodml-id>
                 <name>resolution</name>
-                <description>median spatial resolution (full-width-half-max) per pixel</description>
+                <description>mean spatial resolution (full-width-half-max) per pixel</description>
                 <datatype>
                     <vodml-ref>ivoa:real</vodml-ref>
                 </datatype>
@@ -2153,11 +2192,11 @@
                 </multiplicity>
             </attribute>
             <attribute>
-                <vodml-id>Position.timeDependent</vodml-id>
-                <name>timeDependent</name>
-                <description>indicates that the observation was taken with non-siderial tracking so
-                    the resulting position is time-dependent; this usually explains why no bounds is
-                    available</description>
+                <vodml-id>Position.energyDependent</vodml-id>
+                <name>energyDependent</name>
+                <description>flag indicating that variable positional characteristics are varying because the values
+                    depend on energy; applies to minBounds, maxAngularScale, resolutionBounds 
+                    (TBD: sufficient or short-sighted?)</description>
                 <datatype>
                     <vodml-ref>ivoa:boolean</vodml-ref>
                 </datatype>
@@ -2180,7 +2219,7 @@
                     <vodml-ref>caom2:SampledInterval</vodml-ref>
                 </datatype>
                 <multiplicity>
-                    <minOccurs>0</minOccurs>
+                    <minOccurs>1</minOccurs>
                     <maxOccurs>1</maxOccurs>
                 </multiplicity>
             </attribute>
@@ -2212,7 +2251,7 @@
             <attribute>
                 <vodml-id>Energy.resolvingPower</vodml-id>
                 <name>resolvingPower</name>
-                <description>median spectral resolving power per pixel</description>
+                <description>mean spectral resolving power per pixel (relative resolution)</description>
                 <datatype>
                     <vodml-ref>ivoa:real</vodml-ref>
                 </datatype>
@@ -2224,7 +2263,31 @@
             <attribute>
                 <vodml-id>Energy.resolvingPowerBounds</vodml-id>
                 <name>resolvingPowerBounds</name>
-                <description>range of resolving power within the bounds</description>
+                <description>range of resolving power within the bounds (relative resolution)</description>
+                <datatype>
+                    <vodml-ref>caom2:Interval</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Energy.resolution</vodml-id>
+                <name>resolution</name>
+                <description>mean absolute spectral resolution per pixel</description>
+                <datatype>
+                    <vodml-ref>ivoa:real</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Energy.resolutionBounds</vodml-id>
+                <name>resolutionBounds</name>
+                <description>range of absolute spectral resolution within the bounds</description>
                 <datatype>
                     <vodml-ref>caom2:Interval</vodml-ref>
                 </datatype>
@@ -2236,7 +2299,7 @@
             <attribute>
                 <vodml-id>Energy.sampleSize</vodml-id>
                 <name>sampleSize</name>
-                <description>median pixel size</description>
+                <description>mean pixel size</description>
                 <datatype>
                     <vodml-ref>ivoa:real</vodml-ref>
                 </datatype>
@@ -2295,7 +2358,7 @@
                     <vodml-ref>caom2:SampledInterval</vodml-ref>
                 </datatype>
                 <multiplicity>
-                    <minOccurs>0</minOccurs>
+                    <minOccurs>1</minOccurs>
                     <maxOccurs>1</maxOccurs>
                 </multiplicity>
             </attribute>
@@ -2350,9 +2413,21 @@
             <attribute>
                 <vodml-id>Time.exposure</vodml-id>
                 <name>exposure</name>
-                <description>median exposure time per pixel</description>
+                <description>mean exposure time per pixel</description>
                 <datatype>
                     <vodml-ref>ivoa:real</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Time.exposureBounds</vodml-id>
+                <name>exposureBounds</name>
+                <description>range of exposure within the bounds</description>
+                <datatype>
+                    <vodml-ref>caom2:Interval</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -2373,7 +2448,7 @@
                     <vodml-ref>caom2:PolarizationState</vodml-ref>
                 </datatype>
                 <multiplicity>
-                    <minOccurs>0</minOccurs>
+                    <minOccurs>1</minOccurs>
                     <maxOccurs>-1</maxOccurs>
                 </multiplicity>
             </attribute><attribute>
