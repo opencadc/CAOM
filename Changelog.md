@@ -2,34 +2,37 @@
 The following is a brief summary of changes in the current draft version (2.5).
 
 ## general changes 
-- change Plane.position.bounds to be mandatory
-- change Plane.energy.bounds to be mandatory
-- change Plane.time.bounds to be mandatory
-- change Plane.polarization.states to require at least 1 value
+- change `Plane.position.bounds` to be mandatory
+- change `Plane.energy.bounds` to be mandatory
+- change `Plane.time.bounds` to be mandatory
+- change `Plane.polarization.states` to require at least 1 value
 
 The above changes mean that each of position/energy/time/polarization objects have one mandatory field and 
 queries with something like `Plane.position.bounds is not null` can be used to detect if the object is present.
 
+- add `ArtifactDescription` entity
+- add `Artifact.descriptor` to support providing descriptions with links (eg in a DataLink output)
+
 ## radio support
 For radio observations, many properties such as field-of-view, spatial and spectral resolution are dependent on frequency. Modern, wideband facilities can have large frequency-dependent variation in these properties within a single observation.
 
-- propose Plane.position.energyDependent (Boolean) to flag that variable position information varies with energy (as opposed to some other reason)
+- propose `Plane.position.energyDependent` (Boolean) to flag that variable position information varies with energy (as opposed to some other reason)
 
 This flag would clarify the meaning of minBounds, maxAngularScale, and resolutionBounds; it is unclear if this is really needed here and it does not look necessary for energy and time axes.
 
-- add Plane.position.minBounds (Shape) to describe variable coverage (bounds is already max bounds)
-- add Plane.position.maxAngularScale (Interval) to describe min/max scale of signal/objects in the data; could be in Plane.metrics?
-- add Plane.energy.resolution (double) to describe the absolute resolution (representative value, probably mean/pixel)
-- add Plane.energy.resolutionBounds (Interval) to describe the min/max absolute resolution when it varies across the data
-- add Plane.time.exposureBounds (Interval) to describe the min/max absolute exposure time when it varies across the data
-- remove Plane.position.timeDependent as it was only used to explain why Plane.position.bounds was null because of tracking mode
+- add `Plane.position.minBounds` (Shape) to describe variable coverage (bounds is already max bounds)
+- add `Plane.position.maxAngularScale` (Interval) to describe min/max scale of signal/objects in the data; could be in Plane.metrics?
+- add `Plane.energy.resolution` (double) to describe the absolute resolution (representative value, probably mean/pixel)
+- add `Plane.energy.resolutionBounds` (Interval) to describe the min/max absolute resolution when it varies across the data
+- add `Plane.time.exposureBounds` (Interval) to describe the min/max absolute exposure time when it varies across the data
+- remove `Plane.position.timeDependent` as it was only used to explain why Plane.position.bounds was null because of tracking mode
 
-- add Observation.telescope.trackingMode (VocabularyTerm) to describe the tracking/pointing of the telescope during the observation; null indicates sidereal tracking (for backwards compat)
+- add `Observation.telescope.trackingMode` (vocabulary) to describe the tracking/pointing of the telescope during the observation; null indicates sidereal tracking (for backwards compat)
 
-- add Plane.uv (Visibility) to describe UV-plane (expect: only used when dataProductType=visibility)
-- add Plane.uv.distance (Interval) to describe the min and max distance in the UV plane
-- add Plane.uv.distributionEccentricity (double); mandatory or optional within Visibility?
-- add Plane.uv.distributionFill (double); mandatory or optional within Visibility?
+- add `Plane.uv` (Visibility) to describe UV-plane (expect: only used when dataProductType=visibility)
+- add `Plane.uv.distance` (Interval) to describe the min and max distance in the UV plane
+- add `Plane.uv.distributionEccentricity` (double); mandatory or optional within Visibility?
+- add `Plane.uv.distributionFill` (double); mandatory or optional within Visibility?
 
 - replace PolarizationState (enum) with PolarizationState vocabulary and refer to a non-existent IVOA vocabulary that could be extracted from WCS, ObsCore, and community usage/extensions
 
@@ -43,11 +46,11 @@ A `publisherID` value is strictly outside the core model because the value must 
 
 ## reconcile with IVOA data models
 
-- change Plane.dataProductType to refer directly to the IVOA product-type vocabulary
-- change Artifact.productType to refer directly to the IVOA DataLink Core (semantics) vocabulary
-- change Plane.observable.ucd to refer directly to IVOA UCD1+
+- change `Plane.dataProductType` to refer directly to the IVOA product-type vocabulary
+- change `Artifact.productType` to refer directly to the IVOA DataLink Core (semantics) vocabulary
+- change `Plane.observable.ucd` to refer directly to IVOA UCD1+
 
-- add Plane.position.calibration and refer to a non-existent IVOA vocabulary that could be extracted from the ObsCore optional section
-- add Plane.energy.calibration (as above)
-- add Plane.time.calibration (as above)
-- add Plane.observable.calibration (as above)
+- add `Plane.position.calibration` and refer to a non-existent IVOA vocabulary that could be extracted from the ObsCore optional section
+- add `Plane.energy.calibration` (as above)
+- add `Plane.time.calibration` (as above)
+- add `Plane.observable.calibration` (as above)
