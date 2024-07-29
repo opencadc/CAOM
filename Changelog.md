@@ -27,7 +27,8 @@ This flag would clarify the meaning of minBounds, maxAngularScale, and resolutio
 - add `Plane.time.exposureBounds` (Interval) to describe the min/max absolute exposure time when it varies across the data
 - remove `Plane.position.timeDependent` as it was only used to explain why Plane.position.bounds was null because of tracking mode
 
-- add `Observation.telescope.trackingMode` (vocabulary) to describe the tracking/pointing of the telescope during the observation; null indicates sidereal tracking (for backwards compat)
+- add `Observation.telescope.trackingMode` and refer to a non-existent IVOA vocabulary to describe the 
+  tracking/pointing of the telescope during the observation; null indicates sidereal tracking (for backwards compat)
 
 - add `Plane.uv` (Visibility) to describe UV-plane (expect: only used when dataProductType=visibility)
 - add `Plane.uv.distance` (Interval) to describe the min and max distance in the UV plane
