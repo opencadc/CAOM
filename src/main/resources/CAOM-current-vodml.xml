@@ -1062,6 +1062,18 @@
                     <maxOccurs>-1</maxOccurs>
                 </multiplicity>
             </attribute>
+            <attribute>
+                <vodml-id>Artifact.descriptionID</vodml-id>
+                <name>descriptionID</name>
+                <description>identifier for an ArtifactDescription entity (new in CAOM-2.5)</description>
+                <datatype>
+                    <vodml-ref>ivoa:anyURI</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
             
             <composition>
                 <vodml-id>Artifact.parts</vodml-id>
@@ -1075,6 +1087,39 @@
                     <maxOccurs>-1</maxOccurs>
                 </multiplicity>
             </composition>
+        </objectType>
+
+        <objectType>
+            <vodml-id>ArtifactDescription</vodml-id>
+            <name>ArtifactDescription</name>
+            <description>shared and referenceable description of an artitfact (NEW in CAOM-2.5)</description>
+            <extends>
+                <vodml-ref>caom2:CaomEntity</vodml-ref>
+            </extends>
+            <attribute>
+                <vodml-id>ArtifactDescription.uri</vodml-id>
+                <name>uri</name>
+                <description>logical identifier for this description</description>
+                <datatype>
+                    <vodml-ref>ivoa:anyURI</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Artifact.description</vodml-id>
+                <name>description</name>
+                <description>description of an artifact</description>
+                <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
         </objectType>
 
         <objectType>

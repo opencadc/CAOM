@@ -10,8 +10,8 @@ The following is a brief summary of changes in the current draft version (2.5).
 The above changes mean that each of position/energy/time/polarization objects have one mandatory field and 
 queries with something like `Plane.position.bounds is not null` can be used to detect if the object is present.
 
-- add `ArtifactDescription` entity
-- add `Artifact.descriptor` to support providing descriptions with links (eg in a DataLink output)
+- add `ArtifactDescription` entity to support providing descriptions with links (eg in a DataLink output)
+- add `Artifact.descriptionID` to refer to a shared `ArtifactDescription`
 
 ## radio support
 For radio observations, many properties such as field-of-view, spatial and spectral resolution are dependent on frequency. Modern, wideband facilities can have large frequency-dependent variation in these properties within a single observation.
