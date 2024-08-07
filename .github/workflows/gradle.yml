@@ -16,8 +16,8 @@ jobs:
       with:
         java-version: 11
 
-    - name: validate CAOM datas model version(s)
-       run: ./gradlew --info clean checkstyleTest test
+    - name: validate CAOM data model
+      run: ./gradlew --info clean vodmlValidate test
 
     - name: generate HTML documentation
       run: ./gradlew --info clean xslt

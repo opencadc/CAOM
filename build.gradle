@@ -1,16 +1,14 @@
 plugins {
+    id 'net.ivoa.vo-dml.vodmltools' version '0.5.5'
     id 'java'
     id 'checkstyle'
     id "com.github.eerohele.saxon-gradle" version "0.2.1"
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
+
+vodml {
+
 }
-
-sourceCompatibility = 1.8
-
 group = 'org.opencadc'
 
 version = '2.4'
@@ -49,9 +47,9 @@ xslt {
 }
 
 dependencies {
-    testCompile 'org.opencadc:cadc-vodml:[1.0.9,1.1)'
+    testImplementation 'org.opencadc:cadc-vodml:[1.0.9,1.1)'
 
-    testCompile 'junit:junit:4.13' 
+    testImplementation 'junit:junit:4.13'
 }
 
 apply from: 'opencadc.gradle'
