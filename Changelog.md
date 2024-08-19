@@ -12,13 +12,13 @@ queries with something like `Plane.position.bounds is not null` can be used to d
 
 - add `ArtifactDescription` entity to support providing descriptions with links (eg in a DataLink output)
 - add `Artifact.descriptionID` to refer to a shared `ArtifactDescription`
+- add `Proposal.reference` as optional proposal metadata (URI to web page, paper, etc)
+
+- split `Entity` into a base `Entity` class with main properties and a `CaomEntity` suitable for having 
+child entities (by composition); one or both could be extracted and re-used in other models (TBD)
 
 ## radio support
 For radio observations, many properties such as field-of-view, spatial and spectral resolution are dependent on frequency. Modern, wideband facilities can have large frequency-dependent variation in these properties within a single observation.
-
-- propose `Plane.position.energyDependent` (Boolean) to flag that variable position information varies with energy (as opposed to some other reason)
-
-This flag would clarify the meaning of minBounds, maxAngularScale, and resolutionBounds; it is unclear if this is really needed here and it does not look necessary for energy and time axes.
 
 - add `Plane.position.minBounds` (Shape) to describe variable coverage (bounds is already max bounds)
 - add `Plane.position.maxAngularScale` (Interval) to describe min/max scale of signal/objects in the data; could be in Plane.metrics?
@@ -35,7 +35,7 @@ This flag would clarify the meaning of minBounds, maxAngularScale, and resolutio
 - add `Plane.uv.distributionEccentricity` (double); mandatory or optional within Visibility?
 - add `Plane.uv.distributionFill` (double); mandatory or optional within Visibility?
 
-- replace PolarizationState (enum) with PolarizationState vocabulary and refer to a non-existent IVOA vocabulary that could be extracted from WCS, ObsCore, and community usage/extensions
+- change `Plane.polarization.states` to refer to a (non-existent) vocabulary (replaces PolarizationState enum) that could be extracted from WCS, ObsCore, and community usage/extensions
 
 ## identifiers
 - replace `Observation.observationID` (String) with `Observation.uri` (URI) to be the complete self contained identifier; values would be used in `DerivedObservation.members` to refer to other observations
@@ -55,3 +55,6 @@ A `publisherID` value is strictly outside the core model because the value must 
 - add `Plane.energy.calibration` (as above)
 - add `Plane.time.calibration` (as above)
 - add `Plane.observable.calibration` (as above)
+
+- remove SampledInterval in favour of separate Interval and Interval[] columns in Energy, Time, CustomAxis
+- remove MultiPolygon in favour of separate Polygon and MultiShape columns; SegmentType and Vertex removed (unused)
