@@ -25,6 +25,7 @@ For radio observations, many properties such as field-of-view, spatial and spect
 - add `Plane.energy.resolution` (double) to describe the absolute resolution (representative value, probably mean/pixel)
 - add `Plane.energy.resolutionBounds` (Interval) to describe the min/max absolute resolution when it varies across the data
 - add `Plane.time.exposureBounds` (Interval) to describe the min/max absolute exposure time when it varies across the data
+- change `Plane.energy.restwav` to `Plane.energy.rest` so the name makes sense with different profiles (quantities and units)
 - remove `Plane.position.timeDependent` as it was only used to explain why Plane.position.bounds was null because of tracking mode
 
 - add `Observation.telescope.trackingMode` and refer to a non-existent IVOA vocabulary to describe the 
