@@ -4,7 +4,7 @@
 *******************  CANADIAN ASTRONOMY DATA CENTRE  *******************
 **************  CENTRE CANADIEN DE DONNÉES ASTRONOMIQUES  **************
 *
-*  (c) 2019.                            (c) 2019.
+*  (c) 2024.                            (c) 2024.
 *  Government of Canada                 Gouvernement du Canada
 *  National Research Council            Conseil national de recherches
 *  Ottawa, Canada, K1A 0R6              Ottawa, Canada, K1A 0R6
@@ -50,15 +50,15 @@
 *  or FITNESS FOR A PARTICULAR          ni d’ADÉQUATION À UN OBJECTIF
 *  PURPOSE.                             PARTICULIER. 
 -->
-<vo-dml:model xmlns:vo-dml="http://www.ivoa.net/xml/VODML/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema" version="1.0">
+<vo-dml:model xmlns:vo-dml="http://www.ivoa.net/xml/VODML/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema">
     <name>caom2</name>
     <description>a general purpose data model for use as the core data model of an astronomical data centre</description>
     <identifier/>
     <uri/>
     <title>Common Archive Observation Model</title>
     <author>Patrick Dowler, Canadian Astronomy Data Centre</author>
-    <version>2.4</version>
-    <lastModified>2019-07-12T12:00:00</lastModified>
+    <version>2.5</version>
+    <lastModified>2024-08-15T18:00:00</lastModified>
     
     <import>
         <name>ivoa</name>
@@ -81,32 +81,11 @@
         <name>caom2</name>
         <description>this package contains the CAOM object types and enumerations</description>
         
-        <!-- caom2 specific primitiveTypes -->
-        <primitiveType>
-            <vodml-id>ObservationURI</vodml-id>
-            <name>ObservationURI</name>
-            <description>Observation identifier of the form caom:{Observation.collection}/{Observation.observationID}</description>
-            <extends>
-                <vodml-ref>ivo:anyURI</vodml-ref>
-            </extends>
-        </primitiveType>
-        
-        <primitiveType>
-            <vodml-id>PlaneURI</vodml-id>
-            <name>PlaneURI</name>
-            <description>Plane identifier of the form caom:{Observation.collection}/{Observation.observationID}/{Plane.productID} 
-                aka {observationURI}/{Plane.productID}</description>
-            <extends>
-                <vodml-ref>ivo:anyURI</vodml-ref>
-            </extends>
-        </primitiveType>
-        
         <!-- observation enums -->
         <enumeration>
             <vodml-id>ObservationIntentType</vodml-id>
             <name>ObservationIntentType</name>
-            <description>the intent of the original observer in acquiring this observation;
-                work-around: using the name of the literal to convey the serialised value</description>
+            <description>the intent of the original creator (usually observer) in acquiring this observation</description>
             <literal>
                 <vodml-id>ObservationIntentType.SCIENCE</vodml-id>
                 <name>science</name>
@@ -116,6 +95,11 @@
                 <vodml-id>ObservationIntentType.CALIBRATION</vodml-id>
                 <name>calibration</name>
                 <description>the intent of this observation was to create calibration data</description>
+            </literal>
+            <literal>
+                <vodml-id>ObservationIntentType.OUTREACH</vodml-id>
+                <name>calibration</name>
+                <description>the intent of this observation was to create public outreach content</description>
             </literal>
         </enumeration>
         
@@ -208,124 +192,6 @@
         </enumeration>
         
         <enumeration>
-            <vodml-id>PolarizationState</vodml-id>
-            <name>PolarizationState</name>
-            <description>a classification of polarization (Stokes states plus other related quantities);
-                work-around: using the name of the literal to convey the serialised value</description>
-            <literal>
-                <vodml-id>PolarizationState.I</vodml-id>
-                <name>I</name>
-                <description>unpolarized</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.Q</vodml-id>
-                <name>Q</name>
-                <description>Stokes linear Q</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.U</vodml-id>
-                <name>U</name>
-                <description>Stokes linear U</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.V</vodml-id>
-                <name>V</name>
-                <description>Stokes circular V</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.RR</vodml-id>
-                <name>RR</name>
-                <description>right-right circular</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.LL</vodml-id>
-                <name>LL</name>
-                <description>left-left circular</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.RL</vodml-id>
-                <name>RL</name>
-                <description>right-left cross-circular</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.LR</vodml-id>
-                <name>LR</name>
-                <description>left-right cross-circular</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.XX</vodml-id>
-                <name>XX</name>
-                <description>X parallel linear</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.YY</vodml-id>
-                <name>YY</name>
-                <description>Y parallel linear</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.XY</vodml-id>
-                <name>XY</name>
-                <description>XY cross-linear</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.YX</vodml-id>
-                <name>YX</name>
-                <description>YX cross-linear</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.POLI</vodml-id>
-                <name>POLI</name>
-                <description>linear polarized intensity: sqrt(Q^2 + U^2)</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.FPOLI</vodml-id>
-                <name>FPOLI</name>
-                <description>fractional linear polarization: POLI/I</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.POLA</vodml-id>
-                <name>POLA</name>
-                <description>linear polarization angle: 1/2 arctan(U,Q)</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.EPOLI</vodml-id>
-                <name>EPOLI</name>
-                <description>elliptical polarization intensity: sqrt(Q^2 + U^2 + V^2)</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.CPOLI</vodml-id>
-                <name>CPOLI</name>
-                <description>circular polarization intensity: |V|</description>
-            </literal>
-            <literal>
-                <vodml-id>PolarizationState.NPOLI</vodml-id>
-                <name>NPOLI</name>
-                <description>unpolarized intensity: I - EPOLI</description>
-            </literal>
-        </enumeration>
-        
-        <enumeration>
-            <vodml-id>SegmentType</vodml-id>
-            <name>SegmentType</name>
-            <description>code used in CAG description of polygons</description>
-            <literal>
-                <vodml-id>SegmentType.LINE</vodml-id>
-                <name>LINE</name>
-                <description>(0) line from previous to this vertex</description>
-            </literal>
-            <literal>
-                <vodml-id>SegmentType.MOVE</vodml-id>
-                <name>MOVE</name>
-                <description>(1) move from previous to this vertex</description>
-            </literal>
-            <literal>
-                <vodml-id>SegmentType.CLOSE</vodml-id>
-                <name>CLOSE</name>
-                <description>(2) line from previous vertex to last vertex with type MOVE</description>
-            </literal>
-        </enumeration>
-        
-        <enumeration>
             <vodml-id>ReleaseType</vodml-id>
             <name>ReleaseType</name>
             <description>a flag indicating how an artifact is classified to determine access permissions;
@@ -386,12 +252,20 @@
         </dataType>
         
         <dataType abstract="false">
+            <vodml-id>CalibrationStatus</vodml-id>
+            <name>DataProductType</name>
+            <description>term from the IVOA calibration-status vocabulary; this vocabulary does not yet exist
+                but can be created using optional terms in the ObsCore standard (NEW in CAOM-2.5)</description>
+            <extends>
+                <vodml-ref>caom2:VocabularyTerm</vodml-ref>
+            </extends>
+        </dataType>
+
+        <dataType abstract="false">
             <vodml-id>DataProductType</vodml-id>
             <name>DataProductType</name>
-            <description>vocabulary term used in CAOM; this class defines constants for the CAOM
-                DataProductType vocabulary which includes all the terms from the IVOA ObsCore
-                data model plus additional terms used in CAOM and not in ObsCore
-                (CHANGED in CAOM-2.3)</description>
+            <description>term from the IVOA product-type vocabulary (CHANGED from CAOM DataProductType
+                vocabulary based on ObsCore in CAOM-2.5)</description>
             <extends>
                 <vodml-ref>caom2:VocabularyTerm</vodml-ref>
             </extends>
@@ -428,23 +302,49 @@
         </dataType>
         
         <dataType abstract="false">
-            <vodml-id>ProductType</vodml-id>
-            <name>ProductType</name>
-            <description>this class defines constants for the CAOM ProductType vocabulary
-                (CHANGED in CAOM-2.3)</description>
+            <vodml-id>DataLinkSemantics</vodml-id>
+            <name>DataLinkSemantics</name>
+            <description>term from the DataLink Core vocabulary (CHANGED from ProductType enumeration in CAOM-2.5)</description>
             <extends>
                 <vodml-ref>caom2:VocabularyTerm</vodml-ref>
             </extends>
         </dataType>
         
+        <dataType abstract="false">
+            <vodml-id>PolarizationState</vodml-id>
+            <name>PolarizationState</name>
+            <description>this class defines constants for the PolarizationState vocabulary
+                (CHANGED from enumeration in CAOM-2.5)</description>
+            <extends>
+                <vodml-ref>caom2:VocabularyTerm</vodml-ref>
+            </extends>
+        </dataType>
+
+        <dataType abstract="false">
+            <vodml-id>Tracking</vodml-id>
+            <name>Tracking</name>
+            <description>term from the Tracking vocabulary NEW from enumeration in CAOM-2.5)</description>
+            <extends>
+                <vodml-ref>caom2:VocabularyTerm</vodml-ref>
+            </extends>
+        </dataType>
+        
+        <dataType abstract="false">
+            <vodml-id>UCD</vodml-id>
+            <name>UCD</name>
+            <description>term from the UCD1+ vocabulary (NEW from enumeration in CAOM-2.5)</description>
+            <extends>
+                <vodml-ref>caom2:VocabularyTerm</vodml-ref>
+            </extends>
+        </dataType>
+
         <objectType abstract="true">
-            <vodml-id>CaomEntity</vodml-id>
-            <name>CaomEntity</name>
+            <vodml-id>Entity</vodml-id>
+            <name>Entity</name>
             <description>base entity class to support persistence;
                 entity attributes are generally set or updated by persistence implementations</description>
-
             <attribute>
-                <vodml-id>CaomEntity.id</vodml-id>
+                <vodml-id>Entity.id</vodml-id>
                 <name>id</name>
                 <description>globally unique identifier (primary key)</description>
                 <datatype>
@@ -455,9 +355,8 @@
                     <maxOccurs>1</maxOccurs>
                 </multiplicity>
             </attribute>
-            
             <attribute>
-                <vodml-id>CaomEntity.lastModified</vodml-id>
+                <vodml-id>Entity.lastModified</vodml-id>
                 <name>lastModified</name>
                 <description>timestamp of last modification of this entity; the timestamp is intended to be applied
                     or updated when the entity is stored 
@@ -471,22 +370,7 @@
                 </multiplicity>
             </attribute>
             <attribute>
-                <vodml-id>CaomEntity.maxLastModified</vodml-id>
-                <name>maxLastModified</name>
-                <description>maximum timestamp of last modification of this entity and all child entities;
-                    the timestamp is intended to be applied or updated when the entity is stored 
-                    (e.g. in a database)</description>
-                <datatype>
-                    <vodml-ref>ivoa:datetime</vodml-ref>
-                </datatype>
-                <multiplicity>
-                    <minOccurs>0</minOccurs>
-                    <maxOccurs>1</maxOccurs>
-                </multiplicity>
-            </attribute>
-            
-            <attribute>
-                <vodml-id>CaomEntity.metaChecksum</vodml-id>
+                <vodml-id>Entity.metaChecksum</vodml-id>
                 <name>metaChecksum</name>
                 <description>checksum of this entity; (NEW in CAOM-2.3)
                     
@@ -496,6 +380,8 @@
                     (foo.a comes before foo.b) and using depth-first recursion (foo.abc.x comes before foo.def). Null values are ignored so that the 
                     addition of new fields in future versions will not change/invalidate existing checksums until values are assigned.
                     Non-null values are converted to bytes as follows. 
+                    
+                    TODO: add digestFieldNames to algorithm
                     
                     string: UTF-8 encoded bytes
                     URI: UTF-8 encoded bytes of string representation
@@ -518,28 +404,7 @@
                 </multiplicity>
             </attribute>
             <attribute>
-                <vodml-id>CaomEntity.accMetaChecksum</vodml-id>
-                <name>accMetaChecksum</name>
-                <description>accumulated checksum of the metadata of this entity and all child entities; (NEW in CAOM-2.3)
-                    
-                    The URI must conform to the pattern {algorithm}:{value}, for example: md5:4be91751541fd804e7207663a0822f56.
-                    The accumulated checksum of an entity is computed by accumulating the byte representation of entity checksums
-                    in the following order: (1) the metaChecksum of the current entity, (2) the accMetaChecksum of all child entities
-                    accumulated in order of the child's CaomEntity.id. For an entity with no children, the accMetaChecksum is derived
-                    only from the metaChecksum but it is not equal to it because it is a checksum of that checksum and not a checksum
-                    of the same metadata directly.
-                    </description>
-                <datatype>
-                    <!-- possible to constrain the form of the URI? should we define ChecksumURI -->
-                    <vodml-ref>ivoa:anyURI</vodml-ref>
-                </datatype>
-                <multiplicity>
-                    <minOccurs>0</minOccurs>
-                    <maxOccurs>1</maxOccurs>
-                </multiplicity>
-            </attribute>
-            <attribute>
-                <vodml-id>CaomEntity.metaProducer</vodml-id>
+                <vodml-id>Entity.metaProducer</vodml-id>
                 <name>metaProducer</name>
                 <description>identifier for the producer of this entity and child entities with null metaProducer; (NEW in CAOM-2.4)
                     
@@ -548,6 +413,49 @@
                     diagnose metadata issues.
                 </description>
                 <datatype>
+                    <vodml-ref>ivoa:anyURI</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+        </objectType>
+        
+        <objectType abstract="true">
+            <vodml-id>CaomEntity</vodml-id>
+            <name>CaomEntity</name>
+            <description>base CAOM entity class to support accumulated metadata checkcums and lastModified
+                timestamps to support synchronisation</description>
+
+            <attribute>
+                <vodml-id>CaomEntity.maxLastModified</vodml-id>
+                <name>maxLastModified</name>
+                <description>maximum timestamp of last modification of this entity and all child entities;
+                    the timestamp is intended to be applied or updated when the entity is stored 
+                    (e.g. in a database)</description>
+                <datatype>
+                    <vodml-ref>ivoa:datetime</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>CaomEntity.accMetaChecksum</vodml-id>
+                <name>accMetaChecksum</name>
+                <description>accumulated checksum of the metadata of this entity and all child entities; (NEW in CAOM-2.3)
+                    
+                    The URI must conform to the pattern {algorithm}:{value}, for example: md5:4be91751541fd804e7207663a0822f56.
+                    The accumulated checksum of an entity is computed by accumulating the byte representation of entity checksums
+                    in the following order: (1) the metaChecksum of the current entity, (2) the accMetaChecksum of all child entities
+                    accumulated in order of the child's Entity.id. For an entity with no children, the accMetaChecksum is derived
+                    only from the metaChecksum but it is not equal to it because it is a checksum of that checksum and not a checksum
+                    of the same metadata directly.
+                    </description>
+                <datatype>
+                    <!-- possible to constrain the form of the URI? should we define ChecksumURI -->
                     <vodml-ref>ivoa:anyURI</vodml-ref>
                 </datatype>
                 <multiplicity>
@@ -578,11 +486,11 @@
                 </multiplicity>
             </attribute>
             <attribute>
-                <vodml-id>Observation.observationID</vodml-id>
-                <name>observationID</name>
-                <description>the collection-specific identifier for this observation</description>
+                <vodml-id>Observation.uri</vodml-id>
+                <name>uri</name>
+                <description>unique logical identifier for this observation (NEW in CAOM-2.5)</description>
                 <datatype>
-                    <vodml-ref>ivoa:string</vodml-ref>
+                    <vodml-ref>ivoa:anyURI</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -787,7 +695,7 @@
                     the progenitor)
                 </description>
                 <datatype>
-                    <vodml-ref>caom2:ObservationURI</vodml-ref>
+                    <vodml-ref>ivoa:anyURI</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -804,28 +712,15 @@
                 <vodml-ref>caom2:CaomEntity</vodml-ref>
             </extends>
             <attribute>
-                <vodml-id>Plane.creatorID</vodml-id>
-                <name>creatorID</name>
-                <description>identifier for this product assigned by the creator; 
-                    typically made up of the Observation.collection, Observation.observationID, and Plane.productID
-                    and in the form of an IVOA dataset identifier (NEW in CAOM-2.3)</description>
+                <vodml-id>Plane.uri</vodml-id>
+                <name>uri</name>
+                <description>unique logical identifier for this product; typically made by adding additional
+                    path component(s) to the Observation.uri (NEW in CAOM-2.5)</description>
                 <datatype>
                     <vodml-ref>ivoa:anyURI</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
-                    <maxOccurs>1</maxOccurs>
-                </multiplicity>
-            </attribute>
-            <attribute>
-                <vodml-id>Plane.productID</vodml-id>
-                <name>productID</name>
-                <description>collection- and observationID-specific identifier for this product</description>
-                <datatype>
-                    <vodml-ref>ivoa:string</vodml-ref>
-                </datatype>
-                <multiplicity>
-                    <minOccurs>1</minOccurs>
                     <maxOccurs>1</maxOccurs>
                 </multiplicity>
             </attribute>
@@ -1008,6 +903,17 @@
                 </multiplicity>
             </composition>
             <composition>
+                <vodml-id>Plane.uv</vodml-id>
+                <name>uv</name>
+                <datatype>
+                    <vodml-ref>caom2:Visibility</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </composition>
+            <composition>
                 <vodml-id>Plane.provenance</vodml-id>
                 <name>provenance</name>
                 <description>description of the provenance of the data</description>
@@ -1056,11 +962,9 @@
             <attribute>
                 <vodml-id>Artifact.productType</vodml-id>
                 <name>productType</name>
-                <description>the primary product type of the artifact; for multi-part artifacts where the parts have different
-                types, this is the primary type; for example, if an artifact has a science part and an auxiliary part, the artifact
-                should have type science</description>
+                <description>the relationship of this Artifact to the parent Plane (DataLink semantics)</description>
                 <datatype>
-                    <vodml-ref>caom2:ProductType</vodml-ref>
+                    <vodml-ref>caom2:DataLinkSemantics</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -1144,6 +1048,18 @@
                     <maxOccurs>-1</maxOccurs>
                 </multiplicity>
             </attribute>
+            <attribute>
+                <vodml-id>Artifact.descriptionID</vodml-id>
+                <name>descriptionID</name>
+                <description>identifier for an ArtifactDescription entity (new in CAOM-2.5)</description>
+                <datatype>
+                    <vodml-ref>ivoa:anyURI</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
             
             <composition>
                 <vodml-id>Artifact.parts</vodml-id>
@@ -1157,6 +1073,39 @@
                     <maxOccurs>-1</maxOccurs>
                 </multiplicity>
             </composition>
+        </objectType>
+
+        <objectType>
+            <vodml-id>ArtifactDescription</vodml-id>
+            <name>ArtifactDescription</name>
+            <description>shared and referenceable description of an artitfact (NEW in CAOM-2.5)</description>
+            <extends>
+                <vodml-ref>caom2:CaomEntity</vodml-ref>
+            </extends>
+            <attribute>
+                <vodml-id>ArtifactDescription.uri</vodml-id>
+                <name>uri</name>
+                <description>logical identifier for this description</description>
+                <datatype>
+                    <vodml-ref>ivoa:anyURI</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Artifact.description</vodml-id>
+                <name>description</name>
+                <description>description of an artifact</description>
+                <datatype>
+                    <vodml-ref>ivoa:string</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
         </objectType>
 
         <objectType>
@@ -1183,9 +1132,9 @@
             <attribute>
                 <vodml-id>Part.productType</vodml-id>
                 <name>productType</name>
-                <description>the type of content in this part, sometimes relative to the type of the artifact</description>
+                <description>the relationship of this Artifact to the parent Plane (DataLink semantics)</description>
                 <datatype>
-                    <vodml-ref>caom2:ProductType</vodml-ref>
+                    <vodml-ref>caom2:DataLinkSemantics</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -1218,9 +1167,9 @@
             <attribute>
                 <vodml-id>Chunk.productType</vodml-id>
                 <name>productType</name>
-                <description>the type of content in this chunk, sometimes relative to the type of the artifact</description>
+                <description>the relationship of this Artifact to the parent Plane (DataLink semantics)</description>
                 <datatype>
-                    <vodml-ref>caom2:ProductType</vodml-ref>
+                    <vodml-ref>caom2:DataLinkSemantics</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -1502,6 +1451,19 @@
                     <maxOccurs>-1</maxOccurs>
                 </multiplicity>
             </attribute>
+            <attribute>
+                <vodml-id>Telescope.trackingMode</vodml-id>
+                <name>trackingMode</name>
+                <description>term from the (currently non-existent) IVOA Tracking vocabulary used to
+                    indicate how the telescope moves during data acquisition</description>
+                <datatype>
+                    <vodml-ref>caom2:VocabularyTerm</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
         </objectType>
         
         <objectType>
@@ -1696,6 +1658,18 @@
                     <maxOccurs>-1</maxOccurs>
                 </multiplicity>
             </attribute>
+            <attribute>
+                <vodml-id>Proposal.reference</vodml-id>
+                <name>reference</name>
+                <description>identifier for external resource with proposal details</description>
+                <datatype>
+                    <vodml-ref>ivoa:anyURI</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
         </objectType>
         
         <objectType>
@@ -1874,7 +1848,7 @@
             <attribute>
                 <vodml-id>Provenance.reference</vodml-id>
                 <name>reference</name>
-                <description>collection-specific common name of the process</description>
+                <description>identifier for external resource with proposal details</description>
                 <datatype>
                     <vodml-ref>ivoa:anyURI</vodml-ref>
                 </datatype>
@@ -1965,7 +1939,7 @@
                 <name>inputs</name>
                 <description>local identifier for input planes; these are the actual inputs that went into the product</description>
                 <datatype>
-                    <vodml-ref>caom2:PlaneURI</vodml-ref>
+                    <vodml-ref>ivoa:anyURI</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -1980,13 +1954,25 @@
             <description>description of the sample (pixel) values</description>
             <attribute>
                 <vodml-id>Observable.ucd</vodml-id>
-                <name>flag</name>
+                <name>ucd</name>
                 <description>Unified Content Descriptor (UCD) that says what kind of quantity is stored</description>
                 <datatype>
-                    <vodml-ref>ivoa:string</vodml-ref>
+                    <vodml-ref>caom2:UCD</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Observable.calibration</vodml-id>
+                <name>calibration</name>
+                <description>term describing the calibration of the observable values</description>
+                <datatype>
+                    <vodml-ref>caom2:CalibrationStatus</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
                     <maxOccurs>1</maxOccurs>
                 </multiplicity>
             </attribute>
@@ -2095,7 +2081,33 @@
             <attribute>
                 <vodml-id>Position.bounds</vodml-id>
                 <name>bounds</name>
-                <description>spatial boundary that includes the data</description>
+                <description>spatial boundary that includes the data (cardinality changed in CAOM-2.5)</description>
+                <datatype>
+                    <vodml-ref>caom2:Shape</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Position.samples</vodml-id>
+                <name>samples</name>
+                <description>detailed sub-samples of the bounds (refactored in CAOM-2.5)</description>
+                <datatype>
+                    <vodml-ref>caom2:MultiShape</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Position.minBounds</vodml-id>
+                <name>minBounds</name>
+                <description>minimum spatial boundary that includes the data; this value is smaller than
+                    the bounds (maximum) when the field-of-view varies because it is dependent on another 
+                    axis (usually energy) (new in CAOM-2.5)</description>
                 <datatype>
                     <vodml-ref>caom2:Shape</vodml-ref>
                 </datatype>
@@ -2117,9 +2129,22 @@
                 </multiplicity>
             </attribute>
             <attribute>
+                <vodml-id>Position.maxAngularScale</vodml-id>
+                <name>maxAngularScale</name>
+                <description>maximum size of spatial structure (signal) that can be recovered or seen in the data
+                    (new in CAOM-2.5)</description>
+                <datatype>
+                    <vodml-ref>caom2:Interval</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
                 <vodml-id>Position.resolution</vodml-id>
                 <name>resolution</name>
-                <description>median spatial resolution (full-width-half-max) per pixel</description>
+                <description>mean spatial resolution (full-width-half-max) per pixel</description>
                 <datatype>
                     <vodml-ref>ivoa:real</vodml-ref>
                 </datatype>
@@ -2153,13 +2178,11 @@
                 </multiplicity>
             </attribute>
             <attribute>
-                <vodml-id>Position.timeDependent</vodml-id>
-                <name>timeDependent</name>
-                <description>indicates that the observation was taken with non-siderial tracking so
-                    the resulting position is time-dependent; this usually explains why no bounds is
-                    available</description>
+                <vodml-id>Position.calibration</vodml-id>
+                <name>calibration</name>
+                <description>term describing the calibration of the position axis values new in CAOM-2.5)</description>
                 <datatype>
-                    <vodml-ref>ivoa:boolean</vodml-ref>
+                    <vodml-ref>caom2:CalibrationStatus</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -2175,13 +2198,25 @@
             <attribute>
                 <vodml-id>Energy.bounds</vodml-id>
                 <name>bounds</name>
-                <description>energy bounds that include the data (barycentric vacuum wavelength)</description>
+                <description>simple outer bounds of energy coverage of the data (cardinality changed in CAOM-2.5)</description>
                 <datatype>
-                    <vodml-ref>caom2:SampledInterval</vodml-ref>
+                    <vodml-ref>caom2:Interval</vodml-ref>
                 </datatype>
                 <multiplicity>
-                    <minOccurs>0</minOccurs>
+                    <minOccurs>1</minOccurs>
                     <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Energy.samples</vodml-id>
+                <name>samples</name>
+                <description>detailed energy coverage of the data (refactored in CAOM-2.5)</description>
+                <datatype>
+                    <vodml-ref>caom2:Interval</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>-1</maxOccurs>
                 </multiplicity>
             </attribute>
             <attribute>
@@ -2212,7 +2247,7 @@
             <attribute>
                 <vodml-id>Energy.resolvingPower</vodml-id>
                 <name>resolvingPower</name>
-                <description>median spectral resolving power per pixel</description>
+                <description>mean spectral resolving power per pixel (relative resolution)</description>
                 <datatype>
                     <vodml-ref>ivoa:real</vodml-ref>
                 </datatype>
@@ -2224,7 +2259,31 @@
             <attribute>
                 <vodml-id>Energy.resolvingPowerBounds</vodml-id>
                 <name>resolvingPowerBounds</name>
-                <description>range of resolving power within the bounds</description>
+                <description>range of resolving power within the bounds (relative resolution)</description>
+                <datatype>
+                    <vodml-ref>caom2:Interval</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Energy.resolution</vodml-id>
+                <name>resolution</name>
+                <description>mean absolute spectral resolution per pixel (new in CAOM-2.5)</description>
+                <datatype>
+                    <vodml-ref>ivoa:real</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Energy.resolutionBounds</vodml-id>
+                <name>resolutionBounds</name>
+                <description>range of absolute spectral resolution within the bounds (new in CAOM-2.5)</description>
                 <datatype>
                     <vodml-ref>caom2:Interval</vodml-ref>
                 </datatype>
@@ -2236,7 +2295,7 @@
             <attribute>
                 <vodml-id>Energy.sampleSize</vodml-id>
                 <name>sampleSize</name>
-                <description>median pixel size</description>
+                <description>mean pixel size</description>
                 <datatype>
                     <vodml-ref>ivoa:real</vodml-ref>
                 </datatype>
@@ -2248,13 +2307,14 @@
             <attribute>
                 <vodml-id>Energy.bandpassName</vodml-id>
                 <name>bandpassName</name>
-                <description>telescope- and instrument-specific name for the energy band included</description>
+                <description>telescope- and instrument-specific name for the energy band(s) included; multiple bands may be
+                    included if energies from all specified bands are included in the data (in the sense of union)</description>
                 <datatype>
                     <vodml-ref>ivoa:string</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
-                    <maxOccurs>1</maxOccurs>
+                    <maxOccurs>-1</maxOccurs>
                 </multiplicity>
             </attribute>
             <attribute>
@@ -2270,11 +2330,23 @@
                 </multiplicity>
             </attribute>
             <attribute>
-                <vodml-id>Energy.restwav</vodml-id>
+                <vodml-id>Energy.rest</vodml-id>
                 <name>restwav</name>
-                <description>rest wavelength of the target energy transition</description>
+                <description>rest energy of the target energy transition (name changed in CAOM-2.5)</description>
                 <datatype>
                     <vodml-ref>ivoa:real</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Energy.calibration</vodml-id>
+                <name>calibration</name>
+                <description>term describing the calibration of the energy axis values (new in CAOM-2.5)</description>
+                <datatype>
+                    <vodml-ref>caom2:CalibrationStatus</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -2290,9 +2362,33 @@
             <attribute>
                 <vodml-id>Time.bounds</vodml-id>
                 <name>bounds</name>
-                <description>time bounds that include the data</description>
+                <description>time bounds that include the data (cardinality changed in CAOM-2.5)</description>
                 <datatype>
-                    <vodml-ref>caom2:SampledInterval</vodml-ref>
+                    <vodml-ref>caom2:Interval</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Time.samples</vodml-id>
+                <name>samples</name>
+                <description>detailed time coverage that include the data (refactored in CAOM-2.5)</description>
+                <datatype>
+                    <vodml-ref>caom2:Interval</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>-1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Time.calibration</vodml-id>
+                <name>calibration</name>
+                <description>term describing the calibration of the time axis values</description>
+                <datatype>
+                    <vodml-ref>caom2:CalibrationStatus</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -2302,7 +2398,7 @@
             <attribute>
                 <vodml-id>Time.dimension</vodml-id>
                 <name>dimension</name>
-                <description>number of measurements (pixels) on the time axis</description>
+                <description>number of discrete samples (pixels) on the time axis</description>
                 <datatype>
                     <vodml-ref>ivoa:integer</vodml-ref>
                 </datatype>
@@ -2350,9 +2446,21 @@
             <attribute>
                 <vodml-id>Time.exposure</vodml-id>
                 <name>exposure</name>
-                <description>median exposure time per pixel</description>
+                <description>mean exposure time per pixel</description>
                 <datatype>
                     <vodml-ref>ivoa:real</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Time.exposureBounds</vodml-id>
+                <name>exposureBounds</name>
+                <description>range of exposure within the bounds</description>
+                <datatype>
+                    <vodml-ref>caom2:Interval</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -2368,12 +2476,12 @@
             <attribute>
                 <vodml-id>Polarization.states</vodml-id>
                 <name>states</name>
-                <description>standard polarization states included</description>
+                <description>standard polarization states included (cardinality changed in CAOM-2.5)</description>
                 <datatype>
                     <vodml-ref>caom2:PolarizationState</vodml-ref>
                 </datatype>
                 <multiplicity>
-                    <minOccurs>0</minOccurs>
+                    <minOccurs>1</minOccurs>
                     <maxOccurs>-1</maxOccurs>
                 </multiplicity>
             </attribute><attribute>
@@ -2410,19 +2518,31 @@
             <attribute>
                 <vodml-id>CustomAxis.bounds</vodml-id>
                 <name>bounds</name>
-                <description>custom coordinate bounds</description>
+                <description>custom coordinate coverage (cardinality changed in CAOM-2.5)</description>
                 <datatype>
-                    <vodml-ref>caom2:SampledInterval</vodml-ref>
+                    <vodml-ref>caom2:Interval</vodml-ref>
                 </datatype>
                 <multiplicity>
-                    <minOccurs>0</minOccurs>
+                    <minOccurs>1</minOccurs>
                     <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>CustomAxis.samples</vodml-id>
+                <name>samples</name>
+                <description>detailed custom coordinate coverage (refactored in CAOM-2.5)</description>
+                <datatype>
+                    <vodml-ref>caom2:Interval</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>-1</maxOccurs>
                 </multiplicity>
             </attribute>
             <attribute>
                 <vodml-id>CustomAxis.dimension</vodml-id>
                 <name>dimension</name>
-                <description>number of samples along custom axis</description>
+                <description>number of discrete samples (pixels) along custom axis</description>
                 <datatype>
                     <vodml-ref>ivoa:integer</vodml-ref>
                 </datatype>
@@ -2431,9 +2551,50 @@
                     <maxOccurs>1</maxOccurs>
                 </multiplicity>
             </attribute>
-
         </objectType>
-        
+
+        <objectType>
+            <vodml-id>Visibility</vodml-id>
+            <name>Visibility</name>
+            <description>description of a UV-plane for interferometry data (new in CAOM-2.5)</description>
+            <attribute>
+                <vodml-id>Visibility.distance</vodml-id>
+                <name>distance</name>
+                <description>range of distances in the UV plane</description>
+                <datatype>
+                    <vodml-ref>caom2:Interval</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Visibility.distributionEccentricity</vodml-id>
+                <name>distance</name>
+                <description>eccentricity of the distribtuion of ??? in [0,1]</description>
+                <datatype>
+                    <vodml-ref>ivoa:real</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+            <attribute>
+                <vodml-id>Visibility.distributionFill</vodml-id>
+                <name>distance</name>
+                <description>fill-factor of the distribtuion of ??? in [0,1]</description>
+                <datatype>
+                    <vodml-ref>ivoa:real</vodml-ref>
+                </datatype>
+                <multiplicity>
+                    <minOccurs>1</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </multiplicity>
+            </attribute>
+        </objectType>
+
         <package>
             <vodml-id>types</vodml-id>
             <name>types</name>
@@ -2465,26 +2626,7 @@
                     </multiplicity>
                 </attribute>
             </dataType>
-            <dataType>
-                <vodml-id>Vertex</vodml-id>
-                <name>Vertex</name>
-                <extends>
-                    <vodml-ref>caom2:Point</vodml-ref>
-                </extends>
-                <attribute>
-                    <vodml-id>Vertex.type</vodml-id>
-                    <name>type</name>
-                    <datatype>
-                        <vodml-ref>caom2:SegmentType</vodml-ref>
-                    </datatype>
-                    <multiplicity>
-                        <minOccurs>1</minOccurs>
-                        <maxOccurs>1</maxOccurs>
-                    </multiplicity>
-                </attribute>
-                
-            </dataType>
-            
+
             <dataType abstract="true">
                 <vodml-id>Shape</vodml-id>
                 <name>Shape</name>
@@ -2523,19 +2665,17 @@
             </dataType>
             
             <dataType>
-                <vodml-id>MultiPolygon</vodml-id>
-                <name>MultiPolygon</name>
-                <description>a region on the sky defined a sequence of points connected by great-circle segments; each simple polygon is
-                is terminated by a special type of vertex and multiple simple polygons are permitted to describe disconnected regions as
-                a single value</description>
+                <vodml-id>MultiShape</vodml-id>
+                <name>MultiShape</name>
+                <description>multiple simple shapess describing disconnected regions as a single value</description>
                 <attribute>
-                    <vodml-id>MultiPolygon.vertices</vodml-id>
-                    <name>vertices</name>
+                    <vodml-id>MultiShape.shapes</vodml-id>
+                    <name>shapes</name>
                     <datatype>
-                        <vodml-ref>caom2:Vertex</vodml-ref>
+                        <vodml-ref>caom2:Shape</vodml-ref>
                     </datatype>
                     <multiplicity>
-                        <minOccurs>3</minOccurs>
+                        <minOccurs>1</minOccurs>
                         <maxOccurs>-1</maxOccurs>
                     </multiplicity>
                 </attribute>
@@ -2557,17 +2697,6 @@
                     <multiplicity>
                         <minOccurs>3</minOccurs>
                         <maxOccurs>-1</maxOccurs>
-                    </multiplicity>
-                </attribute>
-                <attribute>
-                    <vodml-id>Polygon.samples</vodml-id>
-                    <name>samples</name>
-                    <datatype>
-                        <vodml-ref>caom2:MultiPolygon</vodml-ref>
-                    </datatype>
-                    <multiplicity>
-                        <minOccurs>1</minOccurs>
-                        <maxOccurs>1</maxOccurs>
                     </multiplicity>
                 </attribute>
             </dataType>
@@ -2596,48 +2725,6 @@
                     <multiplicity>
                         <minOccurs>1</minOccurs>
                         <maxOccurs>1</maxOccurs>
-                    </multiplicity>
-                </attribute>
-            </dataType>
-            
-            <dataType>
-                <vodml-id>SampledInterval</vodml-id>
-                <name>SampledInterval</name>
-                <description>an interval with (possibly sparse) sub-sampling</description>
-                <attribute>
-                    <vodml-id>SampledInterval.lower</vodml-id>
-                    <name>lower</name>
-                    <datatype>
-                        <vodml-ref>ivoa:real</vodml-ref>
-                    </datatype>
-                    <multiplicity>
-                        <minOccurs>1</minOccurs>
-                        <maxOccurs>1</maxOccurs>
-                    </multiplicity>
-                </attribute>
-                <attribute>
-                    <vodml-id>SampledInterval.upper</vodml-id>
-                    <name>upper</name>
-                    <datatype>
-                        <vodml-ref>ivoa:real</vodml-ref>
-                    </datatype>
-                    <multiplicity>
-                        <minOccurs>1</minOccurs>
-                        <maxOccurs>1</maxOccurs>
-                    </multiplicity>
-                </attribute>
-                <attribute>
-                    <vodml-id>SampledInterval.samples</vodml-id>
-                    <name>samples</name>
-                    <description>the samples within an interval describe possible holes in the interval; in the simple case there is 
-                    one sample that is identical to the outer interval; samples within an interval are not allowed to overlap 
-                        (TBD: the bounds of adjacent samples may be equal?)</description>
-                    <datatype>
-                        <vodml-ref>caom2:Interval</vodml-ref>
-                    </datatype>
-                    <multiplicity>
-                        <minOccurs>1</minOccurs>
-                        <maxOccurs>-1</maxOccurs>
                     </multiplicity>
                 </attribute>
             </dataType>
