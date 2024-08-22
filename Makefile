@@ -19,11 +19,11 @@ AUTHOR_EMAIL=pdowler.cadc@gmail.com
 
 # Source files for the TeX document (but the main file must always
 # be called $(DOCNAME).tex)
-SOURCES = $(DOCNAME).tex
+SOURCES = $(DOCNAME).tex role_diagram.pdf
 
 # List of image files to be included in submitted package (anything that
 # can be rendered directly by common web browsers)
-FIGURES =
+FIGURES = role_diagram.svg
 
 # List of PDF figures (figures that must be converted to pixel images to
 # work in web browsers).
@@ -41,3 +41,7 @@ ivoatex/Makefile:
 
 test:
 	@echo "No tests defined yet"
+
+vodml:
+	xsltproc --huge --output generated.tex ivoatex/vo-dml2ivoatex.xslt src/main/resources/CAOM-current-vodml.xml
+

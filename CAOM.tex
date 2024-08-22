@@ -10,8 +10,6 @@
 \editor{Patrick Dowler}
 
 \previousversion[https://www.opencadc.org/caom2/]{CAOM-2.4}
-% \previousversion{This is the first public release}
-
 
 \begin{document}
 \begin{abstract}
@@ -63,12 +61,75 @@ IVOA architecture \citep{2021ivoa.spec.1101D}.
 
 ???? and so on, LaTeX as you know and love it. ????
 
+\section{Use Cases}
+
+TODO
+
+\subsection{Describing Data}
+
+\subsection{Operating a Data Management System}
+
+\section{Model Overview}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{src/uml/CAOM1core.png}
+\caption{Main CAOM classes}
+\label{fig:core}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{src/uml/CAOM2datatypes.png}
+\caption{CAOM Data Types}
+\label{fig:datatypes}
+\end{figure}
+
+\subsection{Entity}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{src/uml/CAOM4entities.png}
+\caption{CAOM Entities}
+\label{fig:entity}
+\end{figure}
+
+\subsection{Observation}
+
+An Observation is ...
+
+\subsection{Plane}
+
+A Plane is ...
+
+\subsection{Artifact}
+
+An Artifact holds a reference to an externally stored resource: a file, a
+database object (schema or table), a collection of files (directory), etc.
+
+\subsection{Part}
+
+A Part describes a logical subcomponent of an Artifact. For example, a single 
+extension in a multi-extension FITS file, or a file inside a tar file would be parts
+of such an Artifact. The meaning of Part depends on the type of resource that the
+Artifact refers to, as described by the Artifact.contentType.
+
+TBD: keep, deprecate, or remove?
+
+\subsection{Chunk}
+
+A Chunk describes a single data array using WCS (World Coordinate System) concepts. 
+TBD: keep, deprecate or remove?
+
+% include external generated file so this tex doc is easy to edit
+\input{generated.tex}
+
 \appendix
 \section{Changes from Previous Versions}
 
-No previous versions yet.
-% these would be subsections "Changes from v. WD-..."
-% Use itemize environments.
+\subsection{Changes from OpenCADC CAOM-2.4}
+
+TODO
 
 
 % NOTE: IVOA recommendations must be cited from docrepo rather than ivoabib
