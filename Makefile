@@ -8,7 +8,7 @@ DOCNAME = CAOM
 DOCVERSION = 2.5
 
 # Publication date, ISO format; update manually for "releases"
-DOCDATE = 2024-08-21
+DOCDATE = 2024-09-27
 
 # What is it you're writing: NOTE, WD, PR, REC, PEN, or EN
 DOCTYPE = WD
@@ -19,18 +19,18 @@ AUTHOR_EMAIL=pdowler.cadc@gmail.com
 
 # Source files for the TeX document (but the main file must always
 # be called $(DOCNAME).tex)
-SOURCES = $(DOCNAME).tex role_diagram.pdf
+SOURCES = $(DOCNAME).tex
 
 # List of image files to be included in submitted package (anything that
 # can be rendered directly by common web browsers)
-FIGURES = role_diagram.svg
+FIGURES = role_diagram.svg src/main/resources/draft-CAOM-2.5.png
 
 # List of PDF figures (figures that must be converted to pixel images to
 # work in web browsers).
-VECTORFIGURES =
+VECTORFIGURES = role_diagram.pdf
 
 # Additional files to distribute (e.g., CSS, schema files, examples...)
-AUX_FILES =
+AUX_FILES = generated.tex src/main/resources/CAOM-current-vodml.xml
 
 -include ivoatex/Makefile
 
