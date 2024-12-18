@@ -46,6 +46,12 @@
       \textbf{multiplicity: 1} \newline
       an identifier that resolves to the storage location of the artifact
 
+    \subsubsection{Artifact.uriBucket}
+      \textbf{vodml-id: Artifact.uriBucket} \newline
+      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
+      \textbf{multiplicity: 1} \newline
+      short string of hexadecimal digits generated from the uri; the value is the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded URI value
+
     \subsubsection{Artifact.productType}
       \textbf{vodml-id: Artifact.productType} \newline
       \textbf{type: \hyperref[sect:DataLinkSemantics]{caom2:DataLinkSemantics}} \newline
@@ -275,6 +281,26 @@
       \textbf{type: \hyperref[sect:Quality]{caom2:Quality}} \newline
       \textbf{multiplicity: 1} \newline
       flag indicating the data quality
+
+  \subsection{DeletedArtifactDescriptionEvent}
+  \label{sect:DeletedArtifactDescriptionEvent}
+    an event signifiying that a previously persisted ArtifactDescription was deleted; this event can be synchronized to propagate deletions; the Entity.id of the event is equal to the Entity.id of the deleted observation and this identifier is used when performing deletions
+
+    \subsubsection{DeletedArtifactDescriptionEvent.uri}
+      \textbf{vodml-id: DeletedArtifactDescriptionEvent.uri} \newline
+      \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
+      \textbf{multiplicity: 1} \newline
+      The logical identifier of the ArtifactDescription: the ArtifactDescription.uri value; this is for informational purposes only
+
+  \subsection{DeletedObservationEvent}
+  \label{sect:DeletedObservationEvent}
+    an event signifiying that a previously persisted Observation was deleted; this event can be synchronized to propagate deletions; the Entity.id of the event is equal to the Entity.id of the deleted observation and this identifier is used when performing deletions
+
+    \subsubsection{DeletedObservationEvent.uri}
+      \textbf{vodml-id: DeletedObservationEvent.uri} \newline
+      \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
+      \textbf{multiplicity: 1} \newline
+      The logical identifier of the Observation: the Observation.uri value; this is for informational purposes only
 
   \subsection{DerivedObservation}
   \label{sect:DerivedObservation}
@@ -529,6 +555,12 @@
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 1} \newline
       unique logical identifier for this observation (NEW in CAOM-2.5)
+
+    \subsubsection{Observation.uriBucket}
+      \textbf{vodml-id: Observation.uriBucket} \newline
+      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
+      \textbf{multiplicity: 1} \newline
+      short string of hexadecimal digits generated from the uri; the value is the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded URI value
 
     \subsubsection{Observation.metaRelease}
       \textbf{vodml-id: Observation.metaRelease} \newline
