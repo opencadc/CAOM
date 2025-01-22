@@ -58,7 +58,7 @@
     <title>Common Archive Observation Model</title>
     <author>Patrick Dowler, Canadian Astronomy Data Centre</author>
     <version>2.5</version>
-    <lastModified>2024-08-15T18:00:00</lastModified>
+    <lastModified>2024-12-16T18:00:00</lastModified>
     
     <import>
         <name>ivoa</name>
@@ -460,6 +460,54 @@
         </attribute>
     </objectType>
 
+    <objectType>
+        <vodml-id>DeletedArtifactDescriptionEvent</vodml-id>
+        <name>DeletedArtifactDescriptionEvent</name>
+        <description>an event signifiying that a previously persisted ArtifactDescription was deleted;
+            this event can be synchronized to propagate deletions; the Entity.id of the event
+            is equal to the Entity.id of the deleted observation and this identifier is used
+            when performing deletions</description>
+        <extends>
+            <vodml-ref>caom2:Entity</vodml-ref>
+        </extends>
+        <attribute>
+            <vodml-id>DeletedArtifactDescriptionEvent.uri</vodml-id>
+            <name>uri</name>
+            <description>The logical identifier of the ArtifactDescription: the ArtifactDescription.uri 
+                value; this is for informational purposes only</description>
+            <datatype>
+                <vodml-ref>ivoa:anyURI</vodml-ref>
+            </datatype>
+            <multiplicity>
+                <minOccurs>1</minOccurs>
+                <maxOccurs>1</maxOccurs>
+            </multiplicity>
+        </attribute>
+    </objectType>
+    <objectType>
+        <vodml-id>DeletedObservationEvent</vodml-id>
+        <name>DeletedObservationEvent</name>
+        <description>an event signifiying that a previously persisted Observation was deleted;
+            this event can be synchronized to propagate deletions; the Entity.id of the event
+            is equal to the Entity.id of the deleted observation and this identifier is used
+            when performing deletions</description>
+        <extends>
+            <vodml-ref>caom2:Entity</vodml-ref>
+        </extends>
+        <attribute>
+            <vodml-id>DeletedObservationEvent.uri</vodml-id>
+            <name>uri</name>
+            <description>The logical identifier of the Observation: the Observation.uri value; this
+                is for informational purposes only</description>
+            <datatype>
+                <vodml-ref>ivoa:anyURI</vodml-ref>
+            </datatype>
+            <multiplicity>
+                <minOccurs>1</minOccurs>
+                <maxOccurs>1</maxOccurs>
+            </multiplicity>
+        </attribute>
+    </objectType>
     <objectType abstract="true">
         <vodml-id>Observation</vodml-id>
         <name>Observation</name>
@@ -486,6 +534,20 @@
             <description>unique logical identifier for this observation (NEW in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
+            </datatype>
+            <multiplicity>
+                <minOccurs>1</minOccurs>
+                <maxOccurs>1</maxOccurs>
+            </multiplicity>
+        </attribute>
+        <attribute>
+            <vodml-id>Observation.uriBucket</vodml-id>
+            <name>uriBucket</name>
+            <description>short string of hexadecimal digits generated from the uri; the value is
+            the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded
+            URI value</description>
+            <datatype>
+                <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -948,6 +1010,20 @@
             <description>an identifier that resolves to the storage location of the artifact</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
+            </datatype>
+            <multiplicity>
+                <minOccurs>1</minOccurs>
+                <maxOccurs>1</maxOccurs>
+            </multiplicity>
+        </attribute>
+        <attribute>
+            <vodml-id>Artifact.uriBucket</vodml-id>
+            <name>uriBucket</name>
+            <description>short string of hexadecimal digits generated from the uri; the value is
+            the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded
+            URI value</description>
+            <datatype>
+                <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>

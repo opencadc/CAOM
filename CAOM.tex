@@ -123,7 +123,9 @@ any corruption or incompleteless (details elsewhere ???).
 
 An Observation is the result of some activity to create data. Data acquisition by a 
 telescope creates a SimpleObservation, usually with one Plane describing the raw 
-data.
+data. Processing that creates a new observation (e.g. by combining mutliple independent
+observations into a single product) creates a DerivedObservation with a set of member
+observations. 
 
 \subsection{Plane}
 
@@ -137,6 +139,14 @@ signature change the calibration level of the plane.
 
 An Artifact holds a reference to an externally stored resource: a file, a
 database object (schema or table), a collection of files (directory), etc.
+
+\subsection{ArtifactDescription}
+
+An ArtifactDesciption is a human-readable description of an artifact. These
+descriptions are intended to be shared across many artifacts curated by a single
+operator; each artifact contains an optional reference to a description. The
+primary intended use of these descriptions is to populate the description field
+in a DataLink links response.
 
 \subsection{Part}
 
@@ -152,6 +162,22 @@ Note: Part is not shown in the UML diagrams. TBD: keep, deprecate, or remove?
 A Chunk describes a single data array using WCS (World Coordinate System) concepts. 
 
 Note: Chunk is not shown in the UML diagrams. TBD: keep, deprecate or remove?
+
+\subsection{DeletedObservationEvent}
+
+Observation(s) are designed to support metadata sharing (synchronisation of instances
+from a source site to a destination site). In some cases, observations are deleted at the 
+source site; in that case, the source site would create a DeletedObservationEvent with the same 
+entity identifier (Entity.id) and logical identifier (Observation.uri) so that other sites can
+synchronise the event and perform the correct deletion locally.
+
+\subsection{DeletedArtifactDescriptionEvent}
+
+ArtifactDescription(s) are designed to support metadata sharing (synchronisation of instances
+from a source site to a destination site). In some cases, descriptions are deleted at the 
+source site; in that case, the source site would create a DeletedArtifactDescriptionEvent with 
+the same entity identifier (Entity.id) and logical identifier (ArtifactDescription.uri) so that 
+other sites can synchronise the event and perform the correct deletion locally.
 
 \subsection{Data Types}
 Some of the classes in the model are intended to be used as data types (e.g. columns
