@@ -92,7 +92,9 @@ public class VODMLValidationTest {
     private static final String VODML_FILE_22 = "CAOM-2.2-vodml.xml";
     private static final String VODML_FILE_23 = "CAOM-2.3-vodml.xml";
     private static final String VODML_FILE_24 = "CAOM-2.4-vodml.xml";
-    private static final String VODML_FILE_CUR = "CAOM-current-vodml.xml";
+    
+    private static final String CAOM_VODML_CUR = "CAOM-current-vodml.xml";
+    private static final String DATATYPES_VODML_CUR = "DataTypes-current-vodml.xml";
 
     private static final String[] VODML_FILES = new String[]{
         VODML_FILE_22, VODML_FILE_23, VODML_FILE_24
@@ -107,18 +109,33 @@ public class VODMLValidationTest {
     }
 
     @Test
-    public void testDraftWellFormed() {
-        testWellFormed(VODML_FILE_CUR);
+    public void testDraftWellFormedCAOM() {
+        testWellFormed(CAOM_VODML_CUR);
     }
 
     @Test
-    public void testDraftSchemaValid() {
-        testSchemaValid(VODML_FILE_CUR);
+    public void testDraftSchemaValidCAOM() {
+        testSchemaValid(CAOM_VODML_CUR);
     }
 
     @Test
-    public void testDraftSchematronValid() {
-        testSchematronValid(VODML_FILE_CUR);
+    public void testDraftSchematronValidCAOM() {
+        testSchematronValid(CAOM_VODML_CUR);
+    }
+
+    @Test
+    public void testDraftWellFormedDT() {
+        testWellFormed(DATATYPES_VODML_CUR);
+    }
+
+    @Test
+    public void testDraftSchemaValidDT() {
+        testSchemaValid(DATATYPES_VODML_CUR);
+    }
+
+    @Test
+    public void testDraftSchematronValidDT() {
+        testSchematronValid(DATATYPES_VODML_CUR);
     }
 
     @Test

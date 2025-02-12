@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+************************************************************************
+*******************  CANADIAN ASTRONOMY DATA CENTRE  *******************
+**************  CENTRE CANADIEN DE DONNÉES ASTRONOMIQUES  **************
+*
+*  (c) 2025.                            (c) 2025.
+*  Government of Canada                 Gouvernement du Canada
+*  National Research Council            Conseil national de recherches
+*  Ottawa, Canada, K1A 0R6              Ottawa, Canada, K1A 0R6
+*  All rights reserved                  Tous droits réservés
+*
+*  NRC disclaims any warranties,        Le CNRC dénie toute garantie
+*  expressed, implied, or               énoncée, implicite ou légale,
+*  statutory, of any kind with          de quelque nature que ce
+*  respect to the software,             soit, concernant le logiciel,
+*  including without limitation         y compris sans restriction
+*  any warranty of merchantability      toute garantie de valeur
+*  or fitness for a particular          marchande ou de pertinence
+*  purpose. NRC shall not be            pour un usage particulier.
+*  liable in any event for any          Le CNRC ne pourra en aucun cas
+*  damages, whether direct or           être tenu responsable de tout
+*  indirect, special or general,        dommage, direct ou indirect,
+*  consequential or incidental,         particulier ou général,
+*  arising from the use of the          accessoire ou fortuit, résultant
+*  software.  Neither the name          de l'utilisation du logiciel. Ni
+*  of the National Research             le nom du Conseil National de
+*  Council of Canada nor the            Recherches du Canada ni les noms
+*  names of its contributors may        de ses  participants ne peuvent
+*  be used to endorse or promote        être utilisés pour approuver ou
+*  products derived from this           promouvoir les produits dérivés
+*  software without specific prior      de ce logiciel sans autorisation
+*  written permission.                  préalable et particulière
+*                                       par écrit.
+*
+*  This file is part of the             Ce fichier fait partie du projet
+*  OpenCADC project.                    OpenCADC.
+*
+*  You are free to use this material    Vous êtes libre d'utiliser ce 
+*  under the terms of the CC-BY-SA-4.0  matériel selon les termes du CC-BY-SA-4.0
+*  International License.               Licence internationale.
+*
+*               http://creativecommons.org/licenses/by-sa/4.0/
+* 
+*  OpenCADC is distributed in the       OpenCADC est distribué
+*  hope that it will be useful,         dans l’espoir qu’il vous
+*  but WITHOUT ANY WARRANTY;            sera utile, mais SANS AUCUNE
+*  without even the implied             GARANTIE : sans même la garantie
+*  warranty of MERCHANTABILITY          implicite de COMMERCIALISABILITÉ
+*  or FITNESS FOR A PARTICULAR          ni d’ADÉQUATION À UN OBJECTIF
+*  PURPOSE.                             PARTICULIER. 
+-->
+<vo-dml:model xmlns:vo-dml="http://www.ivoa.net/xml/VODML/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema">
+    <name>dt</name>
+    <description>a general purpose collection of data types</description>
+    <identifier/>
+    <uri/>
+    <title>DataTypes</title>
+    <author>Patrick Dowler, Canadian Astronomy Data Centre</author>
+    <version>0.1</version>
+    <lastModified>2025-02-12T18:00:00</lastModified>
+    
+    <import>
+        <name>ivoa</name>
+        <url>https://www.ivoa.net/xml/VODML/IVOA-v1.vo-dml.xml</url>
+        <documentationURL>https://www.ivoa.net/documents/VODML/</documentationURL>
+    </import>
+    
+    <primitiveType>
+        <vodml-id>uuid</vodml-id>
+        <name>uuid</name>
+        <description>represents a 128-bit binary ID in the canonical ascii UUID format</description>
+        <extends>
+            <vodml-ref>ivoa:string</vodml-ref>
+        </extends>
+    </primitiveType>
+
+    <primitiveType>
+        <vodml-id>double</vodml-id>
+        <name>double</name>
+        <description>an IEEE double precision (64-bit) floating point value</description>
+        <extends>
+            <vodml-ref>ivoa:real</vodml-ref>
+        </extends>
+    </primitiveType>
+
+    <primitiveType>
+        <vodml-id>int32</vodml-id>
+        <name>int</name>
+        <description>a 32-bit signed integer</description>
+        <extends>
+            <vodml-ref>ivoa:integer</vodml-ref>
+        </extends>
+    </primitiveType>
+
+    <primitiveType>
+        <vodml-id>int64</vodml-id>
+        <name>long</name>
+        <description>a 64-bit signed integer</description>
+        <extends>
+            <vodml-ref>ivoa:integer</vodml-ref>
+        </extends>
+    </primitiveType>
+
+    <dataType>
+        <vodml-id>Point</vodml-id>
+        <name>Point</name>
+        <description>location on the sky</description>
+        <attribute>
+            <vodml-id>Point.cval1</vodml-id>
+            <name>cval1</name>
+            <datatype>
+                <vodml-ref>dt:double</vodml-ref>
+            </datatype>
+            <multiplicity>
+                <minOccurs>1</minOccurs>
+                <maxOccurs>1</maxOccurs>
+            </multiplicity>
+        </attribute>
+        <attribute>
+            <vodml-id>Point.cval2</vodml-id>
+            <name>cval1</name>
+            <datatype>
+                <vodml-ref>dt:double</vodml-ref>
+            </datatype>
+            <multiplicity>
+                <minOccurs>1</minOccurs>
+                <maxOccurs>1</maxOccurs>
+            </multiplicity>
+        </attribute>
+    </dataType>
+
+    <dataType abstract="true">
+        <vodml-id>Shape</vodml-id>
+        <name>Shape</name>
+        <!-- tagging base class -->
+    </dataType>
+
+    <dataType>
+        <vodml-id>Circle</vodml-id>
+        <name>Circle</name>
+        <description>a circular region on the sky</description>
+        <extends>
+            <vodml-ref>dt:Shape</vodml-ref>
+        </extends>
+        <attribute>
+            <vodml-id>Circle.center</vodml-id>
+            <name>center</name>
+            <datatype>
+                <vodml-ref>dt:Point</vodml-ref>
+            </datatype>
+            <multiplicity>
+                <minOccurs>1</minOccurs>
+                <maxOccurs>1</maxOccurs>
+            </multiplicity>
+        </attribute>
+        <attribute>
+            <vodml-id>Circle.radius</vodml-id>
+            <name>radius</name>
+            <datatype>
+                <vodml-ref>dt:double</vodml-ref>
+            </datatype>
+            <multiplicity>
+                <minOccurs>1</minOccurs>
+                <maxOccurs>1</maxOccurs>
+            </multiplicity>
+        </attribute>
+    </dataType>
+
+    <dataType>
+        <vodml-id>MultiShape</vodml-id>
+        <name>MultiShape</name>
+        <description>multiple simple shapes describing regions as a single value</description>
+        <attribute>
+            <vodml-id>MultiShape.shapes</vodml-id>
+            <name>shapes</name>
+            <datatype>
+                <vodml-ref>dt:Shape</vodml-ref>
+            </datatype>
+            <multiplicity>
+                <minOccurs>1</minOccurs>
+                <maxOccurs>-1</maxOccurs>
+            </multiplicity>
+        </attribute>
+    </dataType>
+
+    <dataType>
+        <vodml-id>Polygon</vodml-id>
+        <name>Polygon</name>
+        <description>a simple polygon region on the sky defined a sequence of points connected by great-circle segments</description>
+        <extends>
+            <vodml-ref>dt:Shape</vodml-ref>
+        </extends>
+        <attribute>
+            <vodml-id>Polygon.points</vodml-id>
+            <name>points</name>
+            <datatype>
+                <vodml-ref>dt:Point</vodml-ref>
+            </datatype>
+            <multiplicity>
+                <minOccurs>3</minOccurs>
+                <maxOccurs>-1</maxOccurs>
+            </multiplicity>
+        </attribute>
+    </dataType>
+
+    <dataType>
+        <vodml-id>Interval</vodml-id>
+        <name>Interval</name>
+        <description>a set of numeric values defined by a lower and upper bound (bounds included: [a,b])</description>
+        <attribute>
+            <vodml-id>Interval.lower</vodml-id>
+            <name>lower</name>
+            <datatype>
+                <vodml-ref>dt:double</vodml-ref>
+            </datatype>
+            <multiplicity>
+                <minOccurs>1</minOccurs>
+                <maxOccurs>1</maxOccurs>
+            </multiplicity>
+        </attribute>
+        <attribute>
+            <vodml-id>Interval.upper</vodml-id>
+            <name>upper</name>
+            <datatype>
+                <vodml-ref>dt:double</vodml-ref>
+            </datatype>
+            <multiplicity>
+                <minOccurs>1</minOccurs>
+                <maxOccurs>1</maxOccurs>
+            </multiplicity>
+        </attribute>
+    </dataType>
+
+</vo-dml:model>
