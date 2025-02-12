@@ -4,7 +4,7 @@
 *******************  CANADIAN ASTRONOMY DATA CENTRE  *******************
 **************  CENTRE CANADIEN DE DONNÉES ASTRONOMIQUES  **************
 *
-*  (c) 2024.                            (c) 2024.
+*  (c) 2025.                            (c) 2025.
 *  Government of Canada                 Gouvernement du Canada
 *  National Research Council            Conseil national de recherches
 *  Ottawa, Canada, K1A 0R6              Ottawa, Canada, K1A 0R6
@@ -65,17 +65,17 @@
         <url>https://www.ivoa.net/xml/VODML/IVOA-v1.vo-dml.xml</url>
         <documentationURL>https://www.ivoa.net/documents/VODML/</documentationURL>
     </import>
-    
-    <!-- externally specified primtiveType -->
-    <primitiveType>
-        <vodml-id>uuid</vodml-id>
-        <name>uuid</name>
-        <description>represents a 128-bit binary ID in the canonical ascii UUID format</description>
-        <extends>
-            <vodml-ref>ivoa:string</vodml-ref>
-        </extends>
-    </primitiveType>
-    
+    <!--
+    data types were extracted into a separate re-usable model but still referenced locally
+    the local reference here seems to work for the schematron validation test but is otherwise
+    not really usable
+    -->
+    <import>
+        <name>dt</name>
+        <url>file:src/main/resources/DataTypes-current-vodml.xml</url>
+        <documentationURL>https://www.ivoa.net/documents/VODML/</documentationURL>
+    </import>
+
     <!-- observation enums -->
     <enumeration>
         <vodml-id>ObservationIntentType</vodml-id>
@@ -343,7 +343,7 @@
             <name>id</name>
             <description>globally unique identifier (primary key)</description>
             <datatype>
-                <vodml-ref>caom2:uuid</vodml-ref>
+                <vodml-ref>dt:uuid</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -571,7 +571,7 @@
             <name>sequenceNumber</name>
             <description>a collection-specific sequence number for observations; re-use or reset is collection specific</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1071,7 +1071,7 @@
             <name>contentLength</name>
             <description>the size of the resolved artifact; typically file size in bytes</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1258,7 +1258,7 @@
                 of how this could originate and be used)
             </description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1270,7 +1270,7 @@
             <name>positionAxis1</name>
             <description>index of the first position axis; if set: positionAxis2 and position must also have values</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1282,7 +1282,7 @@
             <name>positionAxis2</name>
             <description>index of the second position axis; if set: positionAxis1 and position must also have values</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1294,7 +1294,7 @@
             <name>energyAxis</name>
             <description>index of the energy axis; if set: energy must have a value</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1306,7 +1306,7 @@
             <name>timeAxis</name>
             <description>index of the time axis; if set: time must have a value</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1318,7 +1318,7 @@
             <name>polarizationAxis</name>
             <description>index of the polarization axis; if set: polarization must have a value</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1330,7 +1330,7 @@
             <name>customAxis</name>
             <description>index of the custom axis; if set: custom must have a value</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1342,7 +1342,7 @@
             <name>observableAxis</name>
             <description>index of the observable axis; if set: observable must have a value</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1473,7 +1473,7 @@
             <description>x-coordinate of the geocentric location of the telescope at the time of observation
                 (see FITS WCS Paper III)</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1486,7 +1486,7 @@
             <description>y-coordinate of the geocentric location of the telescope at the time of observation
                 (see FITS WCS Paper III)</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1499,7 +1499,7 @@
             <description>z-coordinate of the geocentric location of the telescope at the time of observation
                 (see FITS WCS Paper III)</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1581,7 +1581,7 @@
             <name>name</name>
             <description>typical atmospheric distortion (full-width-half-max of a point source)</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1593,7 +1593,7 @@
             <name>humidity</name>
             <description>fractional relative humidity [0,1]</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1605,7 +1605,7 @@
             <name>elevation</name>
             <description>angular elevation above horizon [0,90]</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1617,7 +1617,7 @@
             <name>tau</name>
             <description>the opacity of the atmosphere [0,1]</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1629,7 +1629,7 @@
             <name>wavelengthTau</name>
             <description>wavelength at which opacity was measured</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1641,7 +1641,7 @@
             <name>ambientTemp</name>
             <description>ambient temperature at the telescope</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1791,7 +1791,7 @@
             <name>redshift</name>
             <description>cosmological redshift of the target</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1861,7 +1861,7 @@
             <name>equinox</name>
             <description>the equinox of the coordinates</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1873,7 +1873,7 @@
             <name>coordinates</name>
             <description>the coordinates</description>
             <datatype>
-                <vodml-ref>caom2:types.Point</vodml-ref>
+                <vodml-ref>dt:Point</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -2076,7 +2076,7 @@
             <name>sourceNumberDensity</name>
             <description>number of sources detected per unit area</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2088,7 +2088,7 @@
             <name>background</name>
             <description>background level</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2100,7 +2100,7 @@
             <name>backgroundStddev</name>
             <description>standard deviation in the background level</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2112,7 +2112,7 @@
             <name>fluxDensityLimit</name>
             <description>flux density with a signal:noise ratio of 10</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2124,7 +2124,7 @@
             <name>magLimit</name>
             <description>magnitude with a signal:noise ratio of 10</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2136,7 +2136,7 @@
             <name>sampleSNR</name>
             <description>signal:noise ratio for a representative subset of samples (new in CAOM-2.4)</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2154,7 +2154,7 @@
             <name>bounds</name>
             <description>spatial boundary that includes the data (cardinality changed in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>caom2:types.Shape</vodml-ref>
+                <vodml-ref>dt:Shape</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -2166,7 +2166,7 @@
             <name>samples</name>
             <description>detailed sub-samples of the bounds (refactored in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>caom2:types.MultiShape</vodml-ref>
+                <vodml-ref>dt:MultiShape</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -2180,7 +2180,7 @@
                 the bounds (maximum) when the field-of-view varies because it is dependent on another 
                 axis (usually energy) (new in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>caom2:types.Shape</vodml-ref>
+                <vodml-ref>dt:Shape</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2205,7 +2205,7 @@
             <description>maximum size of spatial structure (signal) that can be recovered or seen in the data
                 (new in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2217,7 +2217,7 @@
             <name>resolution</name>
             <description>mean spatial resolution (full-width-half-max) per pixel</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2229,7 +2229,7 @@
             <name>resolutionBounds</name>
             <description>range of resolution within the bounds</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2241,7 +2241,7 @@
             <name>sampleSize</name>
             <description>median pixel size</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2271,7 +2271,7 @@
             <name>bounds</name>
             <description>simple outer bounds of energy coverage of the data (cardinality changed in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -2283,7 +2283,7 @@
             <name>samples</name>
             <description>detailed energy coverage of the data (refactored in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -2308,7 +2308,7 @@
             <name>dimension</name>
             <description>number of measurements (pixels) on the energy axis</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2320,7 +2320,7 @@
             <name>resolvingPower</name>
             <description>mean spectral resolving power per pixel (relative resolution)</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2332,7 +2332,7 @@
             <name>resolvingPowerBounds</name>
             <description>range of resolving power within the bounds (relative resolution)</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2344,7 +2344,7 @@
             <name>resolution</name>
             <description>mean absolute spectral resolution per pixel (new in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2356,7 +2356,7 @@
             <name>resolutionBounds</name>
             <description>range of absolute spectral resolution within the bounds (new in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2368,7 +2368,7 @@
             <name>sampleSize</name>
             <description>mean pixel size</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2405,7 +2405,7 @@
             <name>restwav</name>
             <description>rest energy of the target energy transition (name changed in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2435,7 +2435,7 @@
             <name>bounds</name>
             <description>time bounds that include the data (cardinality changed in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -2447,7 +2447,7 @@
             <name>samples</name>
             <description>detailed time coverage that include the data (refactored in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -2471,7 +2471,7 @@
             <name>dimension</name>
             <description>number of discrete samples (pixels) on the time axis</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2483,7 +2483,7 @@
             <name>resolution</name>
             <description>median temporal resolution per pixel</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2495,7 +2495,7 @@
             <name>resolutionBounds</name>
             <description>range of resolution within the bounds</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2507,7 +2507,7 @@
             <name>sampleSize</name>
             <description>median pixel size</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2519,7 +2519,7 @@
             <name>exposure</name>
             <description>mean exposure time per pixel</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2531,7 +2531,7 @@
             <name>exposureBounds</name>
             <description>range of exposure within the bounds</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2560,7 +2560,7 @@
             <name>dimension</name>
             <description>number of polarization states included</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int32</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2591,7 +2591,7 @@
             <name>bounds</name>
             <description>custom coordinate coverage (cardinality changed in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -2603,7 +2603,7 @@
             <name>samples</name>
             <description>detailed custom coordinate coverage (refactored in CAOM-2.5)</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -2615,7 +2615,7 @@
             <name>dimension</name>
             <description>number of discrete samples (pixels) along custom axis</description>
             <datatype>
-                <vodml-ref>ivoa:integer</vodml-ref>
+                <vodml-ref>dt:int64</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -2633,7 +2633,7 @@
             <name>distance</name>
             <description>range of distances in the UV plane</description>
             <datatype>
-                <vodml-ref>caom2:types.Interval</vodml-ref>
+                <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -2645,7 +2645,7 @@
             <name>distance</name>
             <description>eccentricity of the distribtuion of ??? in [0,1]</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -2657,7 +2657,7 @@
             <name>distance</name>
             <description>fill-factor of the distribtuion of ??? in [0,1]</description>
             <datatype>
-                <vodml-ref>ivoa:real</vodml-ref>
+                <vodml-ref>dt:double</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>1</minOccurs>
@@ -2665,142 +2665,6 @@
             </multiplicity>
         </attribute>
     </objectType>
-
-    <package>
-        <vodml-id>types</vodml-id>
-        <name>types</name>
-        <description>data types</description>
-
-        <dataType>
-            <vodml-id>types.Point</vodml-id>
-            <name>Point</name>
-            <description>location on the sky</description>
-            <attribute>
-                <vodml-id>Point.cval1</vodml-id>
-                <name>cval1</name>
-                <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
-                </datatype>
-                <multiplicity>
-                    <minOccurs>1</minOccurs>
-                    <maxOccurs>1</maxOccurs>
-                </multiplicity>
-            </attribute>
-            <attribute>
-                <vodml-id>Point.cval2</vodml-id>
-                <name>cval1</name>
-                <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
-                </datatype>
-                <multiplicity>
-                    <minOccurs>1</minOccurs>
-                    <maxOccurs>1</maxOccurs>
-                </multiplicity>
-            </attribute>
-        </dataType>
-
-        <dataType abstract="true">
-            <vodml-id>types.Shape</vodml-id>
-            <name>Shape</name>
-            <!-- tagging base class -->
-        </dataType>
-
-        <dataType>
-            <vodml-id>types.Circle</vodml-id>
-            <name>Circle</name>
-            <description>a circular region on the sky</description>
-            <extends>
-                <vodml-ref>caom2:types.Shape</vodml-ref>
-            </extends>
-            <attribute>
-                <vodml-id>types.Circle.center</vodml-id>
-                <name>center</name>
-                <datatype>
-                    <vodml-ref>caom2:types.Point</vodml-ref>
-                </datatype>
-                <multiplicity>
-                    <minOccurs>1</minOccurs>
-                    <maxOccurs>1</maxOccurs>
-                </multiplicity>
-            </attribute>
-            <attribute>
-                <vodml-id>types.Circle.radius</vodml-id>
-                <name>radius</name>
-                <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
-                </datatype>
-                <multiplicity>
-                    <minOccurs>1</minOccurs>
-                    <maxOccurs>1</maxOccurs>
-                </multiplicity>
-            </attribute>
-        </dataType>
-
-        <dataType>
-            <vodml-id>types.MultiShape</vodml-id>
-            <name>MultiShape</name>
-            <description>multiple simple shapess describing disconnected regions as a single value</description>
-            <attribute>
-                <vodml-id>MultiShape.shapes</vodml-id>
-                <name>shapes</name>
-                <datatype>
-                    <vodml-ref>caom2:types.Shape</vodml-ref>
-                </datatype>
-                <multiplicity>
-                    <minOccurs>1</minOccurs>
-                    <maxOccurs>-1</maxOccurs>
-                </multiplicity>
-            </attribute>
-        </dataType>
-
-        <dataType>
-            <vodml-id>types.Polygon</vodml-id>
-            <name>Polygon</name>
-            <description>a simple polygon region on the sky defined a sequence of points connected by great-circle segments</description>
-            <extends>
-                <vodml-ref>caom2:types.Shape</vodml-ref>
-            </extends>
-            <attribute>
-                <vodml-id>type.Polygon.points</vodml-id>
-                <name>points</name>
-                <datatype>
-                    <vodml-ref>caom2:types.Point</vodml-ref>
-                </datatype>
-                <multiplicity>
-                    <minOccurs>3</minOccurs>
-                    <maxOccurs>-1</maxOccurs>
-                </multiplicity>
-            </attribute>
-        </dataType>
-
-        <dataType>
-            <vodml-id>types.Interval</vodml-id>
-            <name>Interval</name>
-            <description>a set of numeric values defined by a lower and upper bound (bounds included: [a,b])</description>
-            <attribute>
-                <vodml-id>types.Interval.lower</vodml-id>
-                <name>lower</name>
-                <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
-                </datatype>
-                <multiplicity>
-                    <minOccurs>1</minOccurs>
-                    <maxOccurs>1</maxOccurs>
-                </multiplicity>
-            </attribute>
-            <attribute>
-                <vodml-id>types.Interval.upper</vodml-id>
-                <name>upper</name>
-                <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
-                </datatype>
-                <multiplicity>
-                    <minOccurs>1</minOccurs>
-                    <maxOccurs>1</maxOccurs>
-                </multiplicity>
-            </attribute>
-        </dataType>
-    </package>
 
     <package>
         <vodml-id>wcs</vodml-id>
@@ -2843,7 +2707,7 @@
                 <vodml-id>Dimension2D.naxis1</vodml-id>
                 <name>naxis1</name>
                 <datatype>
-                    <vodml-ref>ivoa:integer</vodml-ref>
+                    <vodml-ref>dt:int64</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -2854,7 +2718,7 @@
                 <vodml-id>Dimension2D.naxis2</vodml-id>
                 <name>naxis2</name>
                 <datatype>
-                    <vodml-ref>ivoa:integer</vodml-ref>
+                    <vodml-ref>dt:int64</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -2871,7 +2735,7 @@
                 <vodml-id>RefCoord.pix</vodml-id>
                 <name>pix</name>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -2882,7 +2746,7 @@
                 <vodml-id>RefCoord.val</vodml-id>
                 <name>val</name>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -2899,7 +2763,7 @@
                 <vodml-id>CoordError.rnder</vodml-id>
                 <name>crder</name>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -2910,7 +2774,7 @@
                 <vodml-id>CoordError.syser</vodml-id>
                 <name>csyer</name>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -2940,7 +2804,7 @@
                 <name>bin</name>
                 <description>a constant-pixel value in the two-dimensional array that specifies the pixels in the slice</description>
                 <datatype>
-                    <vodml-ref>ivoa:integer</vodml-ref>
+                    <vodml-ref>dt:int64</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -3060,7 +2924,7 @@
                 <name>dimension</name>
                 <description>number of pixels along the axis</description>
                 <datatype>
-                    <vodml-ref>ivoa:integer</vodml-ref>
+                    <vodml-ref>dt:int64</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -3084,7 +2948,7 @@
                 <name>delta</name>
                 <description>delta in world coordinate value (size of one pixel)</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -3247,7 +3111,7 @@
                 <name>cd11</name>
                 <description>two-dimensional scale and rotation (CD) matrix (FITS: CD1_1)</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -3259,7 +3123,7 @@
                 <name>cd12</name>
                 <description>two-dimensional scale and rotation (CD) matrix (FITS: CD1_2)</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -3271,7 +3135,7 @@
                 <name>cd21</name>
                 <description>two-dimensional scale and rotation (CD) matrix (FITS: CD2_1)</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -3283,7 +3147,7 @@
                 <name>cd22</name>
                 <description>two-dimensional scale and rotation (CD) matrix (FITS: CD2_2)</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>1</minOccurs>
@@ -3419,7 +3283,7 @@
                 <name>equinox</name>
                 <description>equinox of the coordinate system</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -3432,7 +3296,7 @@
                 <description>effective resolution of the data (FWHM of a point source); 
                     this is usually the value measured at the time of data acquisition</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -3497,7 +3361,7 @@
                 <name>restfrq</name>
                 <description>rest frequency of the spectral feature of interest</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -3509,7 +3373,7 @@
                 <name>restwav</name>
                 <description>rest wavelength of the spectral feature of interest</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -3521,7 +3385,7 @@
                 <name>velosys</name>
                 <description>correction for the observatory's motion with respect to the barycenter</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -3533,7 +3397,7 @@
                 <name>zsource</name>
                 <description>redshift of the source (relative to ssyssrc)</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -3545,7 +3409,7 @@
                 <name>velang</name>
                 <description>angle of true velocity from tangent to line of sight</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -3582,7 +3446,7 @@
                 <name>resolvingPower</name>
                 <description>ratio of wavelength to resolution (lambda/delta-lambda)</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -3636,7 +3500,7 @@
                 <name>mjdref</name>
                 <description>base time offset; time coordinate values are relative to this</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -3648,7 +3512,7 @@
                 <name>exposure</name>
                 <description>duration in time that the instrument was collecting data</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
@@ -3660,7 +3524,7 @@
                 <name>resolution</name>
                 <description>smallest separation in time that can be distinguished</description>
                 <datatype>
-                    <vodml-ref>ivoa:real</vodml-ref>
+                    <vodml-ref>dt:double</vodml-ref>
                 </datatype>
                 <multiplicity>
                     <minOccurs>0</minOccurs>
