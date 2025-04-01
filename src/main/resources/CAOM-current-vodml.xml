@@ -571,7 +571,7 @@
             <name>sequenceNumber</name>
             <description>a collection-specific sequence number for observations; re-use or reset is collection specific</description>
             <datatype>
-                <vodml-ref>dt:int64</vodml-ref>
+                <vodml-ref>dt:int32</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1258,7 +1258,7 @@
                 of how this could originate and be used)
             </description>
             <datatype>
-                <vodml-ref>dt:int64</vodml-ref>
+                <vodml-ref>dt:int32</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1270,7 +1270,7 @@
             <name>positionAxis1</name>
             <description>index of the first position axis; if set: positionAxis2 and position must also have values</description>
             <datatype>
-                <vodml-ref>dt:int64</vodml-ref>
+                <vodml-ref>dt:int32</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1282,7 +1282,7 @@
             <name>positionAxis2</name>
             <description>index of the second position axis; if set: positionAxis1 and position must also have values</description>
             <datatype>
-                <vodml-ref>dt:int64</vodml-ref>
+                <vodml-ref>dt:int32</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1294,7 +1294,7 @@
             <name>energyAxis</name>
             <description>index of the energy axis; if set: energy must have a value</description>
             <datatype>
-                <vodml-ref>dt:int64</vodml-ref>
+                <vodml-ref>dt:int32</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1306,7 +1306,7 @@
             <name>timeAxis</name>
             <description>index of the time axis; if set: time must have a value</description>
             <datatype>
-                <vodml-ref>dt:int64</vodml-ref>
+                <vodml-ref>dt:int32</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1318,7 +1318,7 @@
             <name>polarizationAxis</name>
             <description>index of the polarization axis; if set: polarization must have a value</description>
             <datatype>
-                <vodml-ref>dt:int64</vodml-ref>
+                <vodml-ref>dt:int32</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1330,7 +1330,7 @@
             <name>customAxis</name>
             <description>index of the custom axis; if set: custom must have a value</description>
             <datatype>
-                <vodml-ref>dt:int64</vodml-ref>
+                <vodml-ref>dt:int32</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
@@ -1342,7 +1342,7 @@
             <name>observableAxis</name>
             <description>index of the observable axis; if set: observable must have a value</description>
             <datatype>
-                <vodml-ref>dt:int64</vodml-ref>
+                <vodml-ref>dt:int32</vodml-ref>
             </datatype>
             <multiplicity>
                 <minOccurs>0</minOccurs>
