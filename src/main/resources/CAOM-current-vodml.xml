@@ -1669,8 +1669,8 @@
         <name>Proposal</name>
         <description>description of the science proposal or programme that initiated the observation</description>
         <attribute>
-            <vodml-id>Proposal.proposalID</vodml-id>
-            <name>proposalID</name>
+            <vodml-id>Proposal.id</vodml-id>
+            <name>id</name>
             <description>collection-specific identifier for the proposal</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
