@@ -73,7 +73,7 @@
     <import>
         <name>dt</name>
         <url>file:src/main/resources/DataTypes-current-vodml.xml</url>
-        <documentationURL>https://www.ivoa.net/documents/VODML/</documentationURL>
+        <documentationURL>https://www.ivoa.net/documents/DataTypes/</documentationURL>
     </import>
 
     <!-- observation enums -->
