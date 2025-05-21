@@ -92,19 +92,13 @@
       \textbf{vodml-id: Artifact.contentReadGroups} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..*} \newline
-      list of groups (of users) that are allowed to access the content of this artifact; this is applicable when the effective release date is null or in the future (new in CAOM-2.4)
+      list of groups (of users) that are allowed to access the content of this artifact; this is applicable when the effective release date is null or in the future
 
     \subsubsection{Artifact.descriptionID}
       \textbf{vodml-id: Artifact.descriptionID} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
       identifier for an ArtifactDescription entity (new in CAOM-2.5)
-
-    \subsubsection{Artifact.parts}
-      \textbf{vodml-id: Artifact.parts} \newline
-      \textbf{type: \hyperref[sect:Part]{caom2:Part}} \newline
-      \textbf{multiplicity: 0..*} \newline
-      the component parts of this artifact
 
   \subsection{ArtifactDescription}
   \label{sect:ArtifactDescription}
@@ -141,100 +135,6 @@
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
       accumulated checksum of the metadata of this entity and all child entities; The URI must conform to the pattern {algorithm}:{value}, for example: md5:4be91751541fd804e7207663a0822f56. The accumulated checksum of an entity is computed by accumulating the byte representation of entity checksums in the following order: (1) the metaChecksum of the current entity, (2) the accMetaChecksum of all child entities accumulated in order of the child's Entity.id. For an entity with no children, the accMetaChecksum is derived only from the metaChecksum but it is not equal to it because it is a checksum of that checksum and not a checksum of the same metadata directly.
-
-  \subsection{Chunk}
-  \label{sect:Chunk}
-    a quantitatively defined subsection of a data array; the part contains the whole array
-
-    \subsubsection{Chunk.productType}
-      \textbf{vodml-id: Chunk.productType} \newline
-      \textbf{type: \hyperref[sect:DataLinkSemantics]{caom2:DataLinkSemantics}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      the relationship of this Artifact to the parent Plane (DataLink semantics)
-
-    \subsubsection{Chunk.naxis}
-      \textbf{vodml-id: Chunk.naxis} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      number of axes in the data array; value must be in [1,7] since CAOM supports a maximum of seven axes; furthermore, if naxis has a value, the axis index values 1 to {naxis} must be assigned (to positionAxis1, positionAxis2, energyAxis, timeAxis, polarizationAxis, customAxis, and/or observableAxis) and each axis index value assigned to those fields must be unique; axis index values above {naxis} may be assigned in order to preserve the ordering of metadata-only WCS (see FITS-WCS WCSAXES defintion for an example of how this could originate and be used)
-
-    \subsubsection{Chunk.positionAxis1}
-      \textbf{vodml-id: Chunk.positionAxis1} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      index of the first position axis; if set: positionAxis2 and position must also have values
-
-    \subsubsection{Chunk.positionAxis2}
-      \textbf{vodml-id: Chunk.positionAxis2} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      index of the second position axis; if set: positionAxis1 and position must also have values
-
-    \subsubsection{Chunk.energyAxis}
-      \textbf{vodml-id: Chunk.energyAxis} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      index of the energy axis; if set: energy must have a value
-
-    \subsubsection{Chunk.timeAxis}
-      \textbf{vodml-id: Chunk.timeAxis} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      index of the time axis; if set: time must have a value
-
-    \subsubsection{Chunk.polarizationAxis}
-      \textbf{vodml-id: Chunk.polarizationAxis} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      index of the polarization axis; if set: polarization must have a value
-
-    \subsubsection{Chunk.customAxis}
-      \textbf{vodml-id: Chunk.customAxis} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      index of the custom axis; if set: custom must have a value
-
-    \subsubsection{Chunk.observableAxis}
-      \textbf{vodml-id: Chunk.observableAxis} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      index of the observable axis; if set: observable must have a value
-
-    \subsubsection{Chunk.position}
-      \textbf{vodml-id: Chunk.position} \newline
-      \textbf{type: \hyperref[sect:SpatialWCS]{caom2:SpatialWCS}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      spatial WCS description of the data array or subsection thereof; if positionAxis1 and positionAxis2 indices are null or have values above {naxis}, then the spatial WCS is metadata only (usually the degenerate case of one spatial pixel)
-
-    \subsubsection{Chunk.energy}
-      \textbf{vodml-id: Chunk.energy} \newline
-      \textbf{type: \hyperref[sect:SpectralWCS]{caom2:SpectralWCS}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      spectral WCS description of the data array or subsection thereof; if energyAxis index is null or has a value above {naxis}, then the spectral WCS is metadata only (usually the degenerate case of one spectral pixel)
-
-    \subsubsection{Chunk.time}
-      \textbf{vodml-id: Chunk.time} \newline
-      \textbf{type: \hyperref[sect:TemporalWCS]{caom2:TemporalWCS}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      temporal WCS description of the data array or subsection thereof; if timeAxis index is null or has a value above {naxis}, then the time WCS is metadata only (usually the degenerate case of one time pixel for the whole data array)
-
-    \subsubsection{Chunk.polarization}
-      \textbf{vodml-id: Chunk.polarization} \newline
-      \textbf{type: \hyperref[sect:PolarizationWCS]{caom2:PolarizationWCS}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      polarization WCS description of the data array or subsection thereof; if polarizationAxis index is null or has a value above {naxis}, then the polarization WCS is metadata only (usually the degenerate case of one polarization pixel)
-
-    \subsubsection{Chunk.custom}
-      \textbf{vodml-id: Chunk.custom} \newline
-      \textbf{type: \hyperref[sect:CustomWCS]{caom2:CustomWCS}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      custom WCS description of the data array or subsection thereof; if customAxis index is null or has a value above {naxis}, then the custom WCS is metadata only (usually the degenerate case of one custom pixel)
-
-    \subsubsection{Chunk.observable}
-      \textbf{vodml-id: Chunk.observable} \newline
-      \textbf{type: \hyperref[sect:ObservableAxis]{caom2:ObservableAxis}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      observable description of the data array or subsection thereof; if observableAxis index is null or has a value above {naxis}, then the observable axis is metadata only (usually the degenerate case of one observable for the whole data array)
 
   \subsection{CustomAxis}
   \label{sect:CustomAxis}
@@ -376,12 +276,6 @@
       \textbf{multiplicity: 0..*} \newline
       telescope- and instrument-specific name for the energy band(s) included; multiple bands may be included if energies from all specified bands are included in the data (in the sense of union)
 
-    \subsubsection{Energy.transition}
-      \textbf{vodml-id: Energy.transition} \newline
-      \textbf{type: \hyperref[sect:EnergyTransition]{caom2:EnergyTransition}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      target energy transition for this data
-
     \subsubsection{Energy.restwav}
       \textbf{vodml-id: Energy.rest} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
@@ -393,6 +287,28 @@
       \textbf{type: \hyperref[sect:CalibrationStatus]{caom2:CalibrationStatus}} \newline
       \textbf{multiplicity: 0..1} \newline
       term describing the calibration of the energy axis values (new in CAOM-2.5)
+
+    \subsubsection{Energy.transition}
+      \textbf{vodml-id: Energy.transition} \newline
+      \textbf{type: \hyperref[sect:EnergyTransition]{caom2:EnergyTransition}} \newline
+      \textbf{multiplicity: 0..1} \newline
+      target energy transition for this data
+
+  \subsection{EnergyTransition}
+  \label{sect:EnergyTransition}
+    [TODO add description!]
+
+    \subsubsection{EnergyTransition.species}
+      \textbf{vodml-id: EnergyTransition.species} \newline
+      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
+      \textbf{multiplicity: 1} \newline
+      TODO
+
+    \subsubsection{EnergyTransition.transition}
+      \textbf{vodml-id: EnergyTransition.transition} \newline
+      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
+      \textbf{multiplicity: 1} \newline
+      TODO
 
   \subsection{Entity (Abstract)}
   \label{sect:Entity}
@@ -646,28 +562,6 @@
       \textbf{multiplicity: 0..*} \newline
       the component planes belonging to this observation
 
-  \subsection{Part}
-  \label{sect:Part}
-    format-specific name of this part; this is typically something like a FITS extension or a file within a container
-
-    \subsubsection{Part.name}
-      \textbf{vodml-id: Part.name} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
-      \textbf{multiplicity: 1} \newline
-      the name of this part of the artifact; this is typically something like a FITS extension name or number or a filename
-
-    \subsubsection{Part.productType}
-      \textbf{vodml-id: Part.productType} \newline
-      \textbf{type: \hyperref[sect:DataLinkSemantics]{caom2:DataLinkSemantics}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      the relationship of this Artifact to the parent Plane (DataLink semantics)
-
-    \subsubsection{Part.chunks}
-      \textbf{vodml-id: Part.chunks} \newline
-      \textbf{type: \hyperref[sect:Chunk]{caom2:Chunk}} \newline
-      \textbf{multiplicity: 0..*} \newline
-      component chunks that belong to this part
-
   \subsection{Plane}
   \label{sect:Plane}
     a component of an observation that describes one product of the observation
@@ -824,7 +718,7 @@
 
     \subsubsection{Position.dimension}
       \textbf{vodml-id: Position.dimension} \newline
-      \textbf{type: \hyperref[sect:Dimension2D]{caom2:Dimension2D}} \newline
+      \textbf{type: \hyperref[sect:types.Dimension2D]{caom2:types.Dimension2D}} \newline
       \textbf{multiplicity: 0..1} \newline
       number of separate measurements (pixels) along each axis
 
@@ -1321,6 +1215,22 @@
       \textbf{multiplicity: 1} \newline
       [TODO add description!]
 
+  \subsection{Dimension2D}
+  \label{sect:types.Dimension2D}
+    dimension (number of pixels) for a two-dimensional axis
+
+    \subsubsection{Dimension2D.naxis1}
+      \textbf{vodml-id: Dimension2D.naxis1} \newline
+      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
+      \textbf{multiplicity: 1} \newline
+      [TODO add description!]
+
+    \subsubsection{Dimension2D.naxis2}
+      \textbf{vodml-id: Dimension2D.naxis2} \newline
+      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
+      \textbf{multiplicity: 1} \newline
+      [TODO add description!]
+
   \subsection{Interval}
   \label{sect:types.Interval}
     a set of numeric values defined by a lower and upper bound (bounds included: [a,b])
@@ -1376,502 +1286,3 @@
   \subsection{Shape (Abstract)}
   \label{sect:types.Shape}
     [TODO add description!]
-
-\pagebreak
-\section{Package: wcs }
-
-  % INSERT FIGURE HERE
-  %\begin{figure}[h]
-  %\begin{center}
-  %  \includegraphics[width=\textwidth]{????.png}
-  %  \caption{???}\label{fig:????}
-  %\end{center}
-  %\end{figure}
-
-  World Coordinate System (WCS) data types
-
-  \subsection{Axis}
-  \label{sect:Axis}
-    one-dimensional coordinate axis description
-
-    \subsubsection{Axis.ctype}
-      \textbf{vodml-id: Axis.ctype} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-    \subsubsection{Axis.ctype}
-      \textbf{vodml-id: Axis.cunit} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      [TODO add description!]
-
-  \subsection{Coord2D}
-  \label{sect:Coord2D}
-    a two-dimensional (pair) of reference coordinates
-
-    \subsubsection{Coord2D.coord1}
-      \textbf{vodml-id: Coord2D.coord1} \newline
-      \textbf{type: \hyperref[sect:RefCoord]{caom2:RefCoord}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-    \subsubsection{Coord2D.coord2}
-      \textbf{vodml-id: Coord2D.coord2} \newline
-      \textbf{type: \hyperref[sect:RefCoord]{caom2:RefCoord}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-  \subsection{CoordAxis1D}
-  \label{sect:CoordAxis1D}
-    a one-dimensional coordinate axis: quantity, values, errors; it is usually only necessary to specify one of the range, bounds, or function as they describe the world and pixel coordinate coverage at different levels of detail and the less detailed description is redundant (exception: when the range or bounds and function are both specified, the range/bounds is a subset of the pixels described by the function and denotes the valid pixels
-
-    \subsubsection{CoordAxis1D.axis}
-      \textbf{vodml-id: CoordAxis1D.axis} \newline
-      \textbf{type: \hyperref[sect:Axis]{caom2:Axis}} \newline
-      \textbf{multiplicity: 1} \newline
-      description of the quantity
-
-    \subsubsection{CoordAxis1D.error}
-      \textbf{vodml-id: CoordAxis1D.error} \newline
-      \textbf{type: \hyperref[sect:CoordError]{caom2:CoordError}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      errors
-
-    \subsubsection{CoordAxis1D.range}
-      \textbf{vodml-id: CoordAxis1D.range} \newline
-      \textbf{type: \hyperref[sect:CoordRange1D]{caom2:CoordRange1D}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      pixel and world coordinate values covered by this axis (min,max)
-
-    \subsubsection{CoordAxis1D.bounds}
-      \textbf{vodml-id: CoordAxis1D.bounds} \newline
-      \textbf{type: \hyperref[sect:CoordBounds1D]{caom2:CoordBounds1D}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      pixel and world coordinate values covered by this axis (min,max of tiles)
-
-    \subsubsection{CoordAxis1D.function}
-      \textbf{vodml-id: CoordAxis1D.function} \newline
-      \textbf{type: \hyperref[sect:CoordFunction1D]{caom2:CoordFunction1D}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      pixel and world coordinate values covered by this axis (coordinates of every pixel)
-
-  \subsection{CoordAxis2D}
-  \label{sect:CoordAxis2D}
-    a two-dimensional coordinate axis pair: quantity, values, errors; it is usually only necessary to specify one of the range, bounds, or function as they describe the world and pixel coordinate coverage at different levels of detail and the less detailed description is redundant (exception: when the range or bounds and function are both specified, the range/bounds is a subset of the pixels described by the function and denotes the valid pixels
-
-    \subsubsection{CoordAxis2D.axis1}
-      \textbf{vodml-id: CoordAxis2D.axis1} \newline
-      \textbf{type: \hyperref[sect:Axis]{caom2:Axis}} \newline
-      \textbf{multiplicity: 1} \newline
-      first axis of the spatial coordinate system; usually longitude
-
-    \subsubsection{CoordAxis2D.axis2}
-      \textbf{vodml-id: CoordAxis2D.axis2} \newline
-      \textbf{type: \hyperref[sect:Axis]{caom2:Axis}} \newline
-      \textbf{multiplicity: 1} \newline
-      second axis of the spatial coordinate system; usually latitude
-
-    \subsubsection{CoordAxis2D.error1}
-      \textbf{vodml-id: CoordAxis2D.error1} \newline
-      \textbf{type: \hyperref[sect:CoordError]{caom2:CoordError}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      position errors on the first axis
-
-    \subsubsection{CoordAxis2D.error2}
-      \textbf{vodml-id: CoordAxis2D.error2} \newline
-      \textbf{type: \hyperref[sect:CoordError]{caom2:CoordError}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      position errors on the second axis
-
-    \subsubsection{CoordAxis2D.range}
-      \textbf{vodml-id: CoordAxis2D.range} \newline
-      \textbf{type: \hyperref[sect:CoordRange2D]{caom2:CoordRange2D}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      pixel and world coordinate values covered by this axis (min,max)
-
-    \subsubsection{CoordAxis2D.bounds}
-      \textbf{vodml-id: CoordAxis2D.bounds} \newline
-      \textbf{type: \hyperref[sect:CoordBounds2D]{caom2:CoordBounds2D}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      pixel and world coordinate values covered by this axis (boundary)
-
-    \subsubsection{CoordAxis2D.function}
-      \textbf{vodml-id: CoordAxis2D.function} \newline
-      \textbf{type: \hyperref[sect:CoordFunction2D]{caom2:CoordFunction2D}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      pixel and world coordinate values covered by this axis (coordinates of every pixel
-
-  \subsection{CoordBounds1D}
-  \label{sect:CoordBounds1D}
-    a one-dimensional sequence of reference coordinate ranges
-
-    \subsubsection{CoordBounds1D.vertices}
-      \textbf{vodml-id: CoordBounds1D.samples} \newline
-      \textbf{type: \hyperref[sect:CoordRange1D]{caom2:CoordRange1D}} \newline
-      \textbf{multiplicity: 1..*} \newline
-      [TODO add description!]
-
-  \subsection{CoordBounds2D}
-  \label{sect:CoordBounds2D}
-    a two-dimensional region in pixel and world coordinates; this can be used to specify a simple polygon boundary in pixel and world coordinates
-
-    \subsubsection{CoordBounds2D.vertices}
-      \textbf{vodml-id: CoordBounds2D.vertices} \newline
-      \textbf{type: \hyperref[sect:Coord2D]{caom2:Coord2D}} \newline
-      \textbf{multiplicity: 1..*} \newline
-      the vertices of the polygon with implicit segment from the last vertex back to the first
-
-  \subsection{CoordError}
-  \label{sect:CoordError}
-    coordinate error from FITS WCS
-
-    \subsubsection{CoordError.crder}
-      \textbf{vodml-id: CoordError.rnder} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      [TODO add description!]
-
-    \subsubsection{CoordError.csyer}
-      \textbf{vodml-id: CoordError.syser} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      [TODO add description!]
-
-  \subsection{CoordFunction1D}
-  \label{sect:CoordFunction1D}
-    a one-dimensional (linear) WCS coordinate transformation function
-
-    \subsubsection{CoordFunction1D.dimension}
-      \textbf{vodml-id: CoordFunction1D.dimension} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 1} \newline
-      number of pixels along the axis
-
-    \subsubsection{CoordFunction1D.refCoord}
-      \textbf{vodml-id: CoordFunction1D.refCoord} \newline
-      \textbf{type: \hyperref[sect:RefCoord]{caom2:RefCoord}} \newline
-      \textbf{multiplicity: 1} \newline
-      the reference pixel and world coordinate values
-
-    \subsubsection{CoordFunction1D.delta}
-      \textbf{vodml-id: CoordFunction1D.delta} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 1} \newline
-      delta in world coordinate value (size of one pixel)
-
-  \subsection{CoordFunction2D}
-  \label{sect:CoordFunction2D}
-    a two-dimensional (linear) WCS coordinate transformation function; this can be used to compute the world coordinates of every pixel
-
-    \subsubsection{CoordFunction2D.dimension}
-      \textbf{vodml-id: CoordFunction2D.dimension} \newline
-      \textbf{type: \hyperref[sect:Dimension2D]{caom2:Dimension2D}} \newline
-      \textbf{multiplicity: 1} \newline
-      number of pixels along each axis of the two-dimensional space (FITS: NAXISi)
-
-    \subsubsection{CoordFunction2D.refCoord}
-      \textbf{vodml-id: CoordFunction2D.refCoord} \newline
-      \textbf{type: \hyperref[sect:Coord2D]{caom2:Coord2D}} \newline
-      \textbf{multiplicity: 1} \newline
-      two-dimensional reference pixel and world coordinate values (FITS: CRPIXi, CRVALi)
-
-    \subsubsection{CoordFunction2D.cd11}
-      \textbf{vodml-id: CoordFunction2D.cd11} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 1} \newline
-      two-dimensional scale and rotation (CD) matrix (FITS: CD1\_1)
-
-    \subsubsection{CoordFunction2D.cd12}
-      \textbf{vodml-id: CoordFunction2D.cd12} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 1} \newline
-      two-dimensional scale and rotation (CD) matrix (FITS: CD1\_2)
-
-    \subsubsection{CoordFunction2D.cd21}
-      \textbf{vodml-id: CoordFunction2D.cd21} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 1} \newline
-      two-dimensional scale and rotation (CD) matrix (FITS: CD2\_1)
-
-    \subsubsection{CoordFunction2D.cd22}
-      \textbf{vodml-id: CoordFunction2D.cd22} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 1} \newline
-      two-dimensional scale and rotation (CD) matrix (FITS: CD2\_2)
-
-  \subsection{CoordRange1D}
-  \label{sect:CoordRange1D}
-    a one-dimensional range of reference coordinates
-
-    \subsubsection{CoordRange1D.start}
-      \textbf{vodml-id: CoordRange1D.start} \newline
-      \textbf{type: \hyperref[sect:RefCoord]{caom2:RefCoord}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-    \subsubsection{CoordRange1D.end}
-      \textbf{vodml-id: CoordRange1D.end} \newline
-      \textbf{type: \hyperref[sect:RefCoord]{caom2:RefCoord}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-  \subsection{CoordRange2D}
-  \label{sect:CoordRange2D}
-    a two-dimensional range of reference coordinates; this can be used to specify an axis-aligned bounding box in pixel and world coordinates
-
-    \subsubsection{CoordRange2D.start}
-      \textbf{vodml-id: CoordRange2D.start} \newline
-      \textbf{type: \hyperref[sect:Coord2D]{caom2:Coord2D}} \newline
-      \textbf{multiplicity: 1} \newline
-      the two-dimensional reference coordinates with minimum longitude and latitude
-
-    \subsubsection{CoordRange2D.end}
-      \textbf{vodml-id: CoordRange2D.end} \newline
-      \textbf{type: \hyperref[sect:Coord2D]{caom2:Coord2D}} \newline
-      \textbf{multiplicity: 1} \newline
-      the two-dimensional reference coordinates with maximum longitude and latitude
-
-  \subsection{CustomWCS}
-  \label{sect:CustomWCS}
-    one-dimensional pixel and world coordinates describing a non-standard (custom) coordinate axis
-
-    \subsubsection{CustomWCS.axis}
-      \textbf{vodml-id: CustomWCS.axis} \newline
-      \textbf{type: \hyperref[sect:CoordAxis1D]{caom2:CoordAxis1D}} \newline
-      \textbf{multiplicity: 1} \newline
-      description of the custom axis
-
-  \subsection{Dimension2D}
-  \label{sect:Dimension2D}
-    dimension (number of pixels) for a two-dimensional axis
-
-    \subsubsection{Dimension2D.naxis1}
-      \textbf{vodml-id: Dimension2D.naxis1} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-    \subsubsection{Dimension2D.naxis2}
-      \textbf{vodml-id: Dimension2D.naxis2} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-  \subsection{EnergyTransition}
-  \label{sect:EnergyTransition}
-    [TODO add description!]
-
-    \subsubsection{EnergyTransition.species}
-      \textbf{vodml-id: EnergyTransition.species} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
-      \textbf{multiplicity: 1} \newline
-      TODO
-
-    \subsubsection{EnergyTransition.transition}
-      \textbf{vodml-id: EnergyTransition.transition} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
-      \textbf{multiplicity: 1} \newline
-      TODO
-
-  \subsection{ObservableAxis}
-  \label{sect:ObservableAxis}
-    an axis in the data (array) that varies by observable rather than coordinate; this axis is used when the data array containts values with different meaning in different subsets of the array (e.g. a row of pixels with wavelength values and a second row with flux values)
-
-    \subsubsection{ObservableAxis.dependent}
-      \textbf{vodml-id: ObservableAxis.dependent} \newline
-      \textbf{type: \hyperref[sect:Slice]{caom2:Slice}} \newline
-      \textbf{multiplicity: 1} \newline
-      the part of the array containing the observable values
-
-    \subsubsection{ObservableAxis.independent}
-      \textbf{vodml-id: ObservableAxis.independent} \newline
-      \textbf{type: \hyperref[sect:Slice]{caom2:Slice}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      the part of the array containing coordinate values
-
-  \subsection{PolarizationWCS}
-  \label{sect:PolarizationWCS}
-    one-dimensional pixel and world coordinates describing the polarization states
-
-    \subsubsection{PolarizationWCS.axis}
-      \textbf{vodml-id: PolarizationWCS.axis} \newline
-      \textbf{type: \hyperref[sect:CoordAxis1D]{caom2:CoordAxis1D}} \newline
-      \textbf{multiplicity: 1} \newline
-      description of the polarization axis
-
-  \subsection{RefCoord}
-  \label{sect:RefCoord}
-    a reference coordinate with a pixel and cooresponding world coordinate value
-
-    \subsubsection{RefCoord.pix}
-      \textbf{vodml-id: RefCoord.pix} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-    \subsubsection{RefCoord.val}
-      \textbf{vodml-id: RefCoord.val} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-  \subsection{Slice}
-  \label{sect:Slice}
-    a one-dimensional subset of a two-dimensional array
-
-    \subsubsection{Slice.axis}
-      \textbf{vodml-id: Slice.axis} \newline
-      \textbf{type: \hyperref[sect:Axis]{caom2:Axis}} \newline
-      \textbf{multiplicity: 1} \newline
-      description of the values within a the slice
-
-    \subsubsection{Slice.bin}
-      \textbf{vodml-id: Slice.bin} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 1} \newline
-      a constant-pixel value in the two-dimensional array that specifies the pixels in the slice
-
-  \subsection{SpatialWCS}
-  \label{sect:SpatialWCS}
-    World Coordinate System (WCS) metadata for the position axes
-
-    \subsubsection{SpatialWCS.axis}
-      \textbf{vodml-id: SpatialWCS.axis} \newline
-      \textbf{type: \hyperref[sect:CoordAxis2D]{caom2:CoordAxis2D}} \newline
-      \textbf{multiplicity: 1} \newline
-      description of the two-dimensional position axes
-
-    \subsubsection{SpatialWCS.coordsys}
-      \textbf{vodml-id: SpatialWCS.coordsys} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      name of the coordinate system
-
-    \subsubsection{SpatialWCS.equinox}
-      \textbf{vodml-id: SpatialWCS.equinox} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      equinox of the coordinate system
-
-    \subsubsection{SpatialWCS.resolution}
-      \textbf{vodml-id: SpatialWCS.resolution} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      effective resolution of the data (FWHM of a point source); this is usually the value measured at the time of data acquisition
-
-  \subsection{SpectralWCS}
-  \label{sect:SpectralWCS}
-    [TODO add description!]
-
-    \subsubsection{SpectralWCS.axis}
-      \textbf{vodml-id: SpectralWCS.axis} \newline
-      \textbf{type: \hyperref[sect:CoordAxis1D]{caom2:CoordAxis1D}} \newline
-      \textbf{multiplicity: 1} \newline
-      description of the one-dimensional energy axis
-
-    \subsubsection{SpectralWCS.specsys}
-      \textbf{vodml-id: SpectralWCS.specsys} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
-      \textbf{multiplicity: 1} \newline
-      reference frame for the spectral coordinate
-
-    \subsubsection{SpectralWCS.ssysobs}
-      \textbf{vodml-id: SpectralWCS.ssysobs} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      reference frame that is constant over the range of the non-spectral world coordinates
-
-    \subsubsection{SpectralWCS.ssyssrc}
-      \textbf{vodml-id: SpectralWCS.ssyssrc} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      reference frame for the velocity of the source (zsource)
-
-    \subsubsection{SpectralWCS.restfrq}
-      \textbf{vodml-id: SpectralWCS.restfrq} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      rest frequency of the spectral feature of interest
-
-    \subsubsection{SpectralWCS.restwav}
-      \textbf{vodml-id: SpectralWCS.restwav} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      rest wavelength of the spectral feature of interest
-
-    \subsubsection{SpectralWCS.velosys}
-      \textbf{vodml-id: SpectralWCS.velosys} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      correction for the observatory's motion with respect to the barycenter
-
-    \subsubsection{SpectralWCS.zsource}
-      \textbf{vodml-id: SpectralWCS.zsource} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      redshift of the source (relative to ssyssrc)
-
-    \subsubsection{SpectralWCS.velang}
-      \textbf{vodml-id: SpectralWCS.velang} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      angle of true velocity from tangent to line of sight
-
-    \subsubsection{SpectralWCS.bandpassName}
-      \textbf{vodml-id: SpectralWCS.bandpassName} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      telescope- or instrument-specific name for the energy band covered by the data; this is usually a filter name
-
-    \subsubsection{SpectralWCS.transition}
-      \textbf{vodml-id: SpectralWCS.transition} \newline
-      \textbf{type: \hyperref[sect:EnergyTransition]{caom2:EnergyTransition}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      description of the energy transition observed
-
-    \subsubsection{SpectralWCS.resolvingPower}
-      \textbf{vodml-id: SpectralWCS.resolvingPower} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      ratio of wavelength to resolution (lambda/delta-lambda)
-
-  \subsection{TemporalWCS}
-  \label{sect:TemporalWCS}
-    one-dimensional pixel and world coordinates describing the time axis
-
-    \subsubsection{TemporalWCS.axis}
-      \textbf{vodml-id: TemporalWCS.axis} \newline
-      \textbf{type: \hyperref[sect:CoordAxis1D]{caom2:CoordAxis1D}} \newline
-      \textbf{multiplicity: 1} \newline
-      description of the time axis
-
-    \subsubsection{TemporalWCS.timesys}
-      \textbf{vodml-id: TemporalWCS.timesys} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      time scale for the time coordinates
-
-    \subsubsection{TemporalWCS.trefpos}
-      \textbf{vodml-id: TemporalWCS.trefpos} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      reference position for the time coordinates
-
-    \subsubsection{TemporalWCS.mjdref}
-      \textbf{vodml-id: TemporalWCS.mjdref} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      base time offset; time coordinate values are relative to this
-
-    \subsubsection{TemporalWCS.exposure}
-      \textbf{vodml-id: TemporalWCS.exposure} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      duration in time that the instrument was collecting data
-
-    \subsubsection{TemporalWCS.resolution}
-      \textbf{vodml-id: TemporalWCS.resolution} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 0..1} \newline
-      smallest separation in time that can be distinguished
