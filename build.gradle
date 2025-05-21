@@ -9,11 +9,12 @@ repositories {
     mavenLocal()
 }
 
-sourceCompatibility = 1.8
+apply from: 'opencadc.gradle'
+
+sourceCompatibility = 11
 
 group = 'org.opencadc'
-
-version = '2.4'
+version = '2.5'
 
 jar {
     enabled = true
@@ -49,10 +50,10 @@ xslt {
 }
 
 dependencies {
-    testCompile 'org.opencadc:cadc-vodml:[1.0.9,1.1)'
-
-    testCompile 'junit:junit:4.13' 
+    testImplementation 'org.opencadc:cadc-util:[1.12.0,2.0)'
+    testImplementation 'org.opencadc:cadc-vodml:[1.0.9,1.1)'
+    testImplementation 'junit:junit:4.13' 
 }
 
-apply from: 'opencadc.gradle'
+
 
