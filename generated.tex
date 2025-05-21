@@ -50,7 +50,7 @@
       \textbf{vodml-id: Artifact.uriBucket} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 1} \newline
-      short string of hexadecimal digits generated from the uri; the value is the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded URI value
+      short string of hexadecimal digits generated from the uri; the value is the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded URI value (NEW in 2.5)
 
     \subsubsection{Artifact.productType}
       \textbf{vodml-id: Artifact.productType} \newline
@@ -80,7 +80,7 @@
       \textbf{vodml-id: Artifact.contentChecksum} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
-      the checksum of the artifact data; the URI must conform to the pattern {algorithm}:{value}, for example: md5:4be91751541fd804e7207663a0822f56 (NEW in CAOM-2.3)
+      the checksum of the artifact data; the URI must conform to the pattern {algorithm}:{hex value}, for example: md5:4be91751541fd804e7207663a0822f56
 
     \subsubsection{Artifact.contentRelease}
       \textbf{vodml-id: Artifact.contentRelease} \newline
@@ -122,6 +122,10 @@
       \textbf{multiplicity: 1} \newline
       description of an artifact
 
+  \subsection{CalibrationStatus}
+  \label{sect:CalibrationStatus}
+    term from the IVOA calibration-status vocabulary; this vocabulary does not yet exist but can be created using optional terms in the ObsCore standard (NEW in CAOM-2.5)
+
   \subsection{CaomEntity (Abstract)}
   \label{sect:CaomEntity}
     base CAOM entity class to support accumulated metadata checksums and accumulated lastModified timestamps to support synchronisation
@@ -136,7 +140,7 @@
       \textbf{vodml-id: CaomEntity.accMetaChecksum} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
-      accumulated checksum of the metadata of this entity and all child entities; (NEW in CAOM-2.3) The URI must conform to the pattern {algorithm}:{value}, for example: md5:4be91751541fd804e7207663a0822f56. The accumulated checksum of an entity is computed by accumulating the byte representation of entity checksums in the following order: (1) the metaChecksum of the current entity, (2) the accMetaChecksum of all child entities accumulated in order of the child's Entity.id. For an entity with no children, the accMetaChecksum is derived only from the metaChecksum but it is not equal to it because it is a checksum of that checksum and not a checksum of the same metadata directly.
+      accumulated checksum of the metadata of this entity and all child entities; The URI must conform to the pattern {algorithm}:{value}, for example: md5:4be91751541fd804e7207663a0822f56. The accumulated checksum of an entity is computed by accumulating the byte representation of entity checksums in the following order: (1) the metaChecksum of the current entity, (2) the accMetaChecksum of all child entities accumulated in order of the child's Entity.id. For an entity with no children, the accMetaChecksum is derived only from the metaChecksum but it is not equal to it because it is a checksum of that checksum and not a checksum of the same metadata directly.
 
   \subsection{Chunk}
   \label{sect:Chunk}
@@ -262,15 +266,11 @@
 
   \subsection{DataLinkSemantics}
   \label{sect:DataLinkSemantics}
-    term from the DataLink Core vocabulary (CHANGED from ProductType enumeration in CAOM-2.5)
-
-  \subsection{DataProductType}
-  \label{sect:CalibrationStatus}
-    term from the IVOA calibration-status vocabulary; this vocabulary does not yet exist but can be created using optional terms in the ObsCore standard (NEW in CAOM-2.5)
+    term from the DataLink Core vocabulary (CHANGED in 2.5)
 
   \subsection{DataProductType}
   \label{sect:DataProductType}
-    term from the IVOA product-type vocabulary (CHANGED from CAOM DataProductType vocabulary based on ObsCore in CAOM-2.5)
+    term from the IVOA product-type vocabulary (CHANGED in CAOM-2.5)
 
   \subsection{DataQuality}
   \label{sect:DataQuality}
@@ -304,13 +304,13 @@
 
   \subsection{DerivedObservation}
   \label{sect:DerivedObservation}
-    an observation derived from one or more observations (name and intent changed in CAOM-2.4)
+    an observation derived from one or more observations
 
     \subsubsection{DerivedObservation.members}
       \textbf{vodml-id: DerivedObservation.members} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..*} \newline
-      members are the observations grouped together by the algorithm that defines the derivation; these are the intended components of the composite product -- actual inputs are described by the provenance; members may be simple or derived observations (arbitrary heirarchy); a derived observation made by combining multiple observations is equivalent to a composite observation (CAOM-2.3 and older); derived observations with one or more members may be defined such that they only include a subset of each member (they are extracted from the progenitor)
+      members are the observations grouped together by the algorithm that defines the derivation; these are the intended components of the composite product -- actual inputs are described by the provenance; members may be simple or derived observations (arbitrary heirarchy); derived observations with one or more members may be defined such that they only include a subset of each member (they are extracted from the progenitor)
 
   \subsection{Energy}
   \label{sect:Energy}
@@ -320,19 +320,19 @@
       \textbf{vodml-id: Energy.bounds} \newline
       \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
       \textbf{multiplicity: 1} \newline
-      simple outer bounds of energy coverage of the data (cardinality changed in CAOM-2.5)
+      simple outer bounds of energy coverage of the data (CHANGED cardinality in CAOM-2.5)
 
     \subsubsection{Energy.samples}
       \textbf{vodml-id: Energy.samples} \newline
       \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
       \textbf{multiplicity: 1..*} \newline
-      detailed energy coverage of the data (refactored in CAOM-2.5)
+      detailed energy coverage of the data (CHANGED in CAOM-2.5)
 
     \subsubsection{Energy.energyBands}
       \textbf{vodml-id: Energy.energyBands} \newline
       \textbf{type: \hyperref[sect:EnergyBand]{caom2:EnergyBand}} \newline
       \textbf{multiplicity: 0..*} \newline
-      standard name of the energy regime(s) included in the data (attribute name and cardinality changed in CAOM-2.4)
+      standard name of the energy regime(s) included in the data
 
     \subsubsection{Energy.dimension}
       \textbf{vodml-id: Energy.dimension} \newline
@@ -414,13 +414,13 @@
       \textbf{vodml-id: Entity.metaChecksum} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
-      checksum of this entity; (NEW in CAOM-2.3) The URI must conform to the pattern {algorithm}:{value}, for example: md5:4be91751541fd804e7207663a0822f56. The checksum of an entity is computed by accumulating byte representation of individual metadata values in the following order: (1) CaomEntity.id for entities, (2) CaomEntity.metaProducer, (3) state fields in alphabetic order (foo.a comes before foo.b) and using depth-first recursion (foo.abc.x comes before foo.def). Null values are ignored so that the addition of new fields in future versions will not change/invalidate existing checksums until values are assigned. Non-null values are converted to bytes as follows. TODO: add digestFieldNames to algorithm string: UTF-8 encoded bytes URI: UTF-8 encoded bytes of string representation float: IEEE754 single (4 bytes) double: IEEE754 double (8 bytes) boolean: convert to single byte, false=0, true=1 (1 bytes) byte: as-is (1 byte) short: (2 bytes, network byte order == big endian)) integer: (4 bytes, network byte order == big endian) long: (8 bytes, network byte order == big endian) date: truncate time to whole number of seconds and treat as a long (seconds since 1970-01-01 00:00:00 UTC)
+      checksum of the metadata in this entity; The URI must conform to the pattern {algorithm}:{hex value}, for example: md5:4be91751541fd804e7207663a0822f56. The checksum of an entity is computed by accumulating byte representation of individual metadata values in the following order: (1) Entity.id for entities, (2) Entity.metaProducer, (3) state fields in alphabetic order (foo.a comes before foo.b) and using depth-first recursion (foo.abc.x comes before foo.def). Null values are ignored so that the addition of new fields in future versions will not change/invalidate existing checksums until values are assigned. Non-null values are converted to bytes as follows. TODO: add digestFieldNames to algorithm string: UTF-8 encoded bytes URI: UTF-8 encoded bytes of string representation float: IEEE754 single (4 bytes) double: IEEE754 double (8 bytes) boolean: convert to single byte, false=0, true=1 (1 bytes) byte: as-is (1 byte) short: (2 bytes, network byte order == big endian)) integer: (4 bytes, network byte order == big endian) long: (8 bytes, network byte order == big endian) date: truncate time to whole number of seconds and treat as a long (seconds since 1970-01-01 00:00:00 UTC)
 
     \subsubsection{Entity.metaProducer}
       \textbf{vodml-id: Entity.metaProducer} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
-      identifier for the producer of this entity and child entities with null metaProducer; (NEW in CAOM-2.4) The URI should conform to the pattern {organisation}:{software name-version} (for example: cadc:cfht2caom2-1.1) and identifies the tools used to produce the metadata. This information is intended for use by operators to help diagnose metadata issues.
+      identifier for the producer of this entity and child entities with null metaProducer; The URI should conform to the pattern {organisation}:{software name-version} (for example: cadc:cfht2caom2-1.1) and identifies the tools used to produce the metadata. This information is intended for use by operators to help diagnose metadata issues.
 
   \subsection{Environment}
   \label{sect:Environment}
@@ -522,7 +522,7 @@
       \textbf{vodml-id: Metrics.sampleSNR} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
       \textbf{multiplicity: 0..1} \newline
-      signal:noise ratio for a representative subset of samples (new in CAOM-2.4)
+      signal:noise ratio for a representative subset of samples
 
   \subsection{Observable}
   \label{sect:Observable}
@@ -560,7 +560,7 @@
       \textbf{vodml-id: Observation.uriBucket} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 1} \newline
-      short string of hexadecimal digits generated from the uri; the value is the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded URI value
+      short string of hexadecimal digits generated from the uri; the value is the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded URI value (NEW in CAOM-2.5)
 
     \subsubsection{Observation.metaRelease}
       \textbf{vodml-id: Observation.metaRelease} \newline
@@ -676,7 +676,7 @@
       \textbf{vodml-id: Plane.uri} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
-      unique logical identifier for this product; typically made by adding additional path component(s) to the Observation.uri (NEW in CAOM-2.5)
+      unique logical identifier for this product (NEW in CAOM-2.5)
 
     \subsubsection{Plane.metaRelease}
       \textbf{vodml-id: Plane.metaRelease} \newline
@@ -688,7 +688,7 @@
       \textbf{vodml-id: Plane.metaReadGroups} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..*} \newline
-      list of groups (of users) that are allowed to view the metadata of the plane; this is applicable when metaRelease is null or in the future (new in CAOM-2.4)
+      list of groups (of users) that are allowed to view the metadata of the plane; this is applicable when metaRelease is null or in the future
 
     \subsubsection{Plane.dataRelease}
       \textbf{vodml-id: Plane.dataRelease} \newline
@@ -700,7 +700,7 @@
       \textbf{vodml-id: Plane.dataReadGroups} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..*} \newline
-      list of groups (of users) that are allowed to access the data of the plane; this is applicable when dataRelease is null or in the future (new in CAOM-2.4)
+      list of groups (of users) that are allowed to access the data of the plane; this is applicable when dataRelease is null or in the future
 
     \subsubsection{Plane.calibrationLevel}
       \textbf{vodml-id: Plane.calibrationLevel} \newline
@@ -718,7 +718,7 @@
       \textbf{vodml-id: Plane.observable} \newline
       \textbf{type: \hyperref[sect:Observable]{caom2:Observable}} \newline
       \textbf{multiplicity: 0..1} \newline
-      description of the sample (pixel) values; (new in CAOM-2.4) In previous versions the observable was assumed to be flux or intensity of EM radiation.
+      description of the sample (pixel) values
 
     \subsubsection{Plane.quality}
       \textbf{vodml-id: Plane.quality} \newline
@@ -742,7 +742,7 @@
       \textbf{vodml-id: Plane.energy} \newline
       \textbf{type: \hyperref[sect:Energy]{caom2:Energy}} \newline
       \textbf{multiplicity: 0..1} \newline
-      descritpion of the energy(ies) included in the data
+      description of the energy(ies) included in the data
 
     \subsubsection{Plane.time}
       \textbf{vodml-id: Plane.time} \newline
@@ -760,7 +760,7 @@
       \textbf{vodml-id: Plane.custom} \newline
       \textbf{type: \hyperref[sect:CustomAxis]{caom2:CustomAxis}} \newline
       \textbf{multiplicity: 0..1} \newline
-      description of a custom coordinate axis in the data (new in CAOM-2.4); Since different custom coordinate types can be used with different planes, instances of CustomAxis can only be compared sensibly if they have the same coordinate type.
+      description of a custom coordinate axis in the data; Since different custom coordinate types can be used with different planes, instances of CustomAxis can only be compared sensibly if they have the same coordinate type.
 
     \subsubsection{Plane.uv}
       \textbf{vodml-id: Plane.uv} \newline
@@ -788,7 +788,7 @@
       \textbf{vodml-id: Polarization.states} \newline
       \textbf{type: \hyperref[sect:PolarizationState]{caom2:PolarizationState}} \newline
       \textbf{multiplicity: 1..*} \newline
-      standard polarization states included (cardinality changed in CAOM-2.5)
+      standard polarization states included (CHANGED cardinality in CAOM-2.5)
 
     \subsubsection{Polarization.dimension}
       \textbf{vodml-id: Polarization.dimension} \newline
@@ -798,7 +798,7 @@
 
   \subsection{PolarizationState}
   \label{sect:PolarizationState}
-    this class defines constants for the PolarizationState vocabulary (CHANGED from enumeration in CAOM-2.5)
+    constants for the PolarizationState vocabulary (CHANGED from enumeration in CAOM-2.5)
 
   \subsection{Position}
   \label{sect:Position}
@@ -808,13 +808,13 @@
       \textbf{vodml-id: Position.bounds} \newline
       \textbf{type: \hyperref[sect:types.Shape]{caom2:types.Shape}} \newline
       \textbf{multiplicity: 1} \newline
-      spatial boundary that includes the data (cardinality changed in CAOM-2.5)
+      spatial boundary that includes the data (CHANGED cardinality in CAOM-2.5)
 
     \subsubsection{Position.samples}
       \textbf{vodml-id: Position.samples} \newline
       \textbf{type: \hyperref[sect:types.MultiShape]{caom2:types.MultiShape}} \newline
       \textbf{multiplicity: 1} \newline
-      detailed sub-samples of the bounds (refactored in CAOM-2.5)
+      detailed sub-samples of the bounds (CHANGED in CAOM-2.5)
 
     \subsubsection{Position.minBounds}
       \textbf{vodml-id: Position.minBounds} \newline
@@ -856,7 +856,7 @@
       \textbf{vodml-id: Position.calibration} \newline
       \textbf{type: \hyperref[sect:CalibrationStatus]{caom2:CalibrationStatus}} \newline
       \textbf{multiplicity: 0..1} \newline
-      term describing the calibration of the position axis values new in CAOM-2.5)
+      term describing the calibration of the position axis values (NEW in CAOM-2.5)
 
   \subsection{Proposal}
   \label{sect:Proposal}
@@ -958,7 +958,7 @@
 
   \subsection{Quality}
   \label{sect:Quality}
-    vocabulary term used in CAOM; this class defines constants for the CAOM Quality vocabulary (CHANGED from enumeration in CAOM-2.4)
+    vocabulary term used to specify something is wrong with an observation
 
   \subsection{Requirements}
   \label{sect:Requirements}
@@ -976,7 +976,7 @@
 
   \subsection{Status}
   \label{sect:Status}
-    vocabulary term used in CAOM; this class defines constants for the CAOM Status vocabulary (CHANGED from enumeration in CAOM-2.4)
+    vocabulary term used to specify an observation did not meet requirements
 
   \subsection{Target}
   \label{sect:Target}
@@ -992,7 +992,7 @@
       \textbf{vodml-id: Target.targetID} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
-      resolvable target identifier (new in CAOM-2.4); the targetID URI should be of the form {scheme}:{id} so it can be resolved (for example: naif:170100)
+      resolvable target identifier; the targetID URI should be of the form {scheme}:{id} so it can be resolved (for example: naif:170100)
 
     \subsubsection{Target.type}
       \textbf{vodml-id: Target.type} \newline
@@ -1048,7 +1048,7 @@
 
   \subsection{TargetType}
   \label{sect:TargetType}
-    vocabulary term used in CAOM; this class defines constants for the CAOM TargetType vocabulary (CHANGED from enumeration in CAOM-2.4)
+    vocabulary term used to specify the general type of a target (e.g. object, field, ...)
 
   \subsection{Telescope}
   \label{sect:Telescope}
@@ -1088,7 +1088,7 @@
       \textbf{vodml-id: Telescope.trackingMode} \newline
       \textbf{type: \hyperref[sect:VocabularyTerm]{caom2:VocabularyTerm}} \newline
       \textbf{multiplicity: 0..1} \newline
-      term from the (currently non-existent) IVOA Tracking vocabulary used to indicate how the telescope moves during data acquisition
+      term from the (currently non-existent) IVOA Tracking vocabulary used to indicate how the telescope moves during data acquisition NEW in CAOM-2.5)
 
   \subsection{Time}
   \label{sect:Time}
@@ -1150,11 +1150,11 @@
 
   \subsection{Tracking}
   \label{sect:Tracking}
-    term from the Tracking vocabulary NEW from enumeration in CAOM-2.5)
+    term from the Tracking vocabulary (NEW in CAOM-2.5)
 
   \subsection{UCD}
   \label{sect:UCD}
-    term from the UCD1+ vocabulary (NEW from enumeration in CAOM-2.5)
+    term from the UCD1+ vocabulary (Changed from string in CAOM-2.5)
 
   \subsection{Visibility}
   \label{sect:Visibility}
@@ -1180,7 +1180,7 @@
 
   \subsection{VocabularyTerm (Abstract)}
   \label{sect:VocabularyTerm}
-    base class of a single term (word) in a vocabulary (NEW in CAOM-2.3)
+    base class of a single term (word) in a vocabulary
 
     \subsubsection{VocabularyTerm.namespace}
       \textbf{vodml-id: VocabularyTerm.namespace} \newline
@@ -1193,12 +1193,6 @@
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 1} \newline
       the word from the vocabulary
-
-    \subsubsection{VocabularyTerm.term}
-      \textbf{vodml-id: VocabularyTerm.base} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:boolean}} \newline
-      \textbf{multiplicity: 1} \newline
-      flag indicating of the vocabulary namespace is a base vocabulary
 
   \subsection{uuid}
   \label{sect:uuid}

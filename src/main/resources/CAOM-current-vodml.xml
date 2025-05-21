@@ -206,8 +206,7 @@
     <dataType abstract="true">
         <vodml-id>VocabularyTerm</vodml-id>
         <name>VocabularyTerm</name>
-        <description>base class of a single term (word) in a vocabulary
-            (NEW in CAOM-2.3)</description>
+        <description>base class of a single term (word) in a vocabulary</description>
         <attribute>
             <vodml-id>VocabularyTerm.namespace</vodml-id>
             <name>namespace</name>
@@ -232,23 +231,11 @@
                 <maxOccurs>1</maxOccurs>
             </multiplicity>
         </attribute>
-        <attribute>
-            <vodml-id>VocabularyTerm.base</vodml-id>
-            <name>term</name>
-            <description>flag indicating of the vocabulary namespace is a base vocabulary</description>
-            <datatype>
-                <vodml-ref>ivoa:boolean</vodml-ref>
-            </datatype>
-            <multiplicity>
-                <minOccurs>1</minOccurs>
-                <maxOccurs>1</maxOccurs>
-            </multiplicity>
-        </attribute>
     </dataType>
 
     <dataType abstract="false">
         <vodml-id>CalibrationStatus</vodml-id>
-        <name>DataProductType</name>
+        <name>CalibrationStatus</name>
         <description>term from the IVOA calibration-status vocabulary; this vocabulary does not yet exist
             but can be created using optional terms in the ObsCore standard (NEW in CAOM-2.5)</description>
         <extends>
@@ -259,8 +246,7 @@
     <dataType abstract="false">
         <vodml-id>DataProductType</vodml-id>
         <name>DataProductType</name>
-        <description>term from the IVOA product-type vocabulary (CHANGED from CAOM DataProductType
-            vocabulary based on ObsCore in CAOM-2.5)</description>
+        <description>term from the IVOA product-type vocabulary (CHANGED in CAOM-2.5)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -269,8 +255,7 @@
     <dataType abstract="false">
         <vodml-id>Quality</vodml-id>
         <name>Quality</name>
-        <description>vocabulary term used in CAOM; this class defines constants for the CAOM
-            Quality vocabulary (CHANGED from enumeration in CAOM-2.4)</description>
+        <description>vocabulary term used to specify something is wrong with an observation</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -279,8 +264,7 @@
     <dataType abstract="false">
         <vodml-id>Status</vodml-id>
         <name>Status</name>
-        <description>vocabulary term used in CAOM; this class defines constants for the CAOM
-            Status vocabulary (CHANGED from enumeration in CAOM-2.4)</description>
+        <description>vocabulary term used to specify an observation did not meet requirements</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -289,8 +273,7 @@
     <dataType abstract="false">
         <vodml-id>TargetType</vodml-id>
         <name>TargetType</name>
-        <description>vocabulary term used in CAOM; this class defines constants for the CAOM
-            TargetType vocabulary (CHANGED from enumeration in CAOM-2.4)</description>
+        <description>vocabulary term used to specify the general type of a target (e.g. object, field, ...)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -299,7 +282,7 @@
     <dataType abstract="false">
         <vodml-id>DataLinkSemantics</vodml-id>
         <name>DataLinkSemantics</name>
-        <description>term from the DataLink Core vocabulary (CHANGED from ProductType enumeration in CAOM-2.5)</description>
+        <description>term from the DataLink Core vocabulary (CHANGED in 2.5)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -308,8 +291,7 @@
     <dataType abstract="false">
         <vodml-id>PolarizationState</vodml-id>
         <name>PolarizationState</name>
-        <description>this class defines constants for the PolarizationState vocabulary
-            (CHANGED from enumeration in CAOM-2.5)</description>
+        <description>constants for the PolarizationState vocabulary (CHANGED from enumeration in CAOM-2.5)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -318,7 +300,7 @@
     <dataType abstract="false">
         <vodml-id>Tracking</vodml-id>
         <name>Tracking</name>
-        <description>term from the Tracking vocabulary NEW from enumeration in CAOM-2.5)</description>
+        <description>term from the Tracking vocabulary (NEW in CAOM-2.5)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -327,7 +309,7 @@
     <dataType abstract="false">
         <vodml-id>UCD</vodml-id>
         <name>UCD</name>
-        <description>term from the UCD1+ vocabulary (NEW from enumeration in CAOM-2.5)</description>
+        <description>term from the UCD1+ vocabulary (Changed from string in CAOM-2.5)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -367,14 +349,14 @@
         <attribute>
             <vodml-id>Entity.metaChecksum</vodml-id>
             <name>metaChecksum</name>
-            <description>checksum of this entity; (NEW in CAOM-2.3)
+            <description>checksum of the metadata in this entity;
 
-                The URI must conform to the pattern {algorithm}:{value}, for example: md5:4be91751541fd804e7207663a0822f56.
+                The URI must conform to the pattern {algorithm}:{hex value}, for example: md5:4be91751541fd804e7207663a0822f56.
                 The checksum of an entity is computed by accumulating byte representation of individual metadata values in
-                the following order: (1) CaomEntity.id for entities, (2) CaomEntity.metaProducer, (3) state fields in alphabetic order 
-                (foo.a comes before foo.b) and using depth-first recursion (foo.abc.x comes before foo.def). Null values are ignored so that the 
-                addition of new fields in future versions will not change/invalidate existing checksums until values are assigned.
-                Non-null values are converted to bytes as follows. 
+                the following order: (1) Entity.id for entities, (2) Entity.metaProducer, (3) state fields in alphabetic order 
+                (foo.a comes before foo.b) and using depth-first recursion (foo.abc.x comes before foo.def). Null values are ignored 
+                so that the addition of new fields in future versions will not change/invalidate existing checksums until values are 
+                assigned. Non-null values are converted to bytes as follows. 
 
                 TODO: add digestFieldNames to algorithm
 
@@ -401,7 +383,7 @@
         <attribute>
             <vodml-id>Entity.metaProducer</vodml-id>
             <name>metaProducer</name>
-            <description>identifier for the producer of this entity and child entities with null metaProducer; (NEW in CAOM-2.4)
+            <description>identifier for the producer of this entity and child entities with null metaProducer;
 
                 The URI should conform to the pattern {organisation}:{software name-version} (for example: cadc:cfht2caom2-1.1) 
                 and identifies the tools used to produce the metadata. This information is intended for use by operators to help 
@@ -442,7 +424,7 @@
         <attribute>
             <vodml-id>CaomEntity.accMetaChecksum</vodml-id>
             <name>accMetaChecksum</name>
-            <description>accumulated checksum of the metadata of this entity and all child entities; (NEW in CAOM-2.3)
+            <description>accumulated checksum of the metadata of this entity and all child entities;
 
                 The URI must conform to the pattern {algorithm}:{value}, for example: md5:4be91751541fd804e7207663a0822f56.
                 The accumulated checksum of an entity is computed by accumulating the byte representation of entity checksums
@@ -486,6 +468,7 @@
             </multiplicity>
         </attribute>
     </objectType>
+
     <objectType>
         <vodml-id>DeletedObservationEvent</vodml-id>
         <name>DeletedObservationEvent</name>
@@ -510,6 +493,7 @@
             </multiplicity>
         </attribute>
     </objectType>
+
     <objectType abstract="true">
         <vodml-id>Observation</vodml-id>
         <name>Observation</name>
@@ -547,7 +531,7 @@
             <name>uriBucket</name>
             <description>short string of hexadecimal digits generated from the uri; the value is
             the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded
-            URI value</description>
+            URI value (NEW in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -739,7 +723,7 @@
     <objectType>
         <vodml-id>DerivedObservation</vodml-id>
         <name>DerivedObservation</name>
-        <description>an observation derived from one or more observations (name and intent changed in CAOM-2.4)</description>
+        <description>an observation derived from one or more observations</description>
         <extends>
             <vodml-ref>caom2:Observation</vodml-ref>
         </extends>
@@ -748,8 +732,7 @@
             <name>members</name>
             <description>members are the observations grouped together by the algorithm that defines the derivation; 
                 these are the intended components of the composite product -- actual inputs are described by the provenance;
-                members may be simple or derived observations (arbitrary heirarchy); a derived observation made by combining
-                multiple observations is equivalent to a composite observation (CAOM-2.3 and older); derived observations with 
+                members may be simple or derived observations (arbitrary heirarchy); derived observations with 
                 one or more members may be defined such that they only include a subset of each member (they are extracted from
                 the progenitor)
             </description>
@@ -773,8 +756,7 @@
         <attribute>
             <vodml-id>Plane.uri</vodml-id>
             <name>uri</name>
-            <description>unique logical identifier for this product; typically made by adding additional
-                path component(s) to the Observation.uri (NEW in CAOM-2.5)</description>
+            <description>unique logical identifier for this product (NEW in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -800,7 +782,7 @@
             <vodml-id>Plane.metaReadGroups</vodml-id>
             <name>metaReadGroups</name>
             <description>list of groups (of users) that are allowed to view the metadata of the plane; this is 
-                applicable when metaRelease is null or in the future (new in CAOM-2.4)</description>
+                applicable when metaRelease is null or in the future</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -826,7 +808,7 @@
             <vodml-id>Plane.dataReadGroups</vodml-id>
             <name>dataReadGroups</name>
             <description>list of groups (of users) that are allowed to access the data of the plane; this is 
-                applicable when dataRelease is null or in the future (new in CAOM-2.4)</description>
+                applicable when dataRelease is null or in the future</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -864,9 +846,7 @@
         <composition>
             <vodml-id>Plane.observable</vodml-id>
             <name>observable</name>
-            <description>description of the sample (pixel) values; (new in CAOM-2.4)
-            In previous versions the observable was assumed to be flux or intensity of EM radiation.
-            </description>
+            <description>description of the sample (pixel) values</description>
             <datatype>
                 <vodml-ref>caom2:Observable</vodml-ref>
             </datatype>
@@ -914,7 +894,7 @@
         <composition>
             <vodml-id>Plane.energy</vodml-id>
             <name>energy</name>
-            <description>descritpion of the energy(ies) included in the data</description>
+            <description>description of the energy(ies) included in the data</description>
             <datatype>
                 <vodml-ref>caom2:Energy</vodml-ref>
             </datatype>
@@ -950,7 +930,7 @@
         <composition>
             <vodml-id>Plane.custom</vodml-id>
             <name>custom</name>
-            <description>description of a custom coordinate axis in the data (new in CAOM-2.4);
+            <description>description of a custom coordinate axis in the data;
             Since different custom coordinate types can be used with different planes, instances of 
             CustomAxis can only be compared sensibly if they have the same coordinate type.</description>
             <datatype>
@@ -1023,7 +1003,7 @@
             <name>uriBucket</name>
             <description>short string of hexadecimal digits generated from the uri; the value is
             the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded
-            URI value</description>
+            URI value (NEW in 2.5)</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1084,8 +1064,7 @@
             <vodml-id>Artifact.contentChecksum</vodml-id>
             <name>contentChecksum</name>
             <description>the checksum of the artifact data; 
-                the URI must conform to the pattern {algorithm}:{value}, for example: md5:4be91751541fd804e7207663a0822f56
-                (NEW in CAOM-2.3)</description>
+                the URI must conform to the pattern {algorithm}:{hex value}, for example: md5:4be91751541fd804e7207663a0822f56</description>
             <datatype>
                 <!-- should be ChecksumURI -->
                 <vodml-ref>ivoa:anyURI</vodml-ref>
@@ -1153,7 +1132,7 @@
         <name>ArtifactDescription</name>
         <description>shared and referenceable description of an artitfact (NEW in CAOM-2.5)</description>
         <extends>
-            <vodml-ref>caom2:CaomEntity</vodml-ref>
+            <vodml-ref>caom2:Entity</vodml-ref>
         </extends>
         <attribute>
             <vodml-id>ArtifactDescription.uri</vodml-id>
@@ -1528,7 +1507,7 @@
             <vodml-id>Telescope.trackingMode</vodml-id>
             <name>trackingMode</name>
             <description>term from the (currently non-existent) IVOA Tracking vocabulary used to
-                indicate how the telescope moves during data acquisition</description>
+                indicate how the telescope moves during data acquisition NEW in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>caom2:VocabularyTerm</vodml-ref>
             </datatype>
@@ -1764,7 +1743,7 @@
         <attribute>
             <vodml-id>Target.targetID</vodml-id>
             <name>targetID</name>
-            <description>resolvable target identifier (new in CAOM-2.4); 
+            <description>resolvable target identifier; 
                 the targetID URI should be of the form {scheme}:{id} so it can be resolved 
                 (for example: naif:170100) </description>
             <datatype>
@@ -2136,7 +2115,7 @@
         <attribute>
             <vodml-id>Metrics.sampleSNR</vodml-id>
             <name>sampleSNR</name>
-            <description>signal:noise ratio for a representative subset of samples (new in CAOM-2.4)</description>
+            <description>signal:noise ratio for a representative subset of samples</description>
             <datatype>
                 <vodml-ref>ivoa:real</vodml-ref>
             </datatype>
@@ -2154,7 +2133,7 @@
         <attribute>
             <vodml-id>Position.bounds</vodml-id>
             <name>bounds</name>
-            <description>spatial boundary that includes the data (cardinality changed in CAOM-2.5)</description>
+            <description>spatial boundary that includes the data (CHANGED cardinality in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>caom2:types.Shape</vodml-ref>
             </datatype>
@@ -2166,7 +2145,7 @@
         <attribute>
             <vodml-id>Position.samples</vodml-id>
             <name>samples</name>
-            <description>detailed sub-samples of the bounds (refactored in CAOM-2.5)</description>
+            <description>detailed sub-samples of the bounds (CHANGED in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>caom2:types.MultiShape</vodml-ref>
             </datatype>
@@ -2204,8 +2183,7 @@
         <attribute>
             <vodml-id>Position.maxRecoverableScale</vodml-id>
             <name>maxRecoverableScale</name>
-            <description>maximum size of spatial structure (signal) that can be recovered or seen in the data
-                (new in CAOM-2.5)</description>
+            <description>maximum size of spatial structure (signal) that can be recovered or seen in the data (new in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>caom2:types.Interval</vodml-ref>
             </datatype>
@@ -2253,7 +2231,7 @@
         <attribute>
             <vodml-id>Position.calibration</vodml-id>
             <name>calibration</name>
-            <description>term describing the calibration of the position axis values new in CAOM-2.5)</description>
+            <description>term describing the calibration of the position axis values (NEW in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>caom2:CalibrationStatus</vodml-ref>
             </datatype>
@@ -2271,7 +2249,7 @@
         <attribute>
             <vodml-id>Energy.bounds</vodml-id>
             <name>bounds</name>
-            <description>simple outer bounds of energy coverage of the data (cardinality changed in CAOM-2.5)</description>
+            <description>simple outer bounds of energy coverage of the data (CHANGED cardinality in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>caom2:types.Interval</vodml-ref>
             </datatype>
@@ -2283,7 +2261,7 @@
         <attribute>
             <vodml-id>Energy.samples</vodml-id>
             <name>samples</name>
-            <description>detailed energy coverage of the data (refactored in CAOM-2.5)</description>
+            <description>detailed energy coverage of the data (CHANGED in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>caom2:types.Interval</vodml-ref>
             </datatype>
@@ -2295,8 +2273,7 @@
         <attribute>
             <vodml-id>Energy.energyBands</vodml-id>
             <name>energyBands</name>
-            <description>standard name of the energy regime(s) included in the data (attribute name 
-                and cardinality changed in CAOM-2.4)</description>
+            <description>standard name of the energy regime(s) included in the data</description>
             <datatype>
                 <vodml-ref>caom2:EnergyBand</vodml-ref>
             </datatype>
@@ -2549,7 +2526,7 @@
         <attribute>
             <vodml-id>Polarization.states</vodml-id>
             <name>states</name>
-            <description>standard polarization states included (cardinality changed in CAOM-2.5)</description>
+            <description>standard polarization states included (CHANGED cardinality in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>caom2:PolarizationState</vodml-ref>
             </datatype>
