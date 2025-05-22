@@ -4,7 +4,7 @@
 *******************  CANADIAN ASTRONOMY DATA CENTRE  *******************
 **************  CENTRE CANADIEN DE DONNÉES ASTRONOMIQUES  **************
 *
-*  (c) 2024.                            (c) 2024.
+*  (c) 2025.                            (c) 2025.
 *  Government of Canada                 Gouvernement du Canada
 *  National Research Council            Conseil national de recherches
 *  Ottawa, Canada, K1A 0R6              Ottawa, Canada, K1A 0R6
@@ -80,21 +80,22 @@
     <enumeration>
         <vodml-id>ObservationIntentType</vodml-id>
         <name>ObservationIntentType</name>
-        <description>the intent of the original creator (usually observer) in acquiring this observation</description>
+        <description>This enumeration describes the intent of the original creator (usually observer) 
+            in acquiring this observation.</description>
         <literal>
             <vodml-id>ObservationIntentType.SCIENCE</vodml-id>
             <name>science</name>
-            <description>the intent of this observation was to create science data</description>
+            <description>The intent of this observation was to create science data.</description>
         </literal>
         <literal>
             <vodml-id>ObservationIntentType.CALIBRATION</vodml-id>
             <name>calibration</name>
-            <description>the intent of this observation was to create calibration data</description>
+            <description>The intent of this observation was to create calibration data.</description>
         </literal>
         <literal>
             <vodml-id>ObservationIntentType.OUTREACH</vodml-id>
             <name>calibration</name>
-            <description>the intent of this observation was to create public outreach content</description>
+            <description>The intent of this observation was to create public outreach content.</description>
         </literal>
     </enumeration>
 
@@ -102,46 +103,48 @@
     <enumeration>
         <vodml-id>CalibrationLevel</vodml-id>
         <name>CalibrationLevel</name>
-        <description>the degree to which data has been calibrated to remove instrumental effects;
-            issue: there is no way to convey the integer serialised values here so it is in the
-            description of each value</description>
+        <description>This enumeration describes the degree to which data has been calibrated to remove 
+            instrumental effects. \todo{This is intended to be consistent with ObsCore but there is no way to 
+            convey the integer value associated with each symbol}</description>
         <literal>
             <vodml-id>CalibrationLevel.PLANNED</vodml-id>
             <name>PLANNED</name>
-            <description>(-1) planned data product that does not yet exist</description>
+            <description>(-1) A planned data product that does not yet exist.</description>
         </literal>
         <literal>
             <vodml-id>CalibrationLevel.RAW_INSTRUMENTAL</vodml-id>
             <name>RAW_INSTRUMENTAL</name>
-            <description>(0) raw data in some opaque instrument-specific format</description>
+            <description>(0) Raw data in some opaque instrument-specific format.</description>
         </literal>
         <literal>
             <vodml-id>CalibrationLevel.RAW_STANDARD</vodml-id>
             <name>RAW_STANDARD</name>
-            <description>(1) raw data in a common format</description>
+            <description>(1) Raw data in a standard format.</description>
         </literal>
         <literal>
             <vodml-id>CalibrationLevel.CALIBRATED</vodml-id>
             <name>CALIBRATED</name>
-            <description>(2) standard calibration steps have been applied</description>
+            <description>(2) Standard calibration steps have been applied.</description>
         </literal>
         <literal>
             <vodml-id>CalibrationLevel.PRODUCT</vodml-id>
             <name>PRODUCT</name>
-            <description>(3) additional non-standard calibration steps have been applied</description>
+            <description>(3) Additional non-standard calibration steps have been applied.</description>
         </literal>
         <literal>
             <vodml-id>CalibrationLevel.ANALYSIS_PRODUCT</vodml-id>
             <name>ANALYSIS_PRODUCT</name>
-            <description>(4) : data product from scientific analysis</description>
+            <description>(4) A data product output from scientific analysis.</description>
         </literal>
     </enumeration>
 
     <enumeration>
         <vodml-id>EnergyBand</vodml-id>
         <name>EnergyBand</name>
-        <description>a general set of energy regions that span the electromagnetic spectrum;
-            work-around: using the name of the literal to convey the serialised value</description>
+        <description>Energyband provides a general set of energy regions that span the electromagnetic spectrum.
+            The set of values and boundaries are taken from the VOResource metadata.
+            \todo{The name(s) are used to capture the literal values from VOResource, but that
+            is not valid for X-ray and Gamma-ray}</description>
         <literal>
             <vodml-id>EnergyBand.RADIO</vodml-id>
             <name>Radio</name>
@@ -189,28 +192,32 @@
     <enumeration>
         <vodml-id>ReleaseType</vodml-id>
         <name>ReleaseType</name>
-        <description>a flag indicating how an artifact is classified to determine access permissions;
-            work-around: using the name of the literal to convey the serialised value</description>
+        <description>The rekease type is a flag indicating how an artifact is classified to determine 
+            access permissions. The name(s) of the literals are intended to capture the serialised value(s).
+        </description>
         <literal>
             <vodml-id>ReleaseType.DATA</vodml-id>
             <name>data</name>
-            <description>access permission checks assume the protected item is data</description>
+            <description>access permission checks treat the protected item as data</description>
         </literal>
         <literal>
             <vodml-id>ReleaseType.META</vodml-id>
             <name>meta</name>
-            <description>access permission checks assume the protected item is metadata</description>
+            <description>access permission checks treat the protected item as metadata</description>
         </literal>
     </enumeration>
 
     <dataType abstract="true">
         <vodml-id>VocabularyTerm</vodml-id>
         <name>VocabularyTerm</name>
-        <description>base class of a single term (word) in a vocabulary</description>
+        <description>This is a base class that defines a useful structure to handle terms from an external
+            vocabulary. A specific subclass with a fixed namespace is used for values of fields within
+            the model. \todo{This could be extracted and reused in other contexts}</description>
         <attribute>
             <vodml-id>VocabularyTerm.namespace</vodml-id>
             <name>namespace</name>
-            <description>globally unique namespace for the vocabulary</description>
+            <description>This is the globally unique namespace for the vocabulary where
+                definitions can be found.</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -236,8 +243,9 @@
     <dataType abstract="false">
         <vodml-id>CalibrationStatus</vodml-id>
         <name>CalibrationStatus</name>
-        <description>term from the IVOA calibration-status vocabulary; this vocabulary does not yet exist
-            but can be created using optional terms in the ObsCore standard (NEW in CAOM-2.5)</description>
+        <description>This is a proposal for the creation of a IVOA calibration-status vocabulary. 
+            This vocabulary can be created using optional terms in the ObsCore standard to describe
+            the calibration of each axis in the data separately. (NEW in CAOM-2.5)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -246,7 +254,8 @@
     <dataType abstract="false">
         <vodml-id>DataProductType</vodml-id>
         <name>DataProductType</name>
-        <description>term from the IVOA product-type vocabulary (CHANGED in CAOM-2.5)</description>
+        <description>This is the IVOA product-type vocabulary that was extracted from the original
+            ObsCore standard. (CHANGED in CAOM-2.5)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -255,7 +264,8 @@
     <dataType abstract="false">
         <vodml-id>Quality</vodml-id>
         <name>Quality</name>
-        <description>vocabulary term used to specify something is wrong with an observation</description>
+        <description>This is a proposed vocabulary to specify that something is wrong with an observation.
+            Existing usage is confined to a single term: junk.</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -264,7 +274,8 @@
     <dataType abstract="false">
         <vodml-id>Status</vodml-id>
         <name>Status</name>
-        <description>vocabulary term used to specify an observation did not meet requirements</description>
+        <description>This is a proposed vocabulary to specify that an an observation did not meet requirements.
+            Existing usage is confined to a single term: fail.</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -273,7 +284,8 @@
     <dataType abstract="false">
         <vodml-id>TargetType</vodml-id>
         <name>TargetType</name>
-        <description>vocabulary term used to specify the general type of a target (e.g. object, field, ...)</description>
+        <description>This is a proposed vocabulary to specify the general type of a target.
+               Esisting usage includes two terms: object, field.)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -282,7 +294,7 @@
     <dataType abstract="false">
         <vodml-id>DataLinkSemantics</vodml-id>
         <name>DataLinkSemantics</name>
-        <description>term from the DataLink Core vocabulary (CHANGED in 2.5)</description>
+        <description>This is the IVOA DataLink Core vocabulary. (CHANGED in 2.5)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -291,7 +303,9 @@
     <dataType abstract="false">
         <vodml-id>PolarizationState</vodml-id>
         <name>PolarizationState</name>
-        <description>constants for the PolarizationState vocabulary (CHANGED from enumeration in CAOM-2.5)</description>
+        <description>This is a proposed vocabulary to specify constants for the PolarizationState. 
+            Existing usage includes terms from the ObsCore polarization states list, plus some extra terms
+            derived from community usage and proposals. (CHANGED from enumeration in CAOM-2.5)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -300,7 +314,8 @@
     <dataType abstract="false">
         <vodml-id>Tracking</vodml-id>
         <name>Tracking</name>
-        <description>term from the Tracking vocabulary (NEW in CAOM-2.5)</description>
+        <description>This is a proposed vocabulary to specify the tracking mode of the telescope
+            during the acquisition of data. (NEW in CAOM-2.5)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -309,7 +324,7 @@
     <dataType abstract="false">
         <vodml-id>UCD</vodml-id>
         <name>UCD</name>
-        <description>term from the UCD1+ vocabulary (Changed from string in CAOM-2.5)</description>
+        <description>This is the IVOA UCD1+ vocabulary. (Changed from string in CAOM-2.5)</description>
         <extends>
             <vodml-ref>caom2:VocabularyTerm</vodml-ref>
         </extends>
@@ -347,12 +362,12 @@
     <objectType abstract="true">
         <vodml-id>Entity</vodml-id>
         <name>Entity</name>
-        <description>base entity class to support persistence;
-            entity attributes are generally set or updated by persistence implementations</description>
+        <description>This is a base class to persistence. The entity attributes are generally set 
+            or updated by persistence implementations.</description>
         <attribute>
             <vodml-id>Entity.id</vodml-id>
             <name>id</name>
-            <description>globally unique identifier (primary key)</description>
+            <description>The id is a globally unique identifier (primary key) for an instance.</description>
             <datatype>
                 <vodml-ref>caom2:uuid</vodml-ref>
             </datatype>
@@ -364,9 +379,9 @@
         <attribute>
             <vodml-id>Entity.lastModified</vodml-id>
             <name>lastModified</name>
-            <description>timestamp of last modification of this entity; the timestamp is intended to be applied
-                or updated when the entity is stored 
-                (e.g. in a database)</description>
+            <description>The timestamp of last modification of this entity tracks changes in metadata and
+                supports incremental operations. The timestamp is intended to be set and/or updated 
+                when the entity is stored (e.g. in a database).</description>
             <datatype>
                 <vodml-ref>ivoa:datetime</vodml-ref>
             </datatype>
@@ -378,27 +393,38 @@
         <attribute>
             <vodml-id>Entity.metaChecksum</vodml-id>
             <name>metaChecksum</name>
-            <description>checksum of the metadata in this entity;
-
-                The URI must conform to the pattern {algorithm}:{hex value}, for example: md5:4be91751541fd804e7207663a0822f56.
+            <description>This checksum of the metadata in this entity signals a change in the metadata of an
+                instance and supports validation (e.g. to compare metadata before and after serialisation or
+                persistence). A change in the metaChecksum can also be used to optimise operations like
+                updating a row in the database only when the metaChecksum changed. A change in metaChecksum
+                normally triggers a change in the lastModified timestamp. 
+                
+                The URI must conform to the pattern {algorithm}:{hex value}, for example: 
+                \begin{verbatim}md5:4be91751541fd804e7207663a0822f56.\end{verbatim}
+                
                 The checksum of an entity is computed by accumulating byte representation of individual metadata values in
                 the following order: (1) Entity.id for entities, (2) Entity.metaProducer, (3) state fields in alphabetic order 
-                (foo.a comes before foo.b) and using depth-first recursion (foo.abc.x comes before foo.def). Null values are ignored 
-                so that the addition of new fields in future versions will not change/invalidate existing checksums until values are 
-                assigned. Non-null values are converted to bytes as follows. 
-
-                TODO: add digestFieldNames to algorithm
-
-                string: UTF-8 encoded bytes
-                URI: UTF-8 encoded bytes of string representation
-                float: IEEE754 single (4 bytes)
-                double: IEEE754 double (8 bytes)
-                boolean: convert to single byte, false=0, true=1 (1 bytes)
-                byte: as-is (1 byte)
-                short: (2 bytes, network byte order == big endian))
-                integer: (4 bytes, network byte order == big endian)
-                long: (8 bytes, network byte order == big endian)
-                date: truncate time to whole number of seconds and treat as a long (seconds since 1970-01-01 00:00:00 UTC)
+                (foo.a comes before foo.b) and using depth-first recursion (foo.abc.x comes before foo.def). The lastModified
+                timestamp is not included in the metaChecksum calculation. Null values are ignored so that the addition of
+                new fields in future versions will not change/invalidate existing checksums. Non-null values are converted to
+                bytes as follows: 
+                \begin{itemize}
+                \item string: UTF-8 encoded bytes
+                \item URI: UTF-8 encoded bytes of the string representation
+                \item VocabularyTerm: UTF-8 encoded bytes of the term (do not include the namespace)
+                \item enumeration: the literal value converted to bytes
+                \item float: IEEE754 single (4 bytes)
+                \item double: IEEE754 double (8 bytes)
+                \item boolean: convert to single byte, false=0, true=1 (1 byte)
+                \item byte: as-is (1 byte)
+                \item short: (2 bytes, network byte order == big endian))
+                \item integer: (4 bytes, network byte order == big endian)
+                \item long: (8 bytes, network byte order == big endian)
+                \item date: treat as a long (milliseconds since 1970-01-01 00:00:00 UTC)
+                \end{itemize}
+                
+                \todo{truncatedDates=false, digestFieldNames=true, digestFieldnamesLowerCase=true}
+                \todo{external data model components: recursion or specify conversion above}
                 </description>
             <datatype>
                 <!-- possible to constrain the form of the URI? should we define ChecksumURI -->
@@ -412,11 +438,12 @@
         <attribute>
             <vodml-id>Entity.metaProducer</vodml-id>
             <name>metaProducer</name>
-            <description>identifier for the producer of this entity and child entities with null metaProducer;
-
-                The URI should conform to the pattern {organisation}:{software name-version} (for example: cadc:cfht2caom2-1.1) 
-                and identifies the tools used to produce the metadata. This information is intended for use by operators to help 
-                diagnose metadata issues.
+            <description>This identifier is used to identify the tools used to produce the metadata. It also
+                implicitly applies to child entities with null metaProducer. The form of the URI is not specified;
+                implementations are free to use this to track metadata curation. For example, a pattern like
+                {organisation}:{software name}-{version} is useful to support a variety of operational uses:
+                query for metadata created by a version with a known bug or query for metadata created by an older version
+                of the software and perform updates.
             </description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
@@ -431,17 +458,18 @@
     <objectType abstract="true">
         <vodml-id>CaomEntity</vodml-id>
         <name>CaomEntity</name>
-        <description>base CAOM entity class to support accumulated metadata checksums and accumulated
-            lastModified timestamps to support synchronisation</description>
+        <description>This is an extension of the base Entity class to support accumulated metadata checksums
+            and accumulated lastModified timestamps for entities with child entities.</description>
         <extends>
             <vodml-ref>caom2:Entity</vodml-ref>
         </extends>
         <attribute>
             <vodml-id>CaomEntity.maxLastModified</vodml-id>
             <name>maxLastModified</name>
-            <description>maximum timestamp of last modification of this entity and all child entities;
-                the timestamp is intended to be applied or updated when the entity is stored 
-                (e.g. in a database)</description>
+            <description>The maximum last modification timestamp of this entity and all child entities is used
+                to support incremental synchronization (of Observation instances). As with the instance lastModified
+                timestamp above, this timestamp is intended to be set and/or updated when the entity is stored 
+                (e.g. in a database).</description>
             <datatype>
                 <vodml-ref>ivoa:datetime</vodml-ref>
             </datatype>
@@ -455,7 +483,9 @@
             <name>accMetaChecksum</name>
             <description>accumulated checksum of the metadata of this entity and all child entities;
 
-                The URI must conform to the pattern {algorithm}:{value}, for example: md5:4be91751541fd804e7207663a0822f56.
+                The URI must conform to the pattern {algorithm}:{hex value}, for example: 
+                \begin{verbatim}md5:4be91751541fd804e7207663a0822f56.\end{verbatim}
+                
                 The accumulated checksum of an entity is computed by accumulating the byte representation of entity checksums
                 in the following order: (1) the metaChecksum of the current entity, (2) the accMetaChecksum of all child entities
                 accumulated in order of the child's Entity.id. For an entity with no children, the accMetaChecksum is derived
@@ -526,7 +556,8 @@
     <objectType abstract="true">
         <vodml-id>Observation</vodml-id>
         <name>Observation</name>
-        <description>an observation is a single top-level entry in an astronomy data centre</description>
+        <description>The observation is the top-level metadata structure that describes astronomical
+            data in a data collection.</description>
         <extends>
             <vodml-ref>caom2:CaomEntity</vodml-ref>
         </extends>
@@ -534,7 +565,7 @@
         <attribute>
             <vodml-id>Observation.collection</vodml-id>
             <name>collection</name>
-            <description>the name of the data collection this observation belongs to</description>
+            <description>The name of the data collection to which this observation belongs.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -546,7 +577,8 @@
         <attribute>
             <vodml-id>Observation.uri</vodml-id>
             <name>uri</name>
-            <description>unique logical identifier for this observation (NEW in CAOM-2.5)</description>
+            <description>A unique logical identifier for this observation. (NEW in CAOM-2.5)
+                TODO: limit this to one of two forms that support use cases?</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -558,9 +590,10 @@
         <attribute>
             <vodml-id>Observation.uriBucket</vodml-id>
             <name>uriBucket</name>
-            <description>short string of hexadecimal digits generated from the uri; the value is
-            the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded
-            URI value (NEW in CAOM-2.5)</description>
+            <description>This is a short string of hexadecimal digits generated from the uri to support
+                operational use cases (mainly: dividing workload to perform validation in parallel). The
+                value is the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 
+                encoded bytes of the Observation.uri value. (NEW in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -572,7 +605,8 @@
         <attribute>
             <vodml-id>Observation.metaRelease</vodml-id>
             <name>metaRelease</name>
-            <description>timestamp after which metadata for the observation instance is public</description>
+            <description>This timestamp specifies the point where the metadata for the observation instance is public
+                (can be viewed by anonymous users). A null value means the metadata is nont public.</description>
             <datatype>
                 <vodml-ref>ivoa:datetime</vodml-ref>
             </datatype>
@@ -596,7 +630,8 @@
         <attribute>
             <vodml-id>Observation.type</vodml-id>
             <name>type</name>
-            <description>the type of observation (FITS OBSTYPE keyword); usually OBJECT for intent = science</description>
+            <description>This describes the general purpose of observation (e.g. FITS OBSTYPE keyword). Existing usage is
+                usually OBJECT for intent = science and other values for intent = calibration.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -608,7 +643,7 @@
         <attribute>
             <vodml-id>Observation.intent</vodml-id>
             <name>intent</name>
-            <description>the intent of the original observer in acquiring this data</description>
+            <description>This is an enumeration that describes the intent of the original creator of the observation.</description>
             <datatype>
                 <vodml-ref>caom2:ObservationIntentType</vodml-ref>
             </datatype>
@@ -620,7 +655,8 @@
         <attribute>
             <vodml-id>Observation.metaReadGroups</vodml-id>
             <name>metaReadGroups</name>
-            <description>set of groups with read permission on observation metadata (new in 2.4)</description>
+            <description>This is a set of groups with read permission on observation metadata for cases when the metadata
+                is non-public (see metaRelease above).</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -632,7 +668,7 @@
         <composition>
             <vodml-id>Observation.algorithm</vodml-id>
             <name>algorithm</name>
-            <description>the algorithm or process that created this observation</description>
+            <description>This provides information about the algorithm or process that created this observation.</description>
             <datatype>
                 <vodml-ref>caom2:Algorithm</vodml-ref>
             </datatype>
@@ -644,7 +680,7 @@
         <composition>
             <vodml-id>Observation.telescope</vodml-id>
             <name>telescope</name>
-            <description>the telescope or facility where this observation was created</description>
+            <description>Information about the telescope or facility where this observation was created.</description>
             <datatype>
                 <vodml-ref>caom2:Telescope</vodml-ref>
             </datatype>
@@ -656,7 +692,7 @@
         <composition>
             <vodml-id>Observation.instrument</vodml-id>
             <name>instrument</name>
-            <description>the instrument or detector used to acquire the data</description>
+            <description>Information about the instrument or detector used to acquire the data.</description>
             <datatype>
                 <vodml-ref>caom2:Instrument</vodml-ref>
             </datatype>
@@ -668,7 +704,7 @@
         <composition>
             <vodml-id>Observation.environment</vodml-id>
             <name>environment</name>
-            <description>the environmental conditions at the time of observation</description>
+            <description>Information about the environmental conditions at the time of observation.</description>
             <datatype>
                 <vodml-ref>caom2:Environment</vodml-ref>
             </datatype>
@@ -680,7 +716,7 @@
         <composition>
             <vodml-id>Observation.Proposal</vodml-id>
             <name>proposal</name>
-            <description>the science proposal underwhich this observation was created</description>
+            <description>Information about the science proposal that motivated the creation of this observation.</description>
             <datatype>
                 <vodml-ref>caom2:Proposal</vodml-ref>
             </datatype>
@@ -692,7 +728,7 @@
         <composition>
             <vodml-id>Observation.target</vodml-id>
             <name>target</name>
-            <description>the intended target of the observation</description>
+            <description>Information about the intended target of the observation.</description>
             <datatype>
                 <vodml-ref>caom2:Target</vodml-ref>
             </datatype>
@@ -704,7 +740,8 @@
         <composition>
             <vodml-id>Observation.targetPosition</vodml-id>
             <name>targetPosition</name>
-            <description>the intended target position for this observation</description>
+            <description>Information about the intended target position for this observation. This may differ
+                from the coordinates of the target object itself.</description>
             <datatype>
                 <vodml-ref>caom2:TargetPosition</vodml-ref>
             </datatype>
@@ -716,7 +753,8 @@
         <composition>
             <vodml-id>Observation.requirements</vodml-id>
             <name>requirements</name>
-            <description>the observational requirements specified by the observer or proposal</description>
+            <description>Information about the observational requirements specified by the observer or proposal
+                and whether this observation satisfies those requirements.</description>
             <datatype>
                 <vodml-ref>caom2:Requirements</vodml-ref>
             </datatype>
@@ -729,7 +767,10 @@
         <composition>
             <vodml-id>Observation.planes</vodml-id>
             <name>planes</name>
-            <description>the component planes belonging to this observation</description>
+            <description>The planes within an observation are the different data products that are
+                produced from the observation. For SimpleObservation, there are usually different
+                planes for raw data, calibrated data, etc.
+            </description>
             <datatype>
                 <vodml-ref>caom2:Plane</vodml-ref>
             </datatype>
@@ -743,7 +784,9 @@
     <objectType>
         <vodml-id>SimpleObservation</vodml-id>
         <name>SimpleObservation</name>
-        <description>an observation created directly by operating an instrument or process</description>
+        <description>A simple observation is created directly by operating a telescope and instrument (for
+            empirical data) or by a process (for simulation data). Existing usage: the Algorithm.name values 
+            'exposure' and 'simulation' are reserved for these cases respectively.</description>
         <extends>
             <vodml-ref>caom2:Observation</vodml-ref>
         </extends>
@@ -752,18 +795,21 @@
     <objectType>
         <vodml-id>DerivedObservation</vodml-id>
         <name>DerivedObservation</name>
-        <description>an observation derived from one or more observations</description>
+        <description>A derived observation is an observation created from one or more other observations.
+            Examples of multiple members include: stacks of images combined to increase signal:noise ratio, 
+            mosaics combined to increase field-of-view, etc. Examples of single members: subset of comensurally
+            observed data that is attributed/assigned to one proposal or project (with associated permissions).</description>
         <extends>
             <vodml-ref>caom2:Observation</vodml-ref>
         </extends>
         <attribute>
             <vodml-id>DerivedObservation.members</vodml-id>
             <name>members</name>
-            <description>members are the observations grouped together by the algorithm that defines the derivation; 
-                these are the intended components of the composite product -- actual inputs are described by the provenance;
-                members may be simple or derived observations (arbitrary heirarchy); derived observations with 
+            <description>The members are the observations grouped together by the algorithm that defines the derivation.
+                these are the intended components of the composite product, but actual inputs are described by the provenance.
+                Members may be simple or derived observations (arbitrary heirarchy); derived observations with 
                 one or more members may be defined such that they only include a subset of each member (they are extracted from
-                the progenitor)
+                the progenitor). Observation.uri values are used here to refer to the member observations.
             </description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
@@ -778,14 +824,16 @@
     <objectType>
         <vodml-id>Plane</vodml-id>
         <name>Plane</name>
-        <description>a component of an observation that describes one product of the observation</description>
+        <description>A plane is a component of an observation that describes one product of the observation.</description>
         <extends>
             <vodml-ref>caom2:CaomEntity</vodml-ref>
         </extends>
         <attribute>
             <vodml-id>Plane.uri</vodml-id>
             <name>uri</name>
-            <description>unique logical identifier for this product (NEW in CAOM-2.5)</description>
+            <description>A unique logical identifier for this plane. Values of this identifier are used in
+                Plane.provenance.inputs to form a reference from a product to it's progenitors.
+                TODO: limit this to one of two forms that support use cases? (NEW in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -797,8 +845,9 @@
         <attribute>
             <vodml-id>Plane.metaRelease</vodml-id>
             <name>metaRelease</name>
-            <description>timestamp after which metadata for the plane is public; this metaRelease timestamp
-                applies to all children of the plane and to artifacts with releaseType=meta</description>
+            <description>This timestamp specifies the point where the metadata for the plane instance is public
+                (can be viewed by anonymous users). A null value means the metadata is not public. The metaRelease 
+                timestamp applies to the plane metadata itself and to all artifacts with releaseType=meta.</description>
             <datatype>
                 <vodml-ref>ivoa:datetime</vodml-ref>
             </datatype>
@@ -810,8 +859,8 @@
         <attribute>
             <vodml-id>Plane.metaReadGroups</vodml-id>
             <name>metaReadGroups</name>
-            <description>list of groups (of users) that are allowed to view the metadata of the plane; this is 
-                applicable when metaRelease is null or in the future</description>
+            <description>This is a set of groups with read permission on plane metadata for cases when the metadata
+                is non-public (see metaRelease above).</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -823,8 +872,9 @@
         <attribute>
             <vodml-id>Plane.dataRelease</vodml-id>
             <name>dataRelease</name>
-            <description>timestamp after which data for the plane is public; this dataRelease timestamp
-                applies to all children of the plane and to artifacts with releaseType=data</description>
+            <description>This timestamp specifies the point where the metadata for the plane instance is public
+                (can be viewed by anonymous users). A null value means the metadata is not public. The dataRelease 
+                timestamp applies to all artifacts with releaseType=data.</description>
             <datatype>
                 <vodml-ref>ivoa:datetime</vodml-ref>
             </datatype>
@@ -836,8 +886,8 @@
         <attribute>
             <vodml-id>Plane.dataReadGroups</vodml-id>
             <name>dataReadGroups</name>
-            <description>list of groups (of users) that are allowed to access the data of the plane; this is 
-                applicable when dataRelease is null or in the future</description>
+            <description>This is a set of groups with read permission on plane data for cases when the data
+                is non-public (see dataRelease above).</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -849,7 +899,8 @@
         <attribute>
             <vodml-id>Plane.calibrationLevel</vodml-id>
             <name>calibrationLevel</name>
-            <description>standard classification of the degree to which the data is calibrated</description>
+            <description>This describes the degree to which the data is calibrated; it is equivalent to the
+                ObsCore calibration level field.</description>
             <datatype>
                 <vodml-ref>caom2:CalibrationLevel</vodml-ref>
             </datatype>
@@ -861,8 +912,8 @@
         <attribute>
             <vodml-id>Plane.dataProductType</vodml-id>
             <name>dataProductType</name>
-            <description>standard classification of the type of data product; describes the logical data type
-                for the main artifacts</description>
+            <description>This describes the logical type of data for this product; it is equivalent to the
+                ObsCore data product type field.</description>
             <datatype>
                 <vodml-ref>caom2:DataProductType</vodml-ref>
             </datatype>
@@ -875,7 +926,7 @@
         <composition>
             <vodml-id>Plane.observable</vodml-id>
             <name>observable</name>
-            <description>description of the sample (pixel) values</description>
+            <description>The observable describes the quantity stored in the sample (pixel) values</description>
             <datatype>
                 <vodml-ref>caom2:Observable</vodml-ref>
             </datatype>
@@ -887,7 +938,9 @@
         <composition>
             <vodml-id>Plane.quality</vodml-id>
             <name>quality</name>
-            <description>flag indicating the quality of the data</description>
+            <description>This is a flag that indicates the quality of the data. Existing usage is that this is only
+                assigned when there is something wrong with the data and the quality flag indicates roughly what is
+                wrong.</description>
             <datatype>
                 <vodml-ref>caom2:DataQuality</vodml-ref>
             </datatype>
@@ -899,7 +952,8 @@
         <composition>
             <vodml-id>Plane.metrics</vodml-id>
             <name>metrics</name>
-            <description>collection of measured quantities that describe the content of the data</description>
+            <description>Metrics are measured quantities that describe the content rather than the
+                characteristics of the product.</description>
             <datatype>
                 <vodml-ref>caom2:Metrics</vodml-ref>
             </datatype>
@@ -911,7 +965,7 @@
         <composition>
             <vodml-id>Plane.position</vodml-id>
             <name>position</name>
-            <description>description of the position(s) included in the data</description>
+            <description>Information about the positional coverage and sampling of the data.</description>
             <datatype>
                 <vodml-ref>caom2:Position</vodml-ref>
             </datatype>
@@ -923,7 +977,7 @@
         <composition>
             <vodml-id>Plane.energy</vodml-id>
             <name>energy</name>
-            <description>description of the energy(ies) included in the data</description>
+            <description>Information about the energy coverage and sampling of the data.</description>
             <datatype>
                 <vodml-ref>caom2:Energy</vodml-ref>
             </datatype>
@@ -935,7 +989,7 @@
         <composition>
             <vodml-id>Plane.time</vodml-id>
             <name>time</name>
-            <description>description of the time(s) included in the data</description>
+            <description>Information about the time coverage and sampling of the data.</description>
             <datatype>
                 <vodml-ref>caom2:Time</vodml-ref>
             </datatype>
@@ -947,7 +1001,7 @@
         <composition>
             <vodml-id>Plane.polarization</vodml-id>
             <name>polarization</name>
-            <description>description of the polarization(s) included in the data</description>
+            <description>Information about the polarization state(s) of the data.</description>
             <datatype>
                 <vodml-ref>caom2:Polarization</vodml-ref>
             </datatype>
@@ -959,9 +1013,11 @@
         <composition>
             <vodml-id>Plane.custom</vodml-id>
             <name>custom</name>
-            <description>description of a custom coordinate axis in the data;
+            <description>Information about the a single custom axis and sampling of the data.
             Since different custom coordinate types can be used with different planes, instances of 
-            CustomAxis can only be compared sensibly if they have the same coordinate type.</description>
+            CustomAxis can only be compared sensibly if they have the same coordinate type.
+            Existing usage is experimental: Faraday Depth or Rotation Measure axes in radio data
+            cubes.</description>
             <datatype>
                 <vodml-ref>caom2:CustomAxis</vodml-ref>
             </datatype>
@@ -973,6 +1029,8 @@
         <composition>
             <vodml-id>Plane.uv</vodml-id>
             <name>uv</name>
+            <description>Information about the UV plane coverage and sampling of the data for interferometric
+                observations.</description>
             <datatype>
                 <vodml-ref>caom2:Visibility</vodml-ref>
             </datatype>
@@ -984,7 +1042,9 @@
         <composition>
             <vodml-id>Plane.provenance</vodml-id>
             <name>provenance</name>
-            <description>description of the provenance of the data</description>
+            <description>The provenance provides a description how the plane was created and the
+                direct input planes that were used. This is a single-step provenance and not a
+                complete description of all activities that led to this product.</description>
             <datatype>
                 <vodml-ref>caom2:Provenance</vodml-ref>
             </datatype>
@@ -997,7 +1057,7 @@
         <composition>
             <vodml-id>Plane.artifacts</vodml-id>
             <name>artifacts</name>
-            <description>the component artifacts belonging to this plane</description>
+            <description>This is the set of component artifacts belonging to this plane.</description>
             <datatype>
                 <vodml-ref>caom2:Artifact</vodml-ref>
             </datatype>
@@ -1018,7 +1078,10 @@
         <attribute>
             <vodml-id>Artifact.uri</vodml-id>
             <name>uri</name>
-            <description>an identifier that resolves to the storage location of the artifact</description>
+            <description>This identifier can be used to interact with an associated data management system.
+                Existing usage: this is an internal identifier that an IVOA DataLink service can 
+                convert into a usable link to the data. TODO: There is an informal style used to make sure
+                that these identifiers are globally unique and avoid collisions...</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -1030,9 +1093,10 @@
         <attribute>
             <vodml-id>Artifact.uriBucket</vodml-id>
             <name>uriBucket</name>
-            <description>short string of hexadecimal digits generated from the uri; the value is
-            the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded
-            URI value (NEW in 2.5)</description>
+            <description>This is a short string of hexadecimal digits generated from the uri to support
+                operational use cases (mainly: dividing workload to perform validation in parallel). The
+                value is the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 
+                encoded bytes of the Observation.uri value. (NEW in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1044,7 +1108,8 @@
         <attribute>
             <vodml-id>Artifact.productType</vodml-id>
             <name>productType</name>
-            <description>the relationship of this Artifact to the parent Plane (DataLink semantics)</description>
+            <description>This term describes the relationship of this Artifact to the parent Plane using
+                IVOA DataLink semantics concepts.</description>
             <datatype>
                 <vodml-ref>caom2:DataLinkSemantics</vodml-ref>
             </datatype>
@@ -1056,7 +1121,9 @@
         <attribute>
             <vodml-id>Artifact.releaseType</vodml-id>
             <name>releaseType</name>
-            <description>field indicating how access permissions for this artifact are determined</description>
+            <description>This field indicates whether this artifact is treated as data or metadata when determining
+                access permission. Existing usage: some collections have small previews (productType=thumbnail)
+                that are considered metadata and are thus viewable by all users.</description>
             <datatype>
                 <vodml-ref>caom2:ReleaseType</vodml-ref>
             </datatype>
@@ -1068,7 +1135,7 @@
         <attribute>
             <vodml-id>Artifact.contentType</vodml-id>
             <name>contentType</name>
-            <description>label specifying the format of the resolved artifact; typically a MIME-type</description>
+            <description>This field specifies the format of the resolved artifact: should be a MIME-type.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1080,7 +1147,7 @@
         <attribute>
             <vodml-id>Artifact.contentLength</vodml-id>
             <name>contentLength</name>
-            <description>the size of the resolved artifact; typically file size in bytes</description>
+            <description>This specifies the size of the stored artifact; for files, this is the file size.</description>
             <datatype>
                 <vodml-ref>ivoa:integer</vodml-ref>
             </datatype>
@@ -1092,10 +1159,12 @@
         <attribute>
             <vodml-id>Artifact.contentChecksum</vodml-id>
             <name>contentChecksum</name>
-            <description>the checksum of the artifact data; 
-                the URI must conform to the pattern {algorithm}:{hex value}, for example: md5:4be91751541fd804e7207663a0822f56</description>
+            <description>this is the checksum of the artifact data;
+                the URI must conform to the pattern {algorithm}:{hex value}, for example: 
+                \begin{verbatim}
+                md5:4be91751541fd804e7207663a0822f56
+                \end{verbatim}</description>
             <datatype>
-                <!-- should be ChecksumURI -->
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
             <multiplicity>
@@ -1106,8 +1175,9 @@
         <attribute>
             <vodml-id>Artifact.contentRelease</vodml-id>
             <name>contentRelease</name>
-            <description>timestamp after which content for the plane is public (new in CAOM-2.4); 
-            if set, this value overrides the permission implied by the releaseType and Plane release dates</description>
+            <description>This timestamp after which content for the artifact is public. If set, this value 
+                overrides the permission implied by the releaseType and Plane release dates.
+                Existing usage: MAST?.</description>
             <datatype>
                 <vodml-ref>ivoa:datetime</vodml-ref>
             </datatype>
@@ -1119,8 +1189,9 @@
         <attribute>
             <vodml-id>Artifact.contentReadGroups</vodml-id>
             <name>contentReadGroups</name>
-            <description>list of groups (of users) that are allowed to access the content of this artifact; this is 
-                applicable when the effective release date is null or in the future</description>
+            <description>Thsi is a set of groups that are allowed to access the content of this artifact. If set,
+                thisd overrides the permission implied by the releaseType and PLane release groups.
+                Existing usage: unknown.</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -1132,7 +1203,8 @@
         <attribute>
             <vodml-id>Artifact.descriptionID</vodml-id>
             <name>descriptionID</name>
-            <description>identifier for an ArtifactDescription entity (new in CAOM-2.5)</description>
+            <description>This is an identifier to refer to an ArtifactDescription entity. (new in CAOM-2.5)
+                Use case: provide standard descriptions for links in a DataLink response.</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -1146,14 +1218,17 @@
     <objectType>
         <vodml-id>ArtifactDescription</vodml-id>
         <name>ArtifactDescription</name>
-        <description>shared and referenceable description of an artitfact (NEW in CAOM-2.5)</description>
+        <description>The provides a referenceable description of artitfacts for use in DataLink responses. (NEW in CAOM-2.5)</description>
         <extends>
             <vodml-ref>caom2:Entity</vodml-ref>
         </extends>
         <attribute>
             <vodml-id>ArtifactDescription.uri</vodml-id>
             <name>uri</name>
-            <description>logical identifier for this description</description>
+            <description>This is the logical identifier for this description used to refer to it from an artifact.
+                Anticipated usage: this is an internal identifier that an IVOA DataLink service can 
+                use to lookup a description. TODO: There is an informal style used for Atifact.uri to make sure
+                that these identifiers are globally unique and avoid collisions...</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -1165,7 +1240,7 @@
         <attribute>
             <vodml-id>Artifact.description</vodml-id>
             <name>description</name>
-            <description>description of an artifact</description>
+            <description>A human-readable description of an artifact.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>

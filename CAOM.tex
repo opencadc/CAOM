@@ -1,5 +1,6 @@
 \documentclass[11pt,a4paper]{ivoa}
 \input tthdefs
+\usepackage{todonotes}
 
 \title{Common Archive Observation Model}
 
@@ -147,21 +148,6 @@ descriptions are intended to be shared across many artifacts curated by a single
 operator; each artifact contains an optional reference to a description. The
 primary intended use of these descriptions is to populate the description field
 in a DataLink links response.
-
-\subsection{Part}
-
-A Part describes a logical subcomponent of an Artifact. For example, a single 
-extension in a multi-extension FITS file, or a file inside a tar file would be parts
-of such an Artifact. The meaning of Part depends on the type of resource that the
-Artifact refers to, as described by the Artifact.contentType.
-
-Note: Part is not shown in the UML diagrams. TBD: keep, deprecate, or remove?
-
-\subsection{Chunk}
-
-A Chunk describes a single data array using WCS (World Coordinate System) concepts. 
-
-Note: Chunk is not shown in the UML diagrams. TBD: keep, deprecate or remove?
 
 \subsection{DeletedObservationEvent}
 
