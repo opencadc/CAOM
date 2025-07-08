@@ -25,7 +25,7 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 ||||ivoa.ObsCore|access_format|
 ||||ivoa.ObsCore|access_estsize|
 |Position.bounds|caom2.Plane|position_bounds|ivoa.ObsCore|s_region|
-|Position.bounds|caom2.Plane|_function_|ivoa.ObsCore|s_ra|
+|--|caom2.Plane|_function_|ivoa.ObsCore|s_ra|
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_dec|
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_fov|
 |Position.resolution|caom2.Plane|position_resolution|ivoa.ObsCore|s_resolution|
@@ -45,7 +45,6 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |--|caom2.Plane|_function_|ivoa.ObsCore|em_resolution_min|
 |--|caom2.Plane|_function_|ivoa.ObsCore|em_resolution_max|
 |Energy.dimension|caom2.Plane|energy_dimension|ivoa.ObsCore|em_xel|
-|(not in model)|caom2.Plane||ivoa.ObsCore|em_ucd|
 |||||||
 |Time.bounds|caom2.Plane|time_bounds|ivoa.ObsCore||
 |--|caom2.Plane|_function_|ivoa.ObsCore|t_min|
@@ -61,4 +60,14 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |Polarization.dimension|caom2.Plane|polarization_dimension|ivoa.ObsCore|pol_xel|
 |Observable.ucd|caom2.Plane|observable_ucd|ivoa.ObsCore|o_ucd|
 
+## publisherID
+The `publisherID` field is not part of the model because it should/must be modified when metadata instances are
+synchronised (mirrored) by a different data centre (publisher). Exclusion from the model means the `publisherID` is
+included in the mataChecksum calculation. This field is part of a correct implementation since this value is required 
+in ObsCore and (will be required) CAOM-TAP.
 
+## function
+Where the `vodml-uid` is `--` and the CAOM column is _function_, this is a continuation of the preceding line and
+means that the ObsCore scalar value is extracted from the non-scalar CAOM value. For example, to map
+`{s_region,s_ra,s_dec,s_fov}` from ObsCore to CAOM, one only needs to map the value of `s_region` to `position_bounds`;
+all the other values are computed from the `position_bounds`.
