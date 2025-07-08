@@ -4,7 +4,7 @@ This is the standard mapping between CAOM-2.5 and ObsCore-1.2 - both at working 
 
 Informative: the standard CAOM table and column names are included below; these will be specified
 in a separate standard (CAOM-TAP). The standard rules to generate the relational mapping:
-* {model rpefix} -> {schema name}
+* {model prefix} -> {schema name}
 * {entity class name} -> {table name}
 * {vodml-id} -> (dots converted to underscore) -> {column_name} (vodml-id rules TBD)
 
@@ -20,14 +20,16 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |Plane.dataRelease|caom2.Plane|dataRelease|ivoa.ObsCore|obs_release_date|
 |Plane.dataProductType|caom2.Plane|dataProductType|ivoa.ObsCore|dataproduct_type|
 |Plane.calibrationLevel|caom2.Plane|calibrationLevel|ivoa.ObsCore|calib_level|
-|||||||
 ||||ivoa.ObsCore|access_url|
 ||||ivoa.ObsCore|access_format|
 ||||ivoa.ObsCore|access_estsize|
+|||||||
 |Position.bounds|caom2.Plane|position_bounds|ivoa.ObsCore|s_region|
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_ra|
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_dec|
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_fov|
+|Position.minBounds|caom2.Plane|position_minBounds|ivoa.ObsCore||
+|--|caom2.Plane|_function_|ivoa.ObsCore|s_fov_min|
 |Position.resolution|caom2.Plane|position_resolution|ivoa.ObsCore|s_resolution|
 |Position.resolutionBounds|caom2.Plane|position_resolutionBounds|ivoa.ObsCore||
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_resolution_min|
@@ -59,6 +61,14 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |Polarization.states|caom2.Plane|polarization_states|ivoa.ObsCore|pol_states|
 |Polarization.dimension|caom2.Plane|polarization_dimension|ivoa.ObsCore|pol_xel|
 |Observable.ucd|caom2.Plane|observable_ucd|ivoa.ObsCore|o_ucd|
+|Position.maxRecoverableScale|caom2.Plane|position_maxRecoverableScale|ivoa.ObsCore_radio||
+|--|caom2.Plane|_function_|ivoa.ObsCore_radio|s_largest_angular_scale_min|
+|--|caom2.Plane|_function_|ivoa.ObsCore_radio|s_largest_angular_scale_max|
+|Visibility.distance|caom2.Plane|uv_distance|ivoa.ObsCore_radio||
+|--|caom2.Plane|_function_|ivoa.ObsCore_radio|uv_distance_min|
+|--|caom2.Plane|_function_|ivoa.ObsCore_radio|uv_distance_max|
+|Visibility.distributionEccentricity|caom2.Plane|uv_distributionEccentricity|ivoa.ObsCore_radio|uv_distribution_ecc|
+|Visibility.distributionFill|caom2.Plane|uv_distributionFill|ivoa.ObsCore_radio|uv_distribution_fill|
 
 ## publisherID
 The `publisherID` field is not part of the model because it should/must be modified when metadata instances are
