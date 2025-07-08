@@ -21,9 +21,9 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |Plane.dataProductType|caom2.Plane|dataProductType|ivoa.ObsCore|dataproduct_type|
 |Plane.calibrationLevel|caom2.Plane|calibrationLevel|ivoa.ObsCore|calib_level|
 |||||||
-|||||ivoa.ObsCore|access_url|
-|||||ivoa.ObsCore|access_format|
-|||||ivoa.ObsCore|access_estsize|
+||||ivoa.ObsCore|access_url|
+||||ivoa.ObsCore|access_format|
+||||ivoa.ObsCore|access_estsize|
 |Position.bounds|caom2.Plane|position_bounds|ivoa.ObsCore|s_region|
 |Position.bounds|caom2.Plane|_function_|ivoa.ObsCore|s_ra|
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_dec|
