@@ -20,11 +20,10 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |Plane.dataRelease|Plane|caom2.Plane|dataRelease|ivoa.ObsCore|obs_release_date|
 |Plane.dataProductType|Plane|caom2.Plane|dataProductType|ivoa.ObsCore|dataproduct_type|
 |Plane.calibrationLevel|Plane|caom2.Plane|calibrationLevel|ivoa.ObsCore|calib_level|
-
+|||||||
 |||||ivoa.ObsCore|access_url|
 |||||ivoa.ObsCore|access_format|
 |||||ivoa.ObsCore|access_estsize|
-
 |Position.bounds|Plane|caom2.Plane|position_bounds|ivoa.ObsCore|s_region|
 |Position.bounds|Plane|caom2.Plane|_function_|ivoa.ObsCore|s_ra|
 |--|Plane|caom2.Plane|_function_|ivoa.ObsCore|s_dec|
@@ -36,7 +35,7 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |Position.dimension|Plane|caom2.Plane|position_dimension|ivoa.ObsCore||
 |--|Plane|caom2.Plane|_function_|ivoa.ObsCore|s_xel1|
 |--|Plane|caom2.Plane|_function_|ivoa.ObsCore|s_xel2|
-
+|||||||
 |Energy.bounds|Plane|caom2.Plane|energy_bounds|ivoa.ObsCore||
 |--|Plane|caom2.Plane|_function_|ivoa.ObsCore|em_min|
 |--|Plane|caom2.Plane|_function_|ivoa.ObsCore|em_max|
@@ -47,7 +46,7 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |--|Plane|caom2.Plane|_function_|ivoa.ObsCore|em_resolution_max|
 |Energy.dimension|Plane|caom2.Plane|energy_dimension|ivoa.ObsCore|em_xel|
 |(not in model)|Plane|caom2.Plane||ivoa.ObsCore|em_ucd|
-
+|||||||
 |Time.bounds|Plane|caom2.Plane|time_bounds|ivoa.ObsCore||
 |--|Plane|caom2.Plane|_function_|ivoa.ObsCore|t_min|
 |--|Plane|caom2.Plane|_function_|ivoa.ObsCore|t_max|
@@ -57,7 +56,7 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |--|Plane|caom2.Plane|_function_|ivoa.ObsCore|t_exptime_max|
 |Time.resolution|Plane|caom2.Plane|time_resolution|ivoa.ObsCore|t_resolution|
 |Time.dimension|Plane|caom2.Plane|time_dimension|ivoa.ObsCore|t_xel|
-
+|||||||
 |Polarization.states|Plane|caom2.Plane|polarization_states|ivoa.ObsCore|pol_states|
 |Polarization.dimension|Plane|caom2.Plane|polarization_dimension|ivoa.ObsCore|pol_xel|
 |Observable.ucd|Plane|caom2.Plane|observable_ucd|ivoa.ObsCore|o_ucd|
