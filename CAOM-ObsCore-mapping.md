@@ -71,9 +71,26 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |Visibility.distributionEccentricity|caom2.Plane|uv_distributionEccentricity|ivoa.ObsCore_radio|uv_distribution_ecc|
 |Visibility.distributionFill|caom2.Plane|uv_distributionFill|ivoa.ObsCore_radio|uv_distribution_fill|
 
+## Observation.uri
+This identifier is used as values are also used in DerivedObservation.members (references). Two forms are supported:
+* caom:{collection}/{observation identifier}
+* ivo://{authority}/{collection}?{observation identifier}
+
+Unless there is a reason to resolve such identifiers via an IVOA registry lookup of the collection, the `caom` 
+form is recommended. Implementation detail: it is also used to put/get/update/delete observations via the metadata API.
+
+## Plane.uri
+This identifier is as values are also used in Provenance.inputs (references). Two forms are supported:
+* caom:{collection}/{plane identifier}
+* ivo://{authority}/{collection}?{plane identifier}
+
+This value is the _creator dataset identifer_ in normal IVOA usage. Implementation detail: the metadata API normally 
+copies this value and uses it as the `publisherID`; metadata sync tools (to mirror metadata) transform this value into
+a suitable local `publisherID` value (see below).
+
 ## publisherID
-The `publisherID` field is not part of the model because it should/must be modified when metadata instances are
-synchronised (mirrored) by a different data centre (publisher). Exclusion from the model means the `publisherID` is
+The `publisherID` field **is not** strictly part of the model because it must be modified when metadata instances are
+synchronised (mirrored) by different data centres (publisher). Exclusion from the model means the `publisherID` is not
 included in the mataChecksum calculation. This field is part of a correct implementation since this value is required 
 in ObsCore and (will be required) CAOM-TAP.
 
