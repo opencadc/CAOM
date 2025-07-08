@@ -28,22 +28,22 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_ra|
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_dec|
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_fov|
-|Position.minBounds|caom2.Plane|position_minBounds|ivoa.ObsCore||
+|Position.minBounds|caom2.Plane|position_minBounds|||
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_fov_min|
 |Position.resolution|caom2.Plane|position_resolution|ivoa.ObsCore|s_resolution|
-|Position.resolutionBounds|caom2.Plane|position_resolutionBounds|ivoa.ObsCore||
+|Position.resolutionBounds|caom2.Plane|position_resolutionBounds|||
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_resolution_min|
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_resolution_max|
-|Position.dimension|caom2.Plane|position_dimension|ivoa.ObsCore||
+|Position.dimension|caom2.Plane|position_dimension|||
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_xel1|
 |--|caom2.Plane|_function_|ivoa.ObsCore|s_xel2|
 |||||||
-|Energy.bounds|caom2.Plane|energy_bounds|ivoa.ObsCore||
+|Energy.bounds|caom2.Plane|energy_bounds|||
 |--|caom2.Plane|_function_|ivoa.ObsCore|em_min|
 |--|caom2.Plane|_function_|ivoa.ObsCore|em_max|
 |Energy.resolvingPower|caom2.Plane|energy_resolvingPower|ivoa.ObsCore|em_res_power|
 |Energy.resolution|caom2.Plane||ivoa.ObsCore|em_resolution|
-|Energy.resolutionBounds|caom2.Plane|energy_resolutionBounds|ivoa.ObsCore||
+|Energy.resolutionBounds|caom2.Plane|energy_resolutionBounds|||
 |--|caom2.Plane|_function_|ivoa.ObsCore|em_resolution_min|
 |--|caom2.Plane|_function_|ivoa.ObsCore|em_resolution_max|
 |Energy.dimension|caom2.Plane|energy_dimension|ivoa.ObsCore|em_xel|
@@ -52,7 +52,7 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |--|caom2.Plane|_function_|ivoa.ObsCore|t_min|
 |--|caom2.Plane|_function_|ivoa.ObsCore|t_max|
 |Time.exposure|caom2.Plane|time_exposure|ivoa.ObsCore|t_exptime|
-|Time.exposureBounds|caom2.Plane|time_exposureBounds|ivoa.ObsCore||
+|Time.exposureBounds|caom2.Plane|time_exposureBounds|||
 |--|caom2.Plane|_function_|ivoa.ObsCore|t_exptime_min|
 |--|caom2.Plane|_function_|ivoa.ObsCore|t_exptime_max|
 |Time.resolution|caom2.Plane|time_resolution|ivoa.ObsCore|t_resolution|
@@ -61,10 +61,11 @@ in a separate standard (CAOM-TAP). The standard rules to generate the relational
 |Polarization.states|caom2.Plane|polarization_states|ivoa.ObsCore|pol_states|
 |Polarization.dimension|caom2.Plane|polarization_dimension|ivoa.ObsCore|pol_xel|
 |Observable.ucd|caom2.Plane|observable_ucd|ivoa.ObsCore|o_ucd|
-|Position.maxRecoverableScale|caom2.Plane|position_maxRecoverableScale|ivoa.ObsCore_radio||
+|||||||
+|Position.maxRecoverableScale|caom2.Plane|position_maxRecoverableScale|||
 |--|caom2.Plane|_function_|ivoa.ObsCore_radio|s_largest_angular_scale_min|
 |--|caom2.Plane|_function_|ivoa.ObsCore_radio|s_largest_angular_scale_max|
-|Visibility.distance|caom2.Plane|uv_distance|ivoa.ObsCore_radio||
+|Visibility.distance|caom2.Plane|uv_distance|||
 |--|caom2.Plane|_function_|ivoa.ObsCore_radio|uv_distance_min|
 |--|caom2.Plane|_function_|ivoa.ObsCore_radio|uv_distance_max|
 |Visibility.distributionEccentricity|caom2.Plane|uv_distributionEccentricity|ivoa.ObsCore_radio|uv_distribution_ecc|
@@ -81,3 +82,12 @@ Where the `vodml-uid` is `--` and the CAOM column is _function_, this is a conti
 means that the ObsCore scalar value is extracted from the non-scalar CAOM value. For example, to map
 `{s_region,s_ra,s_dec,s_fov}` from ObsCore to CAOM, one only needs to map the value of `s_region` to `position_bounds`;
 all the other values are computed from the `position_bounds`.
+
+## access
+Access to data from CAOM involves querying for the Artifact(s) that belong to a Plane and resolving the `Artiafct.uri`
+to a data access mechanism (URL or other); this is normally done by calling a DataLink service with the `caom2.Plane.publisherID` or `ivoa.ObsCore.obs_publisher_did` value and the DataLink service performs the query and
+resolution (dependent on storage APIs). The `access` fields in `ivoa.ObsCore` are generated on query output and can be
+either:
+1. a generated link to the appropriate DataLink service with the publisherID included
+2. a generated link to a service that can package multiple files in a single download (e.g. tar or zip download)
+Option 1 is the preferred solution.
