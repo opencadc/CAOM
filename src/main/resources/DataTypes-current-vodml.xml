@@ -105,7 +105,7 @@
     <dataType>
         <vodml-id>Point</vodml-id>
         <name>Point</name>
-        <description>location on the sky</description>
+        <description>location in two-dimensions</description>
         <attribute>
             <vodml-id>Point.cval1</vodml-id>
             <name>cval1</name>
@@ -139,7 +139,7 @@
     <dataType>
         <vodml-id>Circle</vodml-id>
         <name>Circle</name>
-        <description>a circular region on the sky</description>
+        <description>a circular region in two-dimensions</description>
         <extends>
             <vodml-ref>dt:Shape</vodml-ref>
         </extends>
@@ -170,7 +170,7 @@
     <dataType>
         <vodml-id>MultiShape</vodml-id>
         <name>MultiShape</name>
-        <description>multiple simple shapes describing regions as a single value</description>
+        <description>multiple simple shapes describing regions in two-dimensions</description>
         <attribute>
             <vodml-id>MultiShape.shapes</vodml-id>
             <name>shapes</name>
@@ -187,7 +187,7 @@
     <dataType>
         <vodml-id>Polygon</vodml-id>
         <name>Polygon</name>
-        <description>a simple polygon region on the sky defined a sequence of points connected by great-circle segments</description>
+        <description>a simple polygon region in two-dimensions defined a sequence of points</description>
         <extends>
             <vodml-ref>dt:Shape</vodml-ref>
         </extends>
