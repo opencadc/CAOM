@@ -9,11 +9,12 @@ repositories {
     mavenLocal()
 }
 
+apply from: 'opencadc.gradle'
+
 sourceCompatibility = 11
 
 group = 'org.opencadc'
-
-version = '2.4'
+version = '2.5'
 
 jar {
     enabled = true
@@ -54,5 +55,5 @@ dependencies {
     testImplementation 'junit:junit:4.13' 
 }
 
-apply from: 'opencadc.gradle'
+
 

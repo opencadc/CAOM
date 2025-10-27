@@ -28,13 +28,13 @@
 
   \subsection{Algorithm}
   \label{sect:Algorithm}
-    the algorithm that was responsible for creating the observation; for a DerivedObservation this is the algorithm that defines the intended set of members to include
+    The algorithm is the operation responsible for creating the observation. For a DerivedObservation, this is the algorithm that defines the intended set of members.
 
     \subsubsection{Algorithm.name}
       \textbf{vodml-id: Algorithm.name} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 1} \newline
-      common name of the algorithm; the value 'exposure' is reserved for use in SimpleObservation; TBD: publish a list of acceptable values as a machine-readable vocabulary?
+      The algorithm name defines very high level categories of observations. See SimpleObservation and DerivedObservation for existing use. TBD: publish a list of acceptable values as a machine-readable vocabulary?
 
   \subsection{Artifact}
   \label{sect:Artifact}
@@ -72,7 +72,7 @@
 
     \subsubsection{Artifact.contentLength}
       \textbf{vodml-id: Artifact.contentLength} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
+      \textbf{type: dt:int64} \newline
       \textbf{multiplicity: 0..1} \newline
       This specifies the size of the stored artifact; for files, this is the file size.
 
@@ -98,23 +98,23 @@
       \textbf{vodml-id: Artifact.descriptionID} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
-      This is an identifier to refer to an ArtifactDescription entity. (new in CAOM-2.5) Use case: provide standard descriptions for links in a DataLink response.
+      This is an identifier to refer to an ArtifactDescription entity (new in CAOM-2.5). Use case: provide standard descriptions for links in a DataLink response.
 
   \subsection{ArtifactDescription}
   \label{sect:ArtifactDescription}
-    The provides a referenceable description of artitfacts for use in DataLink responses. (NEW in CAOM-2.5)
+    Ths entity provides a referenceable description of artifacts for use in DataLink responses (NEW in CAOM-2.5).
 
     \subsubsection{ArtifactDescription.uri}
       \textbf{vodml-id: ArtifactDescription.uri} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 1} \newline
-      This is the logical identifier for this description used to refer to it from an artifact. Anticipated usage: this is an internal identifier that an IVOA DataLink service can use to lookup a description. TODO: There is an informal style used for Atifact.uri to make sure that these identifiers are globally unique and avoid collisions...
+      This is the logical identifier for this description used to refer to it from an artifact. Anticipated usage: this is an internal identifier that an IVOA DataLink service can use to lookup a description. TODO: document the informal style also used for Artifact.uri to make sure that these identifiers are globally unique and avoid collisions.
 
     \subsubsection{ArtifactDescription.description}
       \textbf{vodml-id: Artifact.description} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 1} \newline
-      A human-readable description of an artifact.
+      The description is a human-readable description of an artifact.
 
   \subsection{CalibrationStatus}
   \label{sect:CalibrationStatus}
@@ -148,19 +148,19 @@
 
     \subsubsection{CustomAxis.bounds}
       \textbf{vodml-id: CustomAxis.bounds} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1} \newline
       custom coordinate coverage (cardinality changed in CAOM-2.5)
 
     \subsubsection{CustomAxis.samples}
       \textbf{vodml-id: CustomAxis.samples} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1..*} \newline
       detailed custom coordinate coverage (refactored in CAOM-2.5)
 
     \subsubsection{CustomAxis.dimension}
       \textbf{vodml-id: CustomAxis.dimension} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
+      \textbf{type: dt:int64} \newline
       \textbf{multiplicity: 0..1} \newline
       number of discrete samples (pixels) along custom axis
 
@@ -212,19 +212,35 @@
       \textbf{multiplicity: 0..*} \newline
       The members are the observations grouped together by the algorithm that defines the derivation. these are the intended components of the composite product, but actual inputs are described by the provenance. Members may be simple or derived observations (arbitrary heirarchy); derived observations with one or more members may be defined such that they only include a subset of each member (they are extracted from the progenitor). Observation.uri values are used here to refer to the member observations.
 
+  \subsection{Dimension2D}
+  \label{sect:Dimension2D}
+    dimension (number of pixels) for a two-dimensional axis
+
+    \subsubsection{Dimension2D.naxis1}
+      \textbf{vodml-id: Dimension2D.naxis1} \newline
+      \textbf{type: dt:int64} \newline
+      \textbf{multiplicity: 1} \newline
+      [TODO add description!]
+
+    \subsubsection{Dimension2D.naxis2}
+      \textbf{vodml-id: Dimension2D.naxis2} \newline
+      \textbf{type: dt:int64} \newline
+      \textbf{multiplicity: 1} \newline
+      [TODO add description!]
+
   \subsection{Energy}
   \label{sect:Energy}
     description of the energy coverage and sampling of the data
 
     \subsubsection{Energy.bounds}
       \textbf{vodml-id: Energy.bounds} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1} \newline
       simple outer bounds of energy coverage of the data (CHANGED cardinality in CAOM-2.5)
 
     \subsubsection{Energy.samples}
       \textbf{vodml-id: Energy.samples} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1..*} \newline
       detailed energy coverage of the data (CHANGED in CAOM-2.5)
 
@@ -236,37 +252,37 @@
 
     \subsubsection{Energy.dimension}
       \textbf{vodml-id: Energy.dimension} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
+      \textbf{type: dt:int64} \newline
       \textbf{multiplicity: 0..1} \newline
       number of measurements (pixels) on the energy axis
 
     \subsubsection{Energy.resolvingPower}
       \textbf{vodml-id: Energy.resolvingPower} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       mean spectral resolving power per pixel (relative resolution)
 
     \subsubsection{Energy.resolvingPowerBounds}
       \textbf{vodml-id: Energy.resolvingPowerBounds} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 0..1} \newline
       range of resolving power within the bounds (relative resolution)
 
     \subsubsection{Energy.resolution}
       \textbf{vodml-id: Energy.resolution} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       mean absolute spectral resolution per pixel (new in CAOM-2.5)
 
     \subsubsection{Energy.resolutionBounds}
       \textbf{vodml-id: Energy.resolutionBounds} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 0..1} \newline
       range of absolute spectral resolution within the bounds (new in CAOM-2.5)
 
     \subsubsection{Energy.sampleSize}
       \textbf{vodml-id: Energy.sampleSize} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       mean pixel size
 
@@ -278,7 +294,7 @@
 
     \subsubsection{Energy.restwav}
       \textbf{vodml-id: Energy.rest} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       rest energy of the target energy transition (name changed in CAOM-2.5)
 
@@ -316,7 +332,7 @@
 
     \subsubsection{Entity.id}
       \textbf{vodml-id: Entity.id} \newline
-      \textbf{type: \hyperref[sect:uuid]{caom2:uuid}} \newline
+      \textbf{type: dt:uuid} \newline
       \textbf{multiplicity: 1} \newline
       The id is a globally unique identifier (primary key) for an instance.
 
@@ -330,7 +346,7 @@
       \textbf{vodml-id: Entity.metaChecksum} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
-      This checksum of the metadata in this entity signals a change in the metadata of an instance and supports validation (e.g. to compare metadata before and after serialisation or persistence). A change in the metaChecksum can also be used to optimise operations like updating a row in the database only when the metaChecksum changed. A change in metaChecksum normally triggers a change in the lastModified timestamp. The URI must conform to the pattern {algorithm}:{hex value}, for example: \begin{verbatim}md5:4be91751541fd804e7207663a0822f56.\end{verbatim} The checksum of an entity is computed by accumulating byte representation of individual metadata values in the following order: (1) Entity.id for entities, (2) Entity.metaProducer, (3) state fields in alphabetic order (foo.a comes before foo.b) and using depth-first recursion (foo.abc.x comes before foo.def). The lastModified timestamp is not included in the metaChecksum calculation. Null values are ignored so that the addition of new fields in future versions will not change/invalidate existing checksums. Non-null values are converted to bytes as follows: \begin{itemize} \item string: UTF-8 encoded bytes \item URI: UTF-8 encoded bytes of the string representation \item VocabularyTerm: UTF-8 encoded bytes of the term (do not include the namespace) \item enumeration: the literal value converted to bytes \item float: IEEE754 single (4 bytes) \item double: IEEE754 double (8 bytes) \item boolean: convert to single byte, false=0, true=1 (1 byte) \item byte: as-is (1 byte) \item short: (2 bytes, network byte order == big endian)) \item integer: (4 bytes, network byte order == big endian) \item long: (8 bytes, network byte order == big endian) \item date: treat as a long (milliseconds since 1970-01-01 00:00:00 UTC) \end{itemize} \todo{truncatedDates=false, digestFieldNames=true, digestFieldnamesLowerCase=true} \todo{external data model components: recursion or specify conversion above}
+      This checksum of the metadata in this entity signals a change in the metadata of an instance and supports validation (e.g. to compare metadata before and after serialisation or persistence). A change in the metaChecksum can also be used to optimise operations like updating a row in the database only when the metaChecksum changed. A change in metaChecksum normally triggers a change in the lastModified timestamp. The URI must conform to the pattern {algorithm}:{hex value}, for example: \begin{verbatim}md5:4be91751541fd804e7207663a0822f56.\end{verbatim} The checksum of an entity is computed by accumulating byte representation of individual metadata values in the following order: (1) Entity.id for entities, (2) Entity.metaProducer, (3) state fields in alphabetic order (foo.a comes before foo.b) and using depth-first recursion (foo.abc.x comes before foo.def). The lastModified timestamp is not included in the metaChecksum calculation. Null values are ignored so that the addition of new fields in future versions will not change/invalidate existing checksums. Non-null values are converted to bytes as follows: \begin{itemize} \item string: UTF-8 encoded bytes \item URI: UTF-8 encoded bytes of the string representation \item VocabularyTerm: UTF-8 encoded bytes of the term (do not include the namespace) \item enumeration: the literal value converted to bytes \item float: IEEE754 single (4 bytes) \item double: IEEE754 double (8 bytes) \item boolean: convert to single byte, false=0, true=1 (1 byte) \item byte: as-is (1 byte) \item short: (2 bytes, network byte order == big endian)) \item integer: (4 bytes, network byte order == big endian) \item long: (8 bytes, network byte order == big endian) \item date: treat as a long (milliseconds since 1970-01-01 00:00:00 UTC) \end{itemize} TODO: truncatedDates=false, digestFieldNames=true, digestFieldnamesLowerCase=true TODO: external data model components: recursion or specify conversion above (interval, point, shape, multishape)
 
     \subsubsection{Entity.metaProducer}
       \textbf{vodml-id: Entity.metaProducer} \newline
@@ -340,53 +356,53 @@
 
   \subsection{Environment}
   \label{sect:Environment}
-    collection of measured quantities that characterise the environment at the time of observation
+    The environment is a collection of measured quantities that characterise the conditions when the observation was created.
 
     \subsubsection{Environment.name}
       \textbf{vodml-id: Environment.seeing} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      typical atmospheric distortion (full-width-half-max of a point source)
+      The seeing is a measure of the atmospheric distortion: full-width-half-max of a point source.
 
     \subsubsection{Environment.humidity}
       \textbf{vodml-id: Environment.humidity} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      fractional relative humidity [0,1]
+      The humidity is a meaure of the fractional relative humidity [0,1].
 
     \subsubsection{Environment.elevation}
       \textbf{vodml-id: Environment.elevation} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      angular elevation above horizon [0,90]
+      The elevation is the angular elevation above the horizon [0,90].
 
     \subsubsection{Environment.tau}
       \textbf{vodml-id: Environment.tau} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      the opacity of the atmosphere [0,1]
+      Tau is a measure of the opacity of the atmosphere [0,1].
 
     \subsubsection{Environment.wavelengthTau}
       \textbf{vodml-id: Environment.wavelengthTau} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      wavelength at which opacity was measured
+      The tau (opacity) was measured at this wavelength.
 
     \subsubsection{Environment.ambientTemp}
       \textbf{vodml-id: Environment.ambientTemp} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      ambient temperature at the telescope
+      The ambient temperature is a measurement of the typical temperature at/in the telescope.
 
     \subsubsection{Environment.photometric}
       \textbf{vodml-id: Environment.photometric} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:boolean}} \newline
       \textbf{multiplicity: 0..1} \newline
-      indicator that flux and/or color calibration is stable
+      The photometric flag is an indicator that flux and/or color calibration is stable.
 
   \subsection{Instrument}
   \label{sect:Instrument}
-    the instrument used to acquire or create the observation; this could be used for both physical instruments that acquire data or software that generates it (e.g. simulated data)
+    The instrument is the device that captures, aggregates, and digitise the signal from the telescope while creating an observation. An instrument could be physical hardware at a telescope (for empirical data) or software that generates it (for simulated data).
 
     \subsubsection{Instrument.name}
       \textbf{vodml-id: Instrument.name} \newline
@@ -398,7 +414,7 @@
       \textbf{vodml-id: Instrument.keywords} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 0..*} \newline
-      additional keywords that describe the instrument or instrument configuration at the time of observation; keywords cannot contain the pipe (|) character - it is reserved for use in persistence systems (e.g. to store all keywords in a single column in a table)
+      Additional keywords describe the instrument or instrument configuration at the time of observation. Keywords cannot contain the pipe (|) character: it is reserved for use in persistence systems (e.g. to store all keywords in a single column in a table).
 
   \subsection{Metrics}
   \label{sect:Metrics}
@@ -406,37 +422,37 @@
 
     \subsubsection{Metrics.sourceNumberDensity}
       \textbf{vodml-id: Metrics.sourceNumberDensity} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       number of sources detected per unit area
 
     \subsubsection{Metrics.background}
       \textbf{vodml-id: Metrics.background} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       background level
 
     \subsubsection{Metrics.backgroundStddev}
       \textbf{vodml-id: Metrics.backgroundStddev} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       standard deviation in the background level
 
     \subsubsection{Metrics.fluxDensityLimit}
       \textbf{vodml-id: Metrics.fluxDensityLimit} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       flux density with a signal:noise ratio of 10
 
     \subsubsection{Metrics.magLimit}
       \textbf{vodml-id: Metrics.magLimit} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       magnitude with a signal:noise ratio of 10
 
     \subsubsection{Metrics.sampleSNR}
       \textbf{vodml-id: Metrics.sampleSNR} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       signal:noise ratio for a representative subset of samples
 
@@ -486,7 +502,7 @@
 
     \subsubsection{Observation.sequenceNumber}
       \textbf{vodml-id: Observation.sequenceNumber} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
+      \textbf{type: dt:int32} \newline
       \textbf{multiplicity: 0..1} \newline
       a collection-specific sequence number for observations; re-use or reset is collection specific
 
@@ -686,7 +702,7 @@
 
     \subsubsection{Polarization.dimension}
       \textbf{vodml-id: Polarization.dimension} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
+      \textbf{type: dt:int32} \newline
       \textbf{multiplicity: 0..1} \newline
       number of polarization states included
 
@@ -700,49 +716,49 @@
 
     \subsubsection{Position.bounds}
       \textbf{vodml-id: Position.bounds} \newline
-      \textbf{type: \hyperref[sect:types.Shape]{caom2:types.Shape}} \newline
+      \textbf{type: dt:Shape} \newline
       \textbf{multiplicity: 1} \newline
       spatial boundary that includes the data (CHANGED cardinality in CAOM-2.5)
 
     \subsubsection{Position.samples}
       \textbf{vodml-id: Position.samples} \newline
-      \textbf{type: \hyperref[sect:types.MultiShape]{caom2:types.MultiShape}} \newline
+      \textbf{type: dt:MultiShape} \newline
       \textbf{multiplicity: 1} \newline
       detailed sub-samples of the bounds (CHANGED in CAOM-2.5)
 
     \subsubsection{Position.minBounds}
       \textbf{vodml-id: Position.minBounds} \newline
-      \textbf{type: \hyperref[sect:types.Shape]{caom2:types.Shape}} \newline
+      \textbf{type: dt:Shape} \newline
       \textbf{multiplicity: 0..1} \newline
       minimum spatial boundary that includes the data; this value is smaller than the bounds (maximum) when the field-of-view varies because it is dependent on another axis (usually energy) (new in CAOM-2.5)
 
     \subsubsection{Position.dimension}
       \textbf{vodml-id: Position.dimension} \newline
-      \textbf{type: \hyperref[sect:types.Dimension2D]{caom2:types.Dimension2D}} \newline
+      \textbf{type: \hyperref[sect:Dimension2D]{caom2:Dimension2D}} \newline
       \textbf{multiplicity: 0..1} \newline
       number of separate measurements (pixels) along each axis
 
     \subsubsection{Position.maxRecoverableScale}
       \textbf{vodml-id: Position.maxRecoverableScale} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 0..1} \newline
       maximum size of spatial structure (signal) that can be recovered or seen in the data (new in CAOM-2.5)
 
     \subsubsection{Position.resolution}
       \textbf{vodml-id: Position.resolution} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       mean spatial resolution (full-width-half-max) per pixel
 
     \subsubsection{Position.resolutionBounds}
       \textbf{vodml-id: Position.resolutionBounds} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 0..1} \newline
       range of resolution within the bounds
 
     \subsubsection{Position.sampleSize}
       \textbf{vodml-id: Position.sampleSize} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       median pixel size
 
@@ -754,43 +770,43 @@
 
   \subsection{Proposal}
   \label{sect:Proposal}
-    description of the science proposal or programme that initiated the observation
+    Proposal is a summary description of the science proposal or programme that initiated the observation. It is expected that a rich proposal model exists elsewhere; this description is to assist data discovery only.
 
     \subsubsection{Proposal.id}
       \textbf{vodml-id: Proposal.id} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 1} \newline
-      collection-specific identifier for the proposal
+      The proposal identifier is a collection-specific identifier for this proposal. If rich proposal model is available, this identifier should be usable to interact with that external system.
 
     \subsubsection{Proposal.pi}
       \textbf{vodml-id: Proposal.pi} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 0..1} \newline
-      proper name of the principal investigator
+      The pi is the proper name of the principal investigator for the proposal.
 
     \subsubsection{Proposal.project}
       \textbf{vodml-id: Proposal.project} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 0..1} \newline
-      common name of the project this proposal belongs to; typically used for larger or long-running projects that include mutliple proposals
+      This is the name of a (larger scale) project this proposal belongs to. This should be a common (short) name for the project and typically used for larger or long-running projects that include multiple proposals.
 
     \subsubsection{Proposal.title}
       \textbf{vodml-id: Proposal.title} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 0..1} \newline
-      title of the proposal
+      The title of the proposal as found in a rich proposal model or system.
 
     \subsubsection{Proposal.keywords}
       \textbf{vodml-id: Proposal.keywords} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 0..*} \newline
-      additional keywords that describe the science goals of the proposal; keywords cannot contain the pipe (|) character - it is reserved for use in persistence systems (e.g. to store all keywords in a single column in a table)
+      Additional keywords describe the scientific area of research or goals of the proposal. Keywords cannot contain the pipe (|) character: it is reserved for use in persistence systems (e.g. to store all keywords in a single column in a table).
 
     \subsubsection{Proposal.reference}
       \textbf{vodml-id: Proposal.reference} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
-      identifier for external resource with proposal details
+      The proposal reference is a resolvable identifier for external resource with additional (human-readable) details about the proposal.
 
   \subsection{Provenance}
   \label{sect:Provenance}
@@ -856,13 +872,13 @@
 
   \subsection{Requirements}
   \label{sect:Requirements}
-    the observational requirements specified by the proposal
+    Requirements is a summary description of whether the observation satisfies the observational requirements specified by the proposal. In general, values of status describe what went wrong and this value is absent if the observation met the requirements.
 
     \subsubsection{Requirements.flag}
       \textbf{vodml-id: Requirements.flag} \newline
       \textbf{type: \hyperref[sect:Status]{caom2:Status}} \newline
       \textbf{multiplicity: 1} \newline
-      flag indicating degree to which requirements were satisfied by the observation
+      The flag indicates the reason that the requirements were not satisfied by the observation.
 
   \subsection{SimpleObservation}
   \label{sect:SimpleObservation}
@@ -874,71 +890,71 @@
 
   \subsection{Target}
   \label{sect:Target}
-    the target of an observation
+    The target of an observation is the principle object or area under investigation.
 
     \subsubsection{Target.name}
       \textbf{vodml-id: Target.name} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 1} \newline
-      proper name of the target
+      The name is a (one of?) common (short) proper name of the target.
 
     \subsubsection{Target.targetID}
       \textbf{vodml-id: Target.targetID} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
-      resolvable target identifier; the targetID URI should be of the form {scheme}:{id} so it can be resolved (for example: naif:170100)
+      The targetID is a resolvable target identifier. The targetID URI should (must?) be of the form {scheme}:{id} so it can be resolved (for example: naif:170100).
 
     \subsubsection{Target.type}
       \textbf{vodml-id: Target.type} \newline
       \textbf{type: \hyperref[sect:TargetType]{caom2:TargetType}} \newline
       \textbf{multiplicity: 0..1} \newline
-      type of target; typically used to figure out what the target name means and where to look for additional information about it
+      The target type is typically used to figure out what the target name means and where to look for additional information about it.
 
     \subsubsection{Target.redshift}
       \textbf{vodml-id: Target.redshift} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      cosmological redshift of the target
+      The redshift is the best known cosmological redshift of the target. This value is only used for targets that are extragalactic objects.
 
     \subsubsection{Target.standard}
       \textbf{vodml-id: Target.standard} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:boolean}} \newline
       \textbf{multiplicity: 0..1} \newline
-      indicates that the target is typically used as a standard (astrometric, photometric, etc)
+      The standard flag indicates that the target is typically used as a standard (astrometric, photometric, etc), usually for for calibration observations (see Observation.intent).
 
     \subsubsection{Target.moving}
       \textbf{vodml-id: Target.moving} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:boolean}} \newline
       \textbf{multiplicity: 0..1} \newline
-      indicates that the target is a moving object; used for solar system objects but not high proper motion stars
+      The moving flag indicates that the target is a moving object. This is used for solar system objects but not high proper motion stars.
 
     \subsubsection{Target.keywords}
       \textbf{vodml-id: Target.keywords} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 0..*} \newline
-      additional keywords that describe the target; keywords cannot contain the pipe (|) character - it is reserved for use in persistence systems (e.g. to store all keywords in a single column in a table)
+      Additional keywords describe the target and usage depends on the target type. Keywords cannot contain the pipe (|) character: it is reserved for use in persistence systems (e.g. to store all keywords in a single column in a table).
 
   \subsection{TargetPosition}
   \label{sect:TargetPosition}
-    the intended position of the observation (not the position of the intended or actual target)
+    The target position is the intended position of the observation as described in a proposal. This may or may not be the position of the target itself. The values here are intended for information purposes only and are not intended to be searchable via a spatial coordinate search.
 
     \subsubsection{TargetPosition.coordsys}
       \textbf{vodml-id: TargetPosition.coordsys} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 1} \newline
-      the coordinate system of the coordinates
+      The coordinate system of the target coordinates.
 
     \subsubsection{TargetPosition.equinox}
       \textbf{vodml-id: TargetPosition.equinox} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      the equinox of the coordinates
+      The equinox of the coordinates.
 
     \subsubsection{TargetPosition.coordinates}
       \textbf{vodml-id: TargetPosition.coordinates} \newline
-      \textbf{type: \hyperref[sect:types.Point]{caom2:types.Point}} \newline
+      \textbf{type: dt:Point} \newline
       \textbf{multiplicity: 1} \newline
-      the coordinates
+      The target coordinates in the specified coordinate system and equinox.
 
   \subsection{TargetType}
   \label{sect:TargetType}
@@ -946,43 +962,43 @@
 
   \subsection{Telescope}
   \label{sect:Telescope}
-    the telescope used to acquire the data for an observation
+    The telescope describes the facility used to acquire the data for an observation. It implicitly includes the collector(s) (that gather the signal) but not the instrument (see Instrument).
 
     \subsubsection{Telescope.name}
       \textbf{vodml-id: Telescope.name} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 1} \newline
-      common name of the telescope; TBD: reference to a standard list of names?
+      The common (short) name of the telescope or facility that acquired the empirical observation. TBD: reference to a standard list of names?
 
     \subsubsection{Telescope.geoLocationX}
       \textbf{vodml-id: Telescope.geoLocationX} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      x-coordinate of the geocentric location of the telescope at the time of observation (see FITS WCS Paper III)
+      x-coordinate of the geocentric location of the telescope at the time of observation (see FITS WCS Paper III). TBD: since the spectral WCS in Chunk has been removed, this is probobaly obsolete and useless.
 
     \subsubsection{Telescope.geoLocationY}
       \textbf{vodml-id: Telescope.geoLocationY} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      y-coordinate of the geocentric location of the telescope at the time of observation (see FITS WCS Paper III)
+      y-coordinate of the geocentric location of the telescope at the time of observation (see FITS WCS Paper III). TBD: since the spectral WCS in Chunk has been removed, this is probobaly obsolete and useless.
 
     \subsubsection{Telescope.geoLocationZ}
       \textbf{vodml-id: Telescope.geoLocationZ} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      z-coordinate of the geocentric location of the telescope at the time of observation (see FITS WCS Paper III)
+      z-coordinate of the geocentric location of the telescope at the time of observation (see FITS WCS Paper III). TBD: since the spectral WCS in Chunk has been removed, this is probobaly obsolete and useless.
 
     \subsubsection{Telescope.keywords}
       \textbf{vodml-id: Telescope.keywords} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 0..*} \newline
-      additional keywords that describe the telescope or telscope configuration at the time of observation; keywords cannot contain the pipe (|) character - it is reserved for use in persistence systems (e.g. to store all keywords in a single column in a table)
+      Additional keywords describe the telescope or telscope configuration at the time of observation. Keywords cannot contain the pipe (|) character: it is reserved for use in persistence systems (e.g. to store all keywords in a single column in a table).
 
     \subsubsection{Telescope.trackingMode}
       \textbf{vodml-id: Telescope.trackingMode} \newline
       \textbf{type: \hyperref[sect:VocabularyTerm]{caom2:VocabularyTerm}} \newline
       \textbf{multiplicity: 0..1} \newline
-      term from the (currently non-existent) IVOA Tracking vocabulary used to indicate how the telescope moves during data acquisition NEW in CAOM-2.5)
+      The ttacking mode of the telescope indicates how the telescope moved (or not) during data acquisition (NEW in CAOM-2.5). TODO: refer to an IVOA Tracking vocabulary?
 
   \subsection{Time}
   \label{sect:Time}
@@ -990,13 +1006,13 @@
 
     \subsubsection{Time.bounds}
       \textbf{vodml-id: Time.bounds} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1} \newline
       time bounds that include the data (cardinality changed in CAOM-2.5)
 
     \subsubsection{Time.samples}
       \textbf{vodml-id: Time.samples} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1..*} \newline
       detailed time coverage that include the data (refactored in CAOM-2.5)
 
@@ -1008,37 +1024,37 @@
 
     \subsubsection{Time.dimension}
       \textbf{vodml-id: Time.dimension} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
+      \textbf{type: dt:int64} \newline
       \textbf{multiplicity: 0..1} \newline
       number of discrete samples (pixels) on the time axis
 
     \subsubsection{Time.resolution}
       \textbf{vodml-id: Time.resolution} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       median temporal resolution per pixel
 
     \subsubsection{Time.resolutionBounds}
       \textbf{vodml-id: Time.resolutionBounds} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 0..1} \newline
       range of resolution within the bounds
 
     \subsubsection{Time.sampleSize}
       \textbf{vodml-id: Time.sampleSize} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       median pixel size
 
     \subsubsection{Time.exposure}
       \textbf{vodml-id: Time.exposure} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
       mean exposure time per pixel
 
     \subsubsection{Time.exposureBounds}
       \textbf{vodml-id: Time.exposureBounds} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 0..1} \newline
       range of exposure within the bounds
 
@@ -1056,19 +1072,19 @@
 
     \subsubsection{Visibility.distance}
       \textbf{vodml-id: Visibility.distance} \newline
-      \textbf{type: \hyperref[sect:types.Interval]{caom2:types.Interval}} \newline
+      \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1} \newline
       range of distances in the UV plane
 
     \subsubsection{Visibility.distance}
       \textbf{vodml-id: Visibility.distributionEccentricity} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 1} \newline
       eccentricity of the distribtuion of ??? in [0,1]
 
     \subsubsection{Visibility.distance}
       \textbf{vodml-id: Visibility.distributionFill} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
+      \textbf{type: dt:double} \newline
       \textbf{multiplicity: 1} \newline
       fill-factor of the distribtuion of ??? in [0,1]
 
@@ -1087,10 +1103,6 @@
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 1} \newline
       the word from the vocabulary
-
-  \subsection{uuid}
-  \label{sect:uuid}
-  represents a 128-bit binary ID in the canonical ascii UUID format
 
   \subsection{ObservationIntentType}
   \label{sect:ObservationIntentType}
@@ -1171,7 +1183,7 @@
   \subsection{ReleaseType}
   \label{sect:ReleaseType}
 
-  The rekease type is a flag indicating how an artifact is classified to determine access permissions. The name(s) of the literals are intended to capture the serialised value(s).
+  The release type is a flag indicating how an artifact is classified to determine access permissions. The name(s) of the literals are intended to capture the serialised value(s).
 
   \noindent \underline{Enumeration Literals}
   \vspace{-\parsep}
@@ -1184,105 +1196,3 @@
           \textbf{description:} access permission checks treat the protected item as metadata
   \end{itemize}
   \normalsize
-
-
-\pagebreak
-\section{Package: types }
-
-  % INSERT FIGURE HERE
-  %\begin{figure}[h]
-  %\begin{center}
-  %  \includegraphics[width=\textwidth]{????.png}
-  %  \caption{???}\label{fig:????}
-  %\end{center}
-  %\end{figure}
-
-  data types
-
-  \subsection{Circle}
-  \label{sect:types.Circle}
-    a circular region on the sky
-
-    \subsubsection{Circle.center}
-      \textbf{vodml-id: types.Circle.center} \newline
-      \textbf{type: \hyperref[sect:types.Point]{caom2:types.Point}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-    \subsubsection{Circle.radius}
-      \textbf{vodml-id: types.Circle.radius} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-  \subsection{Dimension2D}
-  \label{sect:types.Dimension2D}
-    dimension (number of pixels) for a two-dimensional axis
-
-    \subsubsection{Dimension2D.naxis1}
-      \textbf{vodml-id: Dimension2D.naxis1} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-    \subsubsection{Dimension2D.naxis2}
-      \textbf{vodml-id: Dimension2D.naxis2} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:integer}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-  \subsection{Interval}
-  \label{sect:types.Interval}
-    a set of numeric values defined by a lower and upper bound (bounds included: [a,b])
-
-    \subsubsection{Interval.lower}
-      \textbf{vodml-id: types.Interval.lower} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-    \subsubsection{Interval.upper}
-      \textbf{vodml-id: types.Interval.upper} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-  \subsection{MultiShape}
-  \label{sect:types.MultiShape}
-    multiple simple shapess describing disconnected regions as a single value
-
-    \subsubsection{MultiShape.shapes}
-      \textbf{vodml-id: MultiShape.shapes} \newline
-      \textbf{type: \hyperref[sect:types.Shape]{caom2:types.Shape}} \newline
-      \textbf{multiplicity: 1..*} \newline
-      [TODO add description!]
-
-  \subsection{Point}
-  \label{sect:types.Point}
-    location on the sky
-
-    \subsubsection{Point.cval1}
-      \textbf{vodml-id: Point.cval1} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-    \subsubsection{Point.cval1}
-      \textbf{vodml-id: Point.cval2} \newline
-      \textbf{type: \hyperref[sect:ivoa]{ivoa:real}} \newline
-      \textbf{multiplicity: 1} \newline
-      [TODO add description!]
-
-  \subsection{Polygon}
-  \label{sect:types.Polygon}
-    a simple polygon region on the sky defined a sequence of points connected by great-circle segments
-
-    \subsubsection{Polygon.points}
-      \textbf{vodml-id: type.Polygon.points} \newline
-      \textbf{type: \hyperref[sect:types.Point]{caom2:types.Point}} \newline
-      \textbf{multiplicity: 3..*} \newline
-      [TODO add description!]
-
-  \subsection{Shape (Abstract)}
-  \label{sect:types.Shape}
-    [TODO add description!]
