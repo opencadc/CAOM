@@ -52,7 +52,8 @@
 -->
 <vo-dml:model xmlns:vo-dml="http://www.ivoa.net/xml/VODML/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema">
     <name>dt</name>
-    <description>a general purpose collection of data types</description>
+    <description>This model is a general purpose collection of data types required for CAOM
+        but reusable in other data models.</description>
     <identifier/>
     <uri/>
     <title>DataTypes</title>
@@ -69,7 +70,7 @@
     <primitiveType>
         <vodml-id>uuid</vodml-id>
         <name>uuid</name>
-        <description>represents a 128-bit binary ID in the canonical ascii UUID format</description>
+        <description>a 128-bit globally unique binary identifier</description>
         <extends>
             <vodml-ref>ivoa:string</vodml-ref>
         </extends>
@@ -86,7 +87,7 @@
 
     <primitiveType>
         <vodml-id>int32</vodml-id>
-        <name>int</name>
+        <name>int32</name>
         <description>a 32-bit signed integer</description>
         <extends>
             <vodml-ref>ivoa:integer</vodml-ref>
@@ -95,7 +96,7 @@
 
     <primitiveType>
         <vodml-id>int64</vodml-id>
-        <name>long</name>
+        <name>int64</name>
         <description>a 64-bit signed integer</description>
         <extends>
             <vodml-ref>ivoa:integer</vodml-ref>
