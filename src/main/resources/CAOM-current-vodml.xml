@@ -1205,7 +1205,7 @@
         <attribute>
             <vodml-id>Artifact.descriptionID</vodml-id>
             <name>descriptionID</name>
-            <description>This is an identifier to refer to an ArtifactDescription entity. (new in CAOM-2.5)
+            <description>This is an identifier to refer to an ArtifactDescription entity (new in CAOM-2.5).
                 Use case: provide standard descriptions for links in a DataLink response.</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
@@ -1220,7 +1220,7 @@
     <objectType>
         <vodml-id>ArtifactDescription</vodml-id>
         <name>ArtifactDescription</name>
-        <description>The provides a referenceable description of artitfacts for use in DataLink responses. (NEW in CAOM-2.5)</description>
+        <description>Ths entity provides a referenceable description of artifacts for use in DataLink responses (NEW in CAOM-2.5).</description>
         <extends>
             <vodml-ref>caom2:Entity</vodml-ref>
         </extends>
@@ -1229,8 +1229,8 @@
             <name>uri</name>
             <description>This is the logical identifier for this description used to refer to it from an artifact.
                 Anticipated usage: this is an internal identifier that an IVOA DataLink service can 
-                use to lookup a description. TODO: There is an informal style used for Atifact.uri to make sure
-                that these identifiers are globally unique and avoid collisions...</description>
+                use to lookup a description. TODO: document the informal style also used for Artifact.uri to make sure
+                that these identifiers are globally unique and avoid collisions.</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -1242,7 +1242,7 @@
         <attribute>
             <vodml-id>Artifact.description</vodml-id>
             <name>description</name>
-            <description>A human-readable description of an artifact.</description>
+            <description>The description is a human-readable description of an artifact.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1256,14 +1256,15 @@
     <objectType>
         <vodml-id>Algorithm</vodml-id>
         <name>Algorithm</name>
-        <description>the algorithm that was responsible for creating the observation; for a DerivedObservation this is the 
-            algorithm that defines the intended set of members to include
+        <description>The algorithm is the operation responsible for creating the observation. For a 
+            DerivedObservation, this is the algorithm that defines the intended set of members.
         </description>
         <attribute>
             <vodml-id>Algorithm.name</vodml-id>
             <name>name</name>
-            <description>common name of the algorithm; the value 'exposure' is reserved for use in SimpleObservation; 
-                TBD: publish a list of acceptable values as a machine-readable vocabulary?</description>
+            <description>The algorithm name defines very high level categories of observations. See SimpleObservation
+                and DerivedObservation for existing use. TBD: publish a list of acceptable values as a machine-readable 
+                vocabulary?</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1277,11 +1278,12 @@
     <objectType>
         <vodml-id>Telescope</vodml-id>
         <name>Telescope</name>
-        <description>the telescope used to acquire the data for an observation</description>
+        <description>The telescope describes the facility used to acquire the data for an observation. It implicitly
+            includes the collector(s) (that gather the signal) but not the instrument (see Instrument).</description>
         <attribute>
             <vodml-id>Telescope.name</vodml-id>
             <name>name</name>
-            <description>common name of the telescope; 
+            <description>The common (short) name of the telescope or facility that acquired the empirical observation.
                 TBD: reference to a standard list of names?</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
@@ -1294,8 +1296,9 @@
         <attribute>
             <vodml-id>Telescope.geoLocationX</vodml-id>
             <name>geoLocationX</name>
-            <description>x-coordinate of the geocentric location of the telescope at the time of observation
-                (see FITS WCS Paper III)</description>
+            <description>x-coordinate of the geocentric location of the telescope at the time of observation (see FITS WCS Paper III).
+                TBD: since the spectral WCS in Chunk has been removed, this is probobaly obsolete and useless.
+            </description>
             <datatype>
                 <vodml-ref>ivoa:real</vodml-ref>
             </datatype>
@@ -1307,8 +1310,8 @@
         <attribute>
             <vodml-id>Telescope.geoLocationY</vodml-id>
             <name>geoLocationY</name>
-            <description>y-coordinate of the geocentric location of the telescope at the time of observation
-                (see FITS WCS Paper III)</description>
+            <description>y-coordinate of the geocentric location of the telescope at the time of observation (see FITS WCS Paper III).
+                TBD: since the spectral WCS in Chunk has been removed, this is probobaly obsolete and useless.
             <datatype>
                 <vodml-ref>ivoa:real</vodml-ref>
             </datatype>
@@ -1320,8 +1323,8 @@
         <attribute>
             <vodml-id>Telescope.geoLocationZ</vodml-id>
             <name>geoLocationZ</name>
-            <description>z-coordinate of the geocentric location of the telescope at the time of observation
-                (see FITS WCS Paper III)</description>
+            <description>z-coordinate of the geocentric location of the telescope at the time of observation (see FITS WCS Paper III).
+                TBD: since the spectral WCS in Chunk has been removed, this is probobaly obsolete and useless.
             <datatype>
                 <vodml-ref>ivoa:real</vodml-ref>
             </datatype>
@@ -1333,10 +1336,9 @@
         <attribute>
             <vodml-id>Telescope.keywords</vodml-id>
             <name>keywords</name>
-            <description>additional keywords that describe the telescope or telscope configuration 
-                at the time of observation; 
-                keywords cannot contain the pipe (|) character - it is reserved for use in persistence
-                systems (e.g. to store all keywords in a single column in a table)
+            <description>Additional keywords describe the telescope or telscope configuration at the time of observation.
+                Keywords cannot contain the pipe (|) character: it is reserved for use in persistence systems (e.g. to 
+                store all keywords in a single column in a table).
             </description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
@@ -1349,8 +1351,8 @@
         <attribute>
             <vodml-id>Telescope.trackingMode</vodml-id>
             <name>trackingMode</name>
-            <description>term from the (currently non-existent) IVOA Tracking vocabulary used to
-                indicate how the telescope moves during data acquisition NEW in CAOM-2.5)</description>
+            <description>The ttacking mode of the telescope indicates how the telescope moved (or not) during data acquisition 
+                (NEW in CAOM-2.5). TODO: refer to an IVOA Tracking vocabulary?</description>
             <datatype>
                 <vodml-ref>caom2:VocabularyTerm</vodml-ref>
             </datatype>
@@ -1364,8 +1366,9 @@
     <objectType>
         <vodml-id>Instrument</vodml-id>
         <name>Instrument</name>
-        <description>the instrument used to acquire or create the observation; this could be used for both physical
-        instruments that acquire data or software that generates it (e.g. simulated data)</description>
+        <description>The instrument is the device that captures, aggregates, and digitise the signal
+            from the telescope while creating an observation. An instrument could be physical
+            hardware at a telescope (for empirical data) or software that generates it (for simulated data).</description>
         <attribute>
             <vodml-id>Instrument.name</vodml-id>
             <name>name</name>
@@ -1381,10 +1384,9 @@
         <attribute>
             <vodml-id>Instrument.keywords</vodml-id>
             <name>keywords</name>
-            <description>additional keywords that describe the instrument or instrument configuration
-                at the time of observation; 
-                keywords cannot contain the pipe (|) character - it is reserved for use in persistence
-                systems (e.g. to store all keywords in a single column in a table)</description>
+            <description>Additional keywords describe the instrument or instrument configuration at the time of observation.
+                Keywords cannot contain the pipe (|) character: it is reserved for use in persistence
+                systems (e.g. to store all keywords in a single column in a table).</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1398,12 +1400,12 @@
     <objectType>
         <vodml-id>Environment</vodml-id>
         <name>Environment</name>
-        <description>collection of measured quantities that characterise the environment 
-            at the time of observation</description>
+        <description>The environment is a collection of measured quantities that characterise the conditions 
+            when the observation was created.</description>
         <attribute>
             <vodml-id>Environment.seeing</vodml-id>
             <name>name</name>
-            <description>typical atmospheric distortion (full-width-half-max of a point source)</description>
+            <description>The seeing is a measure of the atmospheric distortion: full-width-half-max of a point source.</description>
             <datatype>
                 <vodml-ref>ivoa:real</vodml-ref>
             </datatype>
@@ -1415,7 +1417,7 @@
         <attribute>
             <vodml-id>Environment.humidity</vodml-id>
             <name>humidity</name>
-            <description>fractional relative humidity [0,1]</description>
+            <description>The humidity is a meaure of the fractional relative humidity [0,1].</description>
             <datatype>
                 <vodml-ref>ivoa:real</vodml-ref>
             </datatype>
@@ -1427,7 +1429,7 @@
         <attribute>
             <vodml-id>Environment.elevation</vodml-id>
             <name>elevation</name>
-            <description>angular elevation above horizon [0,90]</description>
+            <description>The elevation is the angular elevation above the horizon [0,90].</description>
             <datatype>
                 <vodml-ref>ivoa:real</vodml-ref>
             </datatype>
@@ -1439,7 +1441,7 @@
         <attribute>
             <vodml-id>Environment.tau</vodml-id>
             <name>tau</name>
-            <description>the opacity of the atmosphere [0,1]</description>
+            <description>Tau is a measure of the opacity of the atmosphere [0,1].</description>
             <datatype>
                 <vodml-ref>ivoa:real</vodml-ref>
             </datatype>
@@ -1451,7 +1453,7 @@
         <attribute>
             <vodml-id>Environment.wavelengthTau</vodml-id>
             <name>wavelengthTau</name>
-            <description>wavelength at which opacity was measured</description>
+            <description>The tau (opacity) was measured at this wavelength.</description>
             <datatype>
                 <vodml-ref>ivoa:real</vodml-ref>
             </datatype>
@@ -1463,7 +1465,7 @@
         <attribute>
             <vodml-id>Environment.ambientTemp</vodml-id>
             <name>ambientTemp</name>
-            <description>ambient temperature at the telescope</description>
+            <description>The ambient temperature is a measurement of the typical temperature at/in the telescope.</description>
             <datatype>
                 <vodml-ref>ivoa:real</vodml-ref>
             </datatype>
@@ -1475,7 +1477,7 @@
         <attribute>
             <vodml-id>Environment.photometric</vodml-id>
             <name>photometric</name>
-            <description>indicator that flux and/or color calibration is stable</description>
+            <description>The photometric flag is an indicator that flux and/or color calibration is stable.</description>
             <datatype>
                 <vodml-ref>ivoa:boolean</vodml-ref>
             </datatype>
@@ -1489,11 +1491,13 @@
     <objectType>
         <vodml-id>Proposal</vodml-id>
         <name>Proposal</name>
-        <description>description of the science proposal or programme that initiated the observation</description>
+        <description>Proposal is a summary description of the science proposal or programme that initiated the observation. 
+            It is expected that a rich proposal model exists elsewhere; this description is to assist data discovery only.</description>
         <attribute>
             <vodml-id>Proposal.id</vodml-id>
             <name>id</name>
-            <description>collection-specific identifier for the proposal</description>
+            <description>The proposal identifier is a collection-specific identifier for this proposal. If rich proposal model 
+                is available, this identifier should be usable to interact with that external system.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1505,7 +1509,7 @@
         <attribute>
             <vodml-id>Proposal.pi</vodml-id>
             <name>pi</name>
-            <description>proper name of the principal investigator</description>
+            <description>The pi is the proper name of the principal investigator for the proposal.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1517,8 +1521,8 @@
         <attribute>
             <vodml-id>Proposal.project</vodml-id>
             <name>project</name>
-            <description>common name of the project this proposal belongs to; typically used for larger or
-                long-running projects that include mutliple proposals</description>
+            <description>This is the name of a (larger scale) project this proposal belongs to. This should be a common (short) 
+                name for the project and typically used for larger or long-running projects that include multiple proposals.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1530,7 +1534,7 @@
         <attribute>
             <vodml-id>Proposal.title</vodml-id>
             <name>title</name>
-            <description>title of the proposal</description>
+            <description>The title of the proposal as found in a rich proposal model or system.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1542,9 +1546,9 @@
         <attribute>
             <vodml-id>Proposal.keywords</vodml-id>
             <name>keywords</name>
-            <description>additional keywords that describe the science goals of the proposal; 
-                keywords cannot contain the pipe (|) character - it is reserved for use in persistence
-                systems (e.g. to store all keywords in a single column in a table)</description>
+            <description>Additional keywords describe the scientific area of research or goals of the proposal.
+                Keywords cannot contain the pipe (|) character: it is reserved for use in persistence
+                systems (e.g. to store all keywords in a single column in a table).</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1556,7 +1560,8 @@
         <attribute>
             <vodml-id>Proposal.reference</vodml-id>
             <name>reference</name>
-            <description>identifier for external resource with proposal details</description>
+            <description>The proposal reference is a resolvable identifier for external resource with 
+                additional (human-readable) details about the proposal.</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -1570,11 +1575,11 @@
     <objectType>
         <vodml-id>Target</vodml-id>
         <name>Target</name>
-        <description>the target of an observation</description>
+        <description>The target of an observation is the principle object or area under investigation. </description>
         <attribute>
             <vodml-id>Target.name</vodml-id>
             <name>name</name>
-            <description>proper name of the target</description>
+            <description>The name is a (one of?) common (short) proper name of the target.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1586,9 +1591,8 @@
         <attribute>
             <vodml-id>Target.targetID</vodml-id>
             <name>targetID</name>
-            <description>resolvable target identifier; 
-                the targetID URI should be of the form {scheme}:{id} so it can be resolved 
-                (for example: naif:170100) </description>
+            <description>The targetID is a resolvable target identifier. The targetID URI should (must?) be of the 
+                form {scheme}:{id} so it can be resolved (for example: naif:170100).</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -1600,8 +1604,8 @@
         <attribute>
             <vodml-id>Target.type</vodml-id>
             <name>type</name>
-            <description>type of target; typically used to figure out what the target name means
-                and where to look for additional information about it</description>
+            <description>The target type is typically used to figure out what the target name means
+                and where to look for additional information about it.</description>
             <datatype>
                 <vodml-ref>caom2:TargetType</vodml-ref>
             </datatype>
@@ -1613,7 +1617,8 @@
         <attribute>
             <vodml-id>Target.redshift</vodml-id>
             <name>redshift</name>
-            <description>cosmological redshift of the target</description>
+            <description>The redshift is the best known cosmological redshift of the target. This value is
+                only used for targets that are extragalactic objects.</description>
             <datatype>
                 <vodml-ref>ivoa:real</vodml-ref>
             </datatype>
@@ -1625,7 +1630,8 @@
         <attribute>
             <vodml-id>Target.standard</vodml-id>
             <name>standard</name>
-            <description>indicates that the target is typically used as a standard (astrometric, photometric, etc)</description>
+            <description>The standard flag indicates that the target is typically used as a standard 
+                (astrometric, photometric, etc), usually for for calibration observations (see Observation.intent).</description>
             <datatype>
                 <vodml-ref>ivoa:boolean</vodml-ref>
             </datatype>
@@ -1637,8 +1643,8 @@
         <attribute>
             <vodml-id>Target.moving</vodml-id>
             <name>moving</name>
-            <description>indicates that the target is a moving object; used for solar system objects 
-                but not high proper motion stars</description>
+            <description>The moving flag indicates that the target is a moving object. This is used for 
+                solar system objects but not high proper motion stars.</description>
             <datatype>
                 <vodml-ref>ivoa:boolean</vodml-ref>
             </datatype>
@@ -1650,9 +1656,9 @@
         <attribute>
             <vodml-id>Target.keywords</vodml-id>
             <name>keywords</name>
-            <description>additional keywords that describe the target; 
-                keywords cannot contain the pipe (|) character - it is reserved for use in persistence
-                systems (e.g. to store all keywords in a single column in a table)</description>
+            <description>Additional keywords describe the target and usage depends on the target type.
+                Keywords cannot contain the pipe (|) character: it is reserved for use in persistence
+                systems (e.g. to store all keywords in a single column in a table).</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1666,12 +1672,13 @@
     <objectType>
         <vodml-id>TargetPosition</vodml-id>
         <name>TargetPosition</name>
-        <description>the intended position of the observation 
-            (not the position of the intended or actual target)</description>
+        <description>The target position is the intended position of the observation as described in a proposal. 
+            This may or may not be the position of the target itself. The values here are intended for information 
+            purposes only and are not intended to be searchable via a spatial coordinate search.</description>
         <attribute>
             <vodml-id>TargetPosition.coordsys</vodml-id>
             <name>coordsys</name>
-            <description>the coordinate system of the coordinates</description>
+            <description>The coordinate system of the target coordinates.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1683,7 +1690,7 @@
         <attribute>
             <vodml-id>TargetPosition.equinox</vodml-id>
             <name>equinox</name>
-            <description>the equinox of the coordinates</description>
+            <description>The equinox of the coordinates.</description>
             <datatype>
                 <vodml-ref>ivoa:real</vodml-ref>
             </datatype>
@@ -1695,7 +1702,7 @@
         <attribute>
             <vodml-id>TargetPosition.coordinates</vodml-id>
             <name>coordinates</name>
-            <description>the coordinates</description>
+            <description>The target coordinates in the specified coordinate system and equinox.</description>
             <datatype>
                 <vodml-ref>caom2:types.Point</vodml-ref>
             </datatype>
@@ -1709,11 +1716,14 @@
     <objectType>
         <vodml-id>Requirements</vodml-id>
         <name>Requirements</name>
-        <description>the observational requirements specified by the proposal</description>
+        <description>Requirements is a summary description of whether the observation satisfies the observational
+            requirements specified by the proposal. In general, values of status describe what went wrong and this
+            value is absent if the observation met the requirements.
+            </description>
         <attribute>
             <vodml-id>Requirements.flag</vodml-id>
             <name>flag</name>
-            <description>flag indicating degree to which requirements were satisfied by the observation</description>
+            <description>The flag indicates the reason that the requirements were not satisfied by the observation.</description>
             <datatype>
                 <vodml-ref>caom2:Status</vodml-ref>
             </datatype>
