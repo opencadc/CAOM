@@ -43,5 +43,6 @@ test:
 	@echo "No tests defined yet"
 
 vodml:
-	xsltproc --huge --output generated.tex ivoatex/vo-dml2ivoatex.xslt src/main/resources/CAOM-current-vodml.xml
+	xsltproc --huge --output generated-caom2.tex ivoatex/vo-dml2ivoatex.xslt src/main/resources/CAOM-current-vodml.xml
+	xsltproc --huge --output generated-data-types.tex ivoatex/vo-dml2ivoatex.xslt src/main/resources/DataTypes-current-vodml.xml
 

@@ -24,7 +24,7 @@
   %\end{center}
   %\end{figure}
 
-  a general purpose data model for use as the core data model of an astronomical data centre
+  This is CAOM version 2: a metadata model for use as the core data model of an astronomical data centre
 
   \subsection{Algorithm}
   \label{sect:Algorithm}
@@ -38,25 +38,25 @@
 
   \subsection{Artifact}
   \label{sect:Artifact}
-    a physical product (typically a file)
+    An Artifact is an external stored digital object associated with a Plane. This is typically a file, but could also be a table in a database, a record in a table in a database, etc.
 
     \subsubsection{Artifact.uri}
       \textbf{vodml-id: Artifact.uri} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 1} \newline
-      This identifier can be used to interact with an associated data management system. Existing usage: this is an internal identifier that an IVOA DataLink service can convert into a usable link to the data. TODO: There is an informal style used to make sure that these identifiers are globally unique and avoid collisions...
+      This identifier can be used to interact with an associated data management system. Existing usage: this is an opaque internal identifier that an IVOA DataLink service can convert into a usable link to the data. TODO: In the existing community, each provider of CAOM metadata (and associated data) defines their own URI scheme of the form \begin{verbatim} {scheme}:{scheme-specific-part} \end{verbatim} where the \verb|{scheme-specific-part}| is a relative path (usually human-readable). For example, CADC uses identifiers of like \verb|cadc:CFHT/170100o.fits| while MAST uses the \verb|mast| scheme for identifers starting with \verb|mast:HST/|, \verb|mast:HST/|, etc. There is no formal mechanism to claim or reserve a specific scheme.
 
     \subsubsection{Artifact.uriBucket}
       \textbf{vodml-id: Artifact.uriBucket} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 1} \newline
-      This is a short string of hexadecimal digits generated from the uri to support operational use cases (mainly: dividing workload to perform validation in parallel). The value is the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded bytes of the Observation.uri value. (NEW in CAOM-2.5)
+      This is a short string of hexadecimal digits generated from the uri to support operational use cases (mainly: dividing workload to perform validation in parallel). The value is the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 encoded bytes of the Artifact.uri value. (NEW in CAOM-2.5)
 
     \subsubsection{Artifact.productType}
       \textbf{vodml-id: Artifact.productType} \newline
       \textbf{type: \hyperref[sect:DataLinkSemantics]{caom2:DataLinkSemantics}} \newline
       \textbf{multiplicity: 1} \newline
-      This term describes the relationship of this Artifact to the parent Plane using IVOA DataLink semantics concepts.
+      This term describes the relationship of this Artifact to the parent Plane using IVOA DataLink semantics concepts. For example, the primary science data file for a Plane would be described with the term \verb|this|.
 
     \subsubsection{Artifact.releaseType}
       \textbf{vodml-id: Artifact.releaseType} \newline
@@ -68,19 +68,19 @@
       \textbf{vodml-id: Artifact.contentType} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 0..1} \newline
-      This field specifies the format of the resolved artifact: should be a MIME-type.
+      This field specifies the serialization format of the resolved artifact (MIME type).
 
     \subsubsection{Artifact.contentLength}
       \textbf{vodml-id: Artifact.contentLength} \newline
       \textbf{type: dt:int64} \newline
       \textbf{multiplicity: 0..1} \newline
-      This specifies the size of the stored artifact; for files, this is the file size.
+      This field specifies the size of the stored artifact; for files, this is the file size.
 
     \subsubsection{Artifact.contentChecksum}
       \textbf{vodml-id: Artifact.contentChecksum} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
-      this is the checksum of the artifact data; the URI must conform to the pattern {algorithm}:{hex value}, for example: \begin{verbatim} md5:4be91751541fd804e7207663a0822f56 \end{verbatim}
+      This field specifies the checksum of the artifact data; the URI must conform to the pattern {algorithm}:{hex value}, for example: \begin{verbatim} md5:4be91751541fd804e7207663a0822f56 \end{verbatim}
 
     \subsubsection{Artifact.contentRelease}
       \textbf{vodml-id: Artifact.contentRelease} \newline
@@ -98,11 +98,11 @@
       \textbf{vodml-id: Artifact.descriptionID} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:anyURI}} \newline
       \textbf{multiplicity: 0..1} \newline
-      This is an identifier to refer to an ArtifactDescription entity (new in CAOM-2.5). Use case: provide standard descriptions for links in a DataLink response.
+      This is an identifier to refer to an ArtifactDescription entity. (new in CAOM-2.5) Use case: provide standard descriptions for links in a DataLink response.
 
   \subsection{ArtifactDescription}
   \label{sect:ArtifactDescription}
-    Ths entity provides a referenceable description of artifacts for use in DataLink responses (NEW in CAOM-2.5).
+    Ths entity provides a referenceable description of artifacts for use in DataLink responses. (NEW in CAOM-2.5)
 
     \subsubsection{ArtifactDescription.uri}
       \textbf{vodml-id: ArtifactDescription.uri} \newline
@@ -138,31 +138,31 @@
 
   \subsection{CustomAxis}
   \label{sect:CustomAxis}
-    description of a custom coordinate axis (new in CAOM-2.4)
+    A custom axis describes an additional axis in the data with a custom coordinate type. Use case: radio cubes with Faraday depth or rotation measure axis.
 
     \subsubsection{CustomAxis.ctype}
       \textbf{vodml-id: CustomAxis.ctype} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 1} \newline
-      coordinate type code
+      The ctype is the coordinate type code as used in the community. This is requivalent in meaning and usage as the FITS (ref) \verb|CTYPE| header keyword.
 
     \subsubsection{CustomAxis.bounds}
       \textbf{vodml-id: CustomAxis.bounds} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1} \newline
-      custom coordinate coverage (cardinality changed in CAOM-2.5)
+      The bounds is an interval of the custom coordinate values that includes the valid data (CHANGED cardinality in CAOM-2.5). This field is typically used to search of data that contains specific coordinmate values or overlaps a range of values.
 
     \subsubsection{CustomAxis.samples}
       \textbf{vodml-id: CustomAxis.samples} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1..*} \newline
-      detailed custom coordinate coverage (refactored in CAOM-2.5)
+      The samples provide a detailed custom coordinate coverage of the valid data (CHANGED in CAOM-2.5). The samples may be the same as or a subset of the interval described by the bounds (above).
 
     \subsubsection{CustomAxis.dimension}
       \textbf{vodml-id: CustomAxis.dimension} \newline
       \textbf{type: dt:int64} \newline
       \textbf{multiplicity: 0..1} \newline
-      number of discrete samples (pixels) along custom axis
+      The dimension is the number of samples (pixels) in the data.
 
   \subsection{DataLinkSemantics}
   \label{sect:DataLinkSemantics}
@@ -174,13 +174,13 @@
 
   \subsection{DataQuality}
   \label{sect:DataQuality}
-    description of the data quality
+    The DataQuality structure holds descriptive data quality information. This is currently limited to a single qualitative flag, but could be expanded in future to include more quantitiatve details.
 
     \subsubsection{DataQuality.flag}
       \textbf{vodml-id: DataQuality.flag} \newline
       \textbf{type: \hyperref[sect:Quality]{caom2:Quality}} \newline
       \textbf{multiplicity: 1} \newline
-      flag indicating the data quality
+      This file contains a qualitative indicator the data quality.
 
   \subsection{DeletedArtifactDescriptionEvent}
   \label{sect:DeletedArtifactDescriptionEvent}
@@ -230,85 +230,85 @@
 
   \subsection{Energy}
   \label{sect:Energy}
-    description of the energy coverage and sampling of the data
+    The Energy structure describes the energy coverage and sampling of the data.
 
     \subsubsection{Energy.bounds}
       \textbf{vodml-id: Energy.bounds} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1} \newline
-      simple outer bounds of energy coverage of the data (CHANGED cardinality in CAOM-2.5)
+      The bounds is a spectral interval that includes the valid data (CHANGED cardinality in CAOM-2.5). This field is typically used for spectral search of data that contains specific energy values or overlaps a spectral region.
 
     \subsubsection{Energy.samples}
       \textbf{vodml-id: Energy.samples} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1..*} \newline
-      detailed energy coverage of the data (CHANGED in CAOM-2.5)
+      The samples provide a detailed energy coverage of the valid data (CHANGED in CAOM-2.5). The samples may be the same as or a subset of the interval described by the bounds (above).
 
     \subsubsection{Energy.energyBands}
       \textbf{vodml-id: Energy.energyBands} \newline
       \textbf{type: \hyperref[sect:EnergyBand]{caom2:EnergyBand}} \newline
       \textbf{multiplicity: 0..*} \newline
-      standard name of the energy regime(s) included in the data
+      The energyBands contains the standard name of the energy regime(s) included in the data. This names are taken from VOResource (ref). In most cases, the value contains a single energy band, but some data spans the canonical boundary between two adjacent regimes and thus may have two values.
 
     \subsubsection{Energy.dimension}
       \textbf{vodml-id: Energy.dimension} \newline
       \textbf{type: dt:int64} \newline
       \textbf{multiplicity: 0..1} \newline
-      number of measurements (pixels) on the energy axis
+      The dimension gives the number of measurements (pixels) on the energy axis.
 
     \subsubsection{Energy.resolvingPower}
       \textbf{vodml-id: Energy.resolvingPower} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      mean spectral resolving power per pixel (relative resolution)
+      The resolving power is a typical/representative relative spectral resolution of the data. In previous versions, this was the mean resolving power per pixel.
 
     \subsubsection{Energy.resolvingPowerBounds}
       \textbf{vodml-id: Energy.resolvingPowerBounds} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 0..1} \newline
-      range of resolving power within the bounds (relative resolution)
+      The resolving power bounds describes how the resolving power varies with other axis values. The variation may be dependent on position, energy, or time (unspecified here).
 
     \subsubsection{Energy.resolution}
       \textbf{vodml-id: Energy.resolution} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      mean absolute spectral resolution per pixel (new in CAOM-2.5)
+      The resolution is a typical/representative absolute spectral resolution of the data (new in CAOM-2.5).
 
     \subsubsection{Energy.resolutionBounds}
       \textbf{vodml-id: Energy.resolutionBounds} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 0..1} \newline
-      range of absolute spectral resolution within the bounds (new in CAOM-2.5)
+      The resolution bounds describes how the absolute resolution varies with other axis values. The variation may be dependent on position, energy, or time; the exact dependence is not specified here. (new in CAOM-2.5)
 
     \subsubsection{Energy.sampleSize}
       \textbf{vodml-id: Energy.sampleSize} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      mean pixel size
+      The sampleSize is the mean pixel size in the data.
 
     \subsubsection{Energy.bandpassName}
       \textbf{vodml-id: Energy.bandpassName} \newline
       \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
       \textbf{multiplicity: 0..*} \newline
-      telescope- and instrument-specific name for the energy band(s) included; multiple bands may be included if energies from all specified bands are included in the data (in the sense of union)
+      The bandpass name is a telescope- and instrument-specific name for the energy band(s) included; multiple bands may be included if energies from all specified bands are included in the data (in the sense of union). This is typically a filter name in optical imaging observations.
 
     \subsubsection{Energy.restwav}
       \textbf{vodml-id: Energy.rest} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      rest energy of the target energy transition (name changed in CAOM-2.5)
+      The rest energy of the target energy transition (name changed in CAOM-2.5). Use case: something to do with wcs frame conversions...
 
     \subsubsection{Energy.calibration}
       \textbf{vodml-id: Energy.calibration} \newline
       \textbf{type: \hyperref[sect:CalibrationStatus]{caom2:CalibrationStatus}} \newline
       \textbf{multiplicity: 0..1} \newline
-      term describing the calibration of the energy axis values (new in CAOM-2.5)
+      The calibration describes the calibration of the energy axis values using a vocabulary (NEW in CAOM-2.5).
 
     \subsubsection{Energy.transition}
       \textbf{vodml-id: Energy.transition} \newline
       \textbf{type: \hyperref[sect:EnergyTransition]{caom2:EnergyTransition}} \newline
       \textbf{multiplicity: 0..1} \newline
-      target energy transition for this data
+      The transition is a target energy transition that was observed. Use case: see rest (above). TODO: should this be part of Target?
 
   \subsection{EnergyTransition}
   \label{sect:EnergyTransition}
@@ -418,59 +418,59 @@
 
   \subsection{Metrics}
   \label{sect:Metrics}
-    collection of measured quantities that describe the content of the data
+    Metrics is a collection of measured quantities that describe the content of the data.
 
     \subsubsection{Metrics.sourceNumberDensity}
       \textbf{vodml-id: Metrics.sourceNumberDensity} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      number of sources detected per unit area
+      This metric provides an estimate of the number of sources detected per unit area.
 
     \subsubsection{Metrics.background}
       \textbf{vodml-id: Metrics.background} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      background level
+      This metric provides an estimate of the background level.
 
     \subsubsection{Metrics.backgroundStddev}
       \textbf{vodml-id: Metrics.backgroundStddev} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      standard deviation in the background level
+      This metric provides an estimate of the standard deviation in the background level.
 
     \subsubsection{Metrics.fluxDensityLimit}
       \textbf{vodml-id: Metrics.fluxDensityLimit} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      flux density with a signal:noise ratio of 10
+      This metric provides an estimate of the flux density with a signal:noise ratio of 10.
 
     \subsubsection{Metrics.magLimit}
       \textbf{vodml-id: Metrics.magLimit} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      magnitude with a signal:noise ratio of 10
+      This metric provides an estimate of the limiting source magnitude with a signal:noise ratio of 10.
 
     \subsubsection{Metrics.sampleSNR}
       \textbf{vodml-id: Metrics.sampleSNR} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      signal:noise ratio for a representative subset of samples
+      This metric provides an estimate of the signal:noise ratio for a representative subset of samples.
 
   \subsection{Observable}
   \label{sect:Observable}
-    description of the sample (pixel) values
+    The observable provides a description of the sample (pixel) values.
 
     \subsubsection{Observable.ucd}
       \textbf{vodml-id: Observable.ucd} \newline
       \textbf{type: \hyperref[sect:UCD]{caom2:UCD}} \newline
       \textbf{multiplicity: 1} \newline
-      Unified Content Descriptor (UCD) that says what kind of quantity is stored
+      The Unified Content Descriptor (UCD) specifies the type of quantity is stored (\verb|phot.count| or \verb|phot.flux;density|).
 
     \subsubsection{Observable.calibration}
       \textbf{vodml-id: Observable.calibration} \newline
       \textbf{type: \hyperref[sect:CalibrationStatus]{caom2:CalibrationStatus}} \newline
       \textbf{multiplicity: 0..1} \newline
-      term describing the calibration of the observable values
+      The calibration describes the calibration of the observable values using a vocabulary (NEW in CAOM-2.5).
 
   \subsection{Observation (Abstract)}
   \label{sect:Observation}
@@ -692,7 +692,7 @@
 
   \subsection{Polarization}
   \label{sect:Polarization}
-    description of polarization measurements included in the data
+    The Polarization structure describes the polarization states that are included in the data.
 
     \subsubsection{Polarization.states}
       \textbf{vodml-id: Polarization.states} \newline
@@ -704,7 +704,7 @@
       \textbf{vodml-id: Polarization.dimension} \newline
       \textbf{type: dt:int32} \newline
       \textbf{multiplicity: 0..1} \newline
-      number of polarization states included
+      The dimension is the number of polarization states in the data.
 
   \subsection{PolarizationState}
   \label{sect:PolarizationState}
@@ -712,61 +712,61 @@
 
   \subsection{Position}
   \label{sect:Position}
-    description of the position coverage and sampling of the data
+    The Position structure describes the positional coverage and sampling of the data.
 
     \subsubsection{Position.bounds}
       \textbf{vodml-id: Position.bounds} \newline
       \textbf{type: dt:Shape} \newline
       \textbf{multiplicity: 1} \newline
-      spatial boundary that includes the data (CHANGED cardinality in CAOM-2.5)
+      The bounds is a spatial boundary that includes the valid data (CHANGED cardinality in CAOM-2.5). This field is typically used for spatial search of data that contains locations or intersects regions on the sky.
 
     \subsubsection{Position.samples}
       \textbf{vodml-id: Position.samples} \newline
       \textbf{type: dt:MultiShape} \newline
       \textbf{multiplicity: 1} \newline
-      detailed sub-samples of the bounds (CHANGED in CAOM-2.5)
+      The samples provide a detailed footprint of the valid data (CHANGED in CAOM-2.5). The samples may be the same as or a subset of the region described by the bounds (above).
 
     \subsubsection{Position.minBounds}
       \textbf{vodml-id: Position.minBounds} \newline
       \textbf{type: dt:Shape} \newline
       \textbf{multiplicity: 0..1} \newline
-      minimum spatial boundary that includes the data; this value is smaller than the bounds (maximum) when the field-of-view varies because it is dependent on another axis (usually energy) (new in CAOM-2.5)
+      The minimum spatial boundary includes the valid data at all values of other axes. This value will be smaller than the (maximum) bounds when the field-of-view varies because it is dependent on another axis such as energy (new in CAOM-2.5).
 
     \subsubsection{Position.dimension}
       \textbf{vodml-id: Position.dimension} \newline
       \textbf{type: \hyperref[sect:Dimension2D]{caom2:Dimension2D}} \newline
       \textbf{multiplicity: 0..1} \newline
-      number of separate measurements (pixels) along each axis
+      The dimension gives the number of separate measurements (pixels) along each spatial axis.
 
     \subsubsection{Position.maxRecoverableScale}
       \textbf{vodml-id: Position.maxRecoverableScale} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 0..1} \newline
-      maximum size of spatial structure (signal) that can be recovered or seen in the data (new in CAOM-2.5)
+      The maxRecoverableScale is the maximum size of spatial structure (signal) that can be recovered or seen in the data (new in CAOM-2.5). This scale limitation in the data is usually an artifact of spectral filtering in interferometry observations, which is energy-dependent; the interval value gives the range of scales at the extreme values of the energy axis.
 
     \subsubsection{Position.resolution}
       \textbf{vodml-id: Position.resolution} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      mean spatial resolution (full-width-half-max) per pixel
+      The resolution is a typical/representative spatial resolution (full-width-half-max). In previous versions, this was computed as the mean resolution per pixel.
 
     \subsubsection{Position.resolutionBounds}
       \textbf{vodml-id: Position.resolutionBounds} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 0..1} \newline
-      range of resolution within the bounds
+      The resolutionBounds describes the range of resolution when it varies across the field-of-view.
 
     \subsubsection{Position.sampleSize}
       \textbf{vodml-id: Position.sampleSize} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      median pixel size
+      The sampleSize is the mean pixel size in the data.
 
     \subsubsection{Position.calibration}
       \textbf{vodml-id: Position.calibration} \newline
       \textbf{type: \hyperref[sect:CalibrationStatus]{caom2:CalibrationStatus}} \newline
       \textbf{multiplicity: 0..1} \newline
-      term describing the calibration of the position axis values (NEW in CAOM-2.5)
+      The calibration describes the calibration of the position axis values using a vocabulary (NEW in CAOM-2.5).
 
   \subsection{Proposal}
   \label{sect:Proposal}
@@ -1002,61 +1002,61 @@
 
   \subsection{Time}
   \label{sect:Time}
-    description of the time coverage and sampling of the data
+    The Time structure describes the time coverage and sampling of the data.
 
     \subsubsection{Time.bounds}
       \textbf{vodml-id: Time.bounds} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1} \newline
-      time bounds that include the data (cardinality changed in CAOM-2.5)
+      The bounds is a time interval that includes the valid data (CHANGED cardinality in CAOM-2.5). This field is typically used for temporal search of data that contains specific time values or overlaps a specific date and time range.
 
     \subsubsection{Time.samples}
       \textbf{vodml-id: Time.samples} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1..*} \newline
-      detailed time coverage that include the data (refactored in CAOM-2.5)
+      The samples provide a detailed time coverage of the valid data (CHANGED in CAOM-2.5). The samples may be the same as or a subset of the interval described by the bounds (above).
 
     \subsubsection{Time.calibration}
       \textbf{vodml-id: Time.calibration} \newline
       \textbf{type: \hyperref[sect:CalibrationStatus]{caom2:CalibrationStatus}} \newline
       \textbf{multiplicity: 0..1} \newline
-      term describing the calibration of the time axis values
+      The calibration describes the calibration of the time axis values using a vocabulary (NEW in CAOM-2.5).
 
     \subsubsection{Time.dimension}
       \textbf{vodml-id: Time.dimension} \newline
       \textbf{type: dt:int64} \newline
       \textbf{multiplicity: 0..1} \newline
-      number of discrete samples (pixels) on the time axis
+      The dimension gives the number of measurements (pixels) on the time axis.
 
     \subsubsection{Time.resolution}
       \textbf{vodml-id: Time.resolution} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      median temporal resolution per pixel
+      The resolution is a typical/representative absolute time resolution of the data (new in CAOM-2.5).
 
     \subsubsection{Time.resolutionBounds}
       \textbf{vodml-id: Time.resolutionBounds} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 0..1} \newline
-      range of resolution within the bounds
+      The resolution bounds describes how the absolute resolution varies with other axis values. The variation may be dependent on position, energy, or time; the exact dependence is not specified here. (new in CAOM-2.5)
 
     \subsubsection{Time.sampleSize}
       \textbf{vodml-id: Time.sampleSize} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      median pixel size
+      The sampleSize is the mean pixel size in the data.
 
     \subsubsection{Time.exposure}
       \textbf{vodml-id: Time.exposure} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 0..1} \newline
-      mean exposure time per pixel
+      The exposure is a typical/representative amount of total time that signal was being collected. In previous versions, this was the mean exposure time per pixel.
 
     \subsubsection{Time.exposureBounds}
       \textbf{vodml-id: Time.exposureBounds} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 0..1} \newline
-      range of exposure within the bounds
+      The exposure bounds describes how the exposure time varies with other axis values. The variation is typically dependent on position in DerivedObservation(s), but the exact dependence is not specified here. Use case: stacked image data with partial overlap.
 
   \subsection{Tracking}
   \label{sect:Tracking}
@@ -1068,25 +1068,25 @@
 
   \subsection{Visibility}
   \label{sect:Visibility}
-    description of a UV-plane for interferometry data (new in CAOM-2.5)
+    The Visibility structure provides a description of the UV-plane for interferometry data (new in CAOM-2.5). This information may be present for actual visibility data (Plane.dataProductType \verb|visibility| or for other products (\verb|image| or \verb|cube|) that are derived from interferometry data.
 
     \subsubsection{Visibility.distance}
       \textbf{vodml-id: Visibility.distance} \newline
       \textbf{type: dt:Interval} \newline
       \textbf{multiplicity: 1} \newline
-      range of distances in the UV plane
+      The diastance is an interval specifying the range of distances in the UV plane.
 
     \subsubsection{Visibility.distance}
       \textbf{vodml-id: Visibility.distributionEccentricity} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 1} \newline
-      eccentricity of the distribtuion of ??? in [0,1]
+      The eccentricity of the distribution of ??? (in [0,1]).
 
     \subsubsection{Visibility.distance}
       \textbf{vodml-id: Visibility.distributionFill} \newline
       \textbf{type: dt:double} \newline
       \textbf{multiplicity: 1} \newline
-      fill-factor of the distribtuion of ??? in [0,1]
+      The fractional fill of the distribution of ??? (in [0,1]).
 
   \subsection{VocabularyTerm (Abstract)}
   \label{sect:VocabularyTerm}

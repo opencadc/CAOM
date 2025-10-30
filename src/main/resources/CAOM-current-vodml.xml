@@ -52,13 +52,14 @@
 -->
 <vo-dml:model xmlns:vo-dml="http://www.ivoa.net/xml/VODML/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema">
     <name>caom2</name>
-    <description>a general purpose data model for use as the core data model of an astronomical data centre</description>
+    <description>This is CAOM version 2: a metadata model for use as the core data model 
+        of an astronomical data centre</description>
     <identifier/>
     <uri/>
     <title>Common Archive Observation Model</title>
     <author>Patrick Dowler, Canadian Astronomy Data Centre</author>
     <version>2.5</version>
-    <lastModified>2024-12-16T18:00:00</lastModified>
+    <lastModified>2025-11-27T18:00:00</lastModified>
     
     <import>
         <name>ivoa</name>
@@ -1101,7 +1102,8 @@
     <objectType>
         <vodml-id>Artifact</vodml-id>
         <name>Artifact</name>
-        <description>a physical product (typically a file)</description>
+        <description>An Artifact is an external stored digital object associated with a Plane. This is typically
+            a file, but could also be a table in a database, a record in a table in a database, etc.</description>
         <extends>
             <vodml-ref>caom2:CaomEntity</vodml-ref>
         </extends>
@@ -1109,9 +1111,17 @@
             <vodml-id>Artifact.uri</vodml-id>
             <name>uri</name>
             <description>This identifier can be used to interact with an associated data management system.
-                Existing usage: this is an internal identifier that an IVOA DataLink service can 
-                convert into a usable link to the data. TODO: There is an informal style used to make sure
-                that these identifiers are globally unique and avoid collisions...</description>
+                Existing usage: this is an opaque internal identifier that an IVOA DataLink service can 
+                convert into a usable link to the data. TODO: In the existing community, each provider of
+                CAOM metadata (and associated data) defines their own URI scheme of the form
+                \begin{verbatim}
+                {scheme}:{scheme-specific-part}
+                \end{verbatim}
+                where the \verb|{scheme-specific-part}| is a relative path (usually human-readable). For
+                example, CADC uses identifiers of like \verb|cadc:CFHT/170100o.fits| while MAST uses the 
+                \verb|mast| scheme for identifers starting with \verb|mast:HST/|, \verb|mast:HST/|, etc.
+                There is no formal mechanism to claim or reserve a specific scheme.
+                </description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -1126,7 +1136,7 @@
             <description>This is a short string of hexadecimal digits generated from the uri to support
                 operational use cases (mainly: dividing workload to perform validation in parallel). The
                 value is the first three characters of the hexadecimal representation of SHA-1 of the UTF-8 
-                encoded bytes of the Observation.uri value. (NEW in CAOM-2.5)</description>
+                encoded bytes of the Artifact.uri value. (NEW in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1139,7 +1149,8 @@
             <vodml-id>Artifact.productType</vodml-id>
             <name>productType</name>
             <description>This term describes the relationship of this Artifact to the parent Plane using
-                IVOA DataLink semantics concepts.</description>
+                IVOA DataLink semantics concepts. For example, the primary science data file for a Plane
+                would be described with the term \verb|this|.</description>
             <datatype>
                 <vodml-ref>caom2:DataLinkSemantics</vodml-ref>
             </datatype>
@@ -1165,7 +1176,7 @@
         <attribute>
             <vodml-id>Artifact.contentType</vodml-id>
             <name>contentType</name>
-            <description>This field specifies the format of the resolved artifact: should be a MIME-type.</description>
+            <description>This field specifies the serialization format of the resolved artifact (MIME type).</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -1177,7 +1188,7 @@
         <attribute>
             <vodml-id>Artifact.contentLength</vodml-id>
             <name>contentLength</name>
-            <description>This specifies the size of the stored artifact; for files, this is the file size.</description>
+            <description>This field specifies the size of the stored artifact; for files, this is the file size.</description>
             <datatype>
                 <vodml-ref>dt:int64</vodml-ref>
             </datatype>
@@ -1189,11 +1200,12 @@
         <attribute>
             <vodml-id>Artifact.contentChecksum</vodml-id>
             <name>contentChecksum</name>
-            <description>this is the checksum of the artifact data;
+            <description>This field specifies the checksum of the artifact data;
                 the URI must conform to the pattern {algorithm}:{hex value}, for example: 
                 \begin{verbatim}
                 md5:4be91751541fd804e7207663a0822f56
-                \end{verbatim}</description>
+                \end{verbatim}
+            </description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
             </datatype>
@@ -1233,7 +1245,7 @@
         <attribute>
             <vodml-id>Artifact.descriptionID</vodml-id>
             <name>descriptionID</name>
-            <description>This is an identifier to refer to an ArtifactDescription entity (new in CAOM-2.5).
+            <description>This is an identifier to refer to an ArtifactDescription entity. (new in CAOM-2.5)
                 Use case: provide standard descriptions for links in a DataLink response.</description>
             <datatype>
                 <vodml-ref>ivoa:anyURI</vodml-ref>
@@ -1248,7 +1260,7 @@
     <objectType>
         <vodml-id>ArtifactDescription</vodml-id>
         <name>ArtifactDescription</name>
-        <description>Ths entity provides a referenceable description of artifacts for use in DataLink responses (NEW in CAOM-2.5).</description>
+        <description>Ths entity provides a referenceable description of artifacts for use in DataLink responses. (NEW in CAOM-2.5)</description>
         <extends>
             <vodml-ref>caom2:Entity</vodml-ref>
         </extends>
@@ -1886,11 +1898,12 @@
     <objectType>
         <vodml-id>Observable</vodml-id>
         <name>Observable</name>
-        <description>description of the sample (pixel) values</description>
+        <description>The observable provides a description of the sample (pixel) values.</description>
         <attribute>
             <vodml-id>Observable.ucd</vodml-id>
             <name>ucd</name>
-            <description>Unified Content Descriptor (UCD) that says what kind of quantity is stored</description>
+            <description>The Unified Content Descriptor (UCD) specifies the type of quantity is stored
+                (\verb|phot.count| or \verb|phot.flux;density|).</description>
             <datatype>
                 <vodml-ref>caom2:UCD</vodml-ref>
             </datatype>
@@ -1902,7 +1915,8 @@
         <attribute>
             <vodml-id>Observable.calibration</vodml-id>
             <name>calibration</name>
-            <description>term describing the calibration of the observable values</description>
+            <description>The calibration describes the calibration of the observable values using a vocabulary
+                (NEW in CAOM-2.5).</description>
             <datatype>
                 <vodml-ref>caom2:CalibrationStatus</vodml-ref>
             </datatype>
@@ -1916,11 +1930,13 @@
     <objectType>
         <vodml-id>DataQuality</vodml-id>
         <name>DataQuality</name>
-        <description>description of the data quality</description>
+        <description>The DataQuality structure holds descriptive data quality information. This is
+        currently limited to a single qualitative flag, but could be expanded in future to include more
+        quantitiatve details.</description>
         <attribute>
             <vodml-id>DataQuality.flag</vodml-id>
             <name>flag</name>
-            <description>flag indicating the data quality</description>
+            <description>This file contains a qualitative indicator the data quality.</description>
             <datatype>
                 <vodml-ref>caom2:Quality</vodml-ref>
             </datatype>
@@ -1934,11 +1950,11 @@
     <objectType>
         <vodml-id>Metrics</vodml-id>
         <name>Metrics</name>
-        <description>collection of measured quantities that describe the content of the data</description>
+        <description>Metrics is a collection of measured quantities that describe the content of the data.</description>
         <attribute>
             <vodml-id>Metrics.sourceNumberDensity</vodml-id>
             <name>sourceNumberDensity</name>
-            <description>number of sources detected per unit area</description>
+            <description>This metric provides an estimate of the number of sources detected per unit area.</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -1950,7 +1966,7 @@
         <attribute>
             <vodml-id>Metrics.background</vodml-id>
             <name>background</name>
-            <description>background level</description>
+            <description>This metric provides an estimate of the background level.</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -1962,7 +1978,7 @@
         <attribute>
             <vodml-id>Metrics.backgroundStddev</vodml-id>
             <name>backgroundStddev</name>
-            <description>standard deviation in the background level</description>
+            <description>This metric provides an estimate of the standard deviation in the background level.</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -1974,7 +1990,7 @@
         <attribute>
             <vodml-id>Metrics.fluxDensityLimit</vodml-id>
             <name>fluxDensityLimit</name>
-            <description>flux density with a signal:noise ratio of 10</description>
+            <description>This metric provides an estimate of the flux density with a signal:noise ratio of 10.</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -1986,7 +2002,7 @@
         <attribute>
             <vodml-id>Metrics.magLimit</vodml-id>
             <name>magLimit</name>
-            <description>magnitude with a signal:noise ratio of 10</description>
+            <description>This metric provides an estimate of the limiting source magnitude with a signal:noise ratio of 10.</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -1998,7 +2014,7 @@
         <attribute>
             <vodml-id>Metrics.sampleSNR</vodml-id>
             <name>sampleSNR</name>
-            <description>signal:noise ratio for a representative subset of samples</description>
+            <description>This metric provides an estimate of the signal:noise ratio for a representative subset of samples.</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -2012,11 +2028,12 @@
     <objectType>
         <vodml-id>Position</vodml-id>
         <name>Position</name>
-        <description>description of the position coverage and sampling of the data</description>
+        <description>The Position structure describes the positional coverage and sampling of the data.</description>
         <attribute>
             <vodml-id>Position.bounds</vodml-id>
             <name>bounds</name>
-            <description>spatial boundary that includes the data (CHANGED cardinality in CAOM-2.5)</description>
+            <description>The bounds is a spatial boundary that includes the valid data (CHANGED cardinality in CAOM-2.5).
+            This field is typically used for spatial search of data that contains locations or intersects regions on the sky.</description>
             <datatype>
                 <vodml-ref>dt:Shape</vodml-ref>
             </datatype>
@@ -2028,7 +2045,8 @@
         <attribute>
             <vodml-id>Position.samples</vodml-id>
             <name>samples</name>
-            <description>detailed sub-samples of the bounds (CHANGED in CAOM-2.5)</description>
+            <description>The samples provide a detailed footprint of the valid data (CHANGED in CAOM-2.5). The samples
+            may be the same as or a subset of the region described by the bounds (above).</description>
             <datatype>
                 <vodml-ref>dt:MultiShape</vodml-ref>
             </datatype>
@@ -2040,9 +2058,9 @@
         <attribute>
             <vodml-id>Position.minBounds</vodml-id>
             <name>minBounds</name>
-            <description>minimum spatial boundary that includes the data; this value is smaller than
-                the bounds (maximum) when the field-of-view varies because it is dependent on another 
-                axis (usually energy) (new in CAOM-2.5)</description>
+            <description>The minimum spatial boundary includes the valid data at all values of other axes. This value 
+                will be smaller than the (maximum) bounds when the field-of-view varies because it is dependent on another 
+                axis such as energy (new in CAOM-2.5).</description>
             <datatype>
                 <vodml-ref>dt:Shape</vodml-ref>
             </datatype>
@@ -2054,7 +2072,7 @@
         <attribute>
             <vodml-id>Position.dimension</vodml-id>
             <name>dimension</name>
-            <description>number of separate measurements (pixels) along each axis</description>
+            <description>The dimension gives the number of separate measurements (pixels) along each spatial axis.</description>
             <datatype>
                 <vodml-ref>caom2:Dimension2D</vodml-ref>
             </datatype>
@@ -2066,7 +2084,10 @@
         <attribute>
             <vodml-id>Position.maxRecoverableScale</vodml-id>
             <name>maxRecoverableScale</name>
-            <description>maximum size of spatial structure (signal) that can be recovered or seen in the data (new in CAOM-2.5)</description>
+            <description>The maxRecoverableScale is the maximum size of spatial structure (signal) that can be recovered or 
+                seen in the data (new in CAOM-2.5). This scale limitation in the data is usually an artifact of spectral filtering
+                in interferometry observations, which is energy-dependent; the interval value gives the range of scales at the
+                extreme values of the energy axis.</description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2078,7 +2099,8 @@
         <attribute>
             <vodml-id>Position.resolution</vodml-id>
             <name>resolution</name>
-            <description>mean spatial resolution (full-width-half-max) per pixel</description>
+            <description>The resolution is a typical/representative spatial resolution (full-width-half-max). In previous
+                versions, this was computed as the mean resolution per pixel.</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -2090,7 +2112,7 @@
         <attribute>
             <vodml-id>Position.resolutionBounds</vodml-id>
             <name>resolutionBounds</name>
-            <description>range of resolution within the bounds</description>
+            <description>The resolutionBounds describes the range of resolution when it varies across the field-of-view.</description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2102,7 +2124,7 @@
         <attribute>
             <vodml-id>Position.sampleSize</vodml-id>
             <name>sampleSize</name>
-            <description>median pixel size</description>
+            <description>The sampleSize is the mean pixel size in the data.</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -2114,7 +2136,8 @@
         <attribute>
             <vodml-id>Position.calibration</vodml-id>
             <name>calibration</name>
-            <description>term describing the calibration of the position axis values (NEW in CAOM-2.5)</description>
+            <description>The calibration describes the calibration of the position axis values using a vocabulary
+                (NEW in CAOM-2.5).</description>
             <datatype>
                 <vodml-ref>caom2:CalibrationStatus</vodml-ref>
             </datatype>
@@ -2128,11 +2151,13 @@
     <objectType>
         <vodml-id>Energy</vodml-id>
         <name>Energy</name>
-        <description>description of the energy coverage and sampling of the data</description>
+        <description>The Energy structure describes the energy coverage and sampling of the data.</description>
         <attribute>
             <vodml-id>Energy.bounds</vodml-id>
             <name>bounds</name>
-            <description>simple outer bounds of energy coverage of the data (CHANGED cardinality in CAOM-2.5)</description>
+            <description>The bounds is a spectral interval that includes the valid data (CHANGED cardinality in CAOM-2.5).
+                This field is typically used for spectral search of data that contains specific energy values or overlaps a
+                spectral region.</description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2144,7 +2169,8 @@
         <attribute>
             <vodml-id>Energy.samples</vodml-id>
             <name>samples</name>
-            <description>detailed energy coverage of the data (CHANGED in CAOM-2.5)</description>
+            <description>The samples provide a detailed energy coverage of the valid data (CHANGED in CAOM-2.5). The samples
+                may be the same as or a subset of the interval described by the bounds (above).</description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2156,7 +2182,10 @@
         <attribute>
             <vodml-id>Energy.energyBands</vodml-id>
             <name>energyBands</name>
-            <description>standard name of the energy regime(s) included in the data</description>
+            <description>The energyBands contains the standard name of the energy regime(s) included in the data. This
+                names are taken from VOResource (ref). In most cases, the value contains a single energy band, but some 
+                data spans the canonical boundary between two adjacent regimes and thus may have two values.
+            </description>
             <datatype>
                 <vodml-ref>caom2:EnergyBand</vodml-ref>
             </datatype>
@@ -2168,7 +2197,7 @@
         <attribute>
             <vodml-id>Energy.dimension</vodml-id>
             <name>dimension</name>
-            <description>number of measurements (pixels) on the energy axis</description>
+            <description>The dimension gives the number of measurements (pixels) on the energy axis.</description>
             <datatype>
                 <vodml-ref>dt:int64</vodml-ref>
             </datatype>
@@ -2180,7 +2209,8 @@
         <attribute>
             <vodml-id>Energy.resolvingPower</vodml-id>
             <name>resolvingPower</name>
-            <description>mean spectral resolving power per pixel (relative resolution)</description>
+            <description>The resolving power is a typical/representative relative spectral resolution of the data. In 
+                previous versions, this was the mean resolving power per pixel.</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -2192,7 +2222,8 @@
         <attribute>
             <vodml-id>Energy.resolvingPowerBounds</vodml-id>
             <name>resolvingPowerBounds</name>
-            <description>range of resolving power within the bounds (relative resolution)</description>
+            <description>The resolving power bounds describes how the resolving power varies with other axis values. The variation
+                may be dependent on position, energy, or time (unspecified here).</description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2204,7 +2235,7 @@
         <attribute>
             <vodml-id>Energy.resolution</vodml-id>
             <name>resolution</name>
-            <description>mean absolute spectral resolution per pixel (new in CAOM-2.5)</description>
+            <description>The resolution is a typical/representative absolute spectral resolution of the data (new in CAOM-2.5).</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -2216,7 +2247,8 @@
         <attribute>
             <vodml-id>Energy.resolutionBounds</vodml-id>
             <name>resolutionBounds</name>
-            <description>range of absolute spectral resolution within the bounds (new in CAOM-2.5)</description>
+            <description>The resolution bounds describes how the absolute resolution varies with other axis values. The variation
+                may be dependent on position, energy, or time; the exact dependence is not specified here. (new in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2228,7 +2260,7 @@
         <attribute>
             <vodml-id>Energy.sampleSize</vodml-id>
             <name>sampleSize</name>
-            <description>mean pixel size</description>
+            <description>The sampleSize is the mean pixel size in the data.</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -2240,8 +2272,9 @@
         <attribute>
             <vodml-id>Energy.bandpassName</vodml-id>
             <name>bandpassName</name>
-            <description>telescope- and instrument-specific name for the energy band(s) included; multiple bands may be
-                included if energies from all specified bands are included in the data (in the sense of union)</description>
+            <description>The bandpass name is a telescope- and instrument-specific name for the energy band(s) included; multiple bands may be
+                included if energies from all specified bands are included in the data (in the sense of union). This is typically
+                a filter name in optical imaging observations.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -2253,7 +2286,8 @@
         <attribute>
             <vodml-id>Energy.rest</vodml-id>
             <name>restwav</name>
-            <description>rest energy of the target energy transition (name changed in CAOM-2.5)</description>
+            <description>The rest energy of the target energy transition (name changed in CAOM-2.5).
+                Use case: something to do with wcs frame conversions...</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -2265,7 +2299,8 @@
         <attribute>
             <vodml-id>Energy.calibration</vodml-id>
             <name>calibration</name>
-            <description>term describing the calibration of the energy axis values (new in CAOM-2.5)</description>
+            <description>The calibration describes the calibration of the energy axis values using a vocabulary
+                (NEW in CAOM-2.5).</description>
             <datatype>
                 <vodml-ref>caom2:CalibrationStatus</vodml-ref>
             </datatype>
@@ -2277,7 +2312,8 @@
         <attribute>
             <vodml-id>Energy.transition</vodml-id>
             <name>transition</name>
-            <description>target energy transition for this data</description>
+            <description>The transition is a target energy transition that was observed.
+                Use case: see rest (above). TODO: should this be part of Target?</description>
             <datatype>
                 <vodml-ref>caom2:EnergyTransition</vodml-ref>
             </datatype>
@@ -2291,11 +2327,13 @@
     <objectType>
         <vodml-id>Time</vodml-id>
         <name>Time</name>
-        <description>description of the time coverage and sampling of the data</description>
+        <description>The Time structure describes the time coverage and sampling of the data.</description>
         <attribute>
             <vodml-id>Time.bounds</vodml-id>
             <name>bounds</name>
-            <description>time bounds that include the data (cardinality changed in CAOM-2.5)</description>
+            <description>The bounds is a time interval that includes the valid data (CHANGED cardinality in CAOM-2.5).
+                This field is typically used for temporal search of data that contains specific time values or overlaps a
+                specific date and time range.</description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2307,7 +2345,8 @@
         <attribute>
             <vodml-id>Time.samples</vodml-id>
             <name>samples</name>
-            <description>detailed time coverage that include the data (refactored in CAOM-2.5)</description>
+            <description>The samples provide a detailed time coverage of the valid data (CHANGED in CAOM-2.5). The samples
+                may be the same as or a subset of the interval described by the bounds (above).</description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2319,7 +2358,8 @@
         <attribute>
             <vodml-id>Time.calibration</vodml-id>
             <name>calibration</name>
-            <description>term describing the calibration of the time axis values</description>
+            <description>The calibration describes the calibration of the time axis values using a vocabulary
+                (NEW in CAOM-2.5).</description>
             <datatype>
                 <vodml-ref>caom2:CalibrationStatus</vodml-ref>
             </datatype>
@@ -2331,7 +2371,7 @@
         <attribute>
             <vodml-id>Time.dimension</vodml-id>
             <name>dimension</name>
-            <description>number of discrete samples (pixels) on the time axis</description>
+            <description>The dimension gives the number of measurements (pixels) on the time axis.</description>
             <datatype>
                 <vodml-ref>dt:int64</vodml-ref>
             </datatype>
@@ -2343,7 +2383,7 @@
         <attribute>
             <vodml-id>Time.resolution</vodml-id>
             <name>resolution</name>
-            <description>median temporal resolution per pixel</description>
+            <description>The resolution is a typical/representative absolute time resolution of the data (new in CAOM-2.5).</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -2355,7 +2395,8 @@
         <attribute>
             <vodml-id>Time.resolutionBounds</vodml-id>
             <name>resolutionBounds</name>
-            <description>range of resolution within the bounds</description>
+            <description>The resolution bounds describes how the absolute resolution varies with other axis values. The variation
+                may be dependent on position, energy, or time; the exact dependence is not specified here. (new in CAOM-2.5)</description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2367,7 +2408,7 @@
         <attribute>
             <vodml-id>Time.sampleSize</vodml-id>
             <name>sampleSize</name>
-            <description>median pixel size</description>
+            <description>The sampleSize is the mean pixel size in the data.</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -2379,7 +2420,8 @@
         <attribute>
             <vodml-id>Time.exposure</vodml-id>
             <name>exposure</name>
-            <description>mean exposure time per pixel</description>
+            <description>The exposure is a typical/representative amount of total time that signal was being collected.
+                In previous versions, this was the mean exposure time per pixel.</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -2391,7 +2433,9 @@
         <attribute>
             <vodml-id>Time.exposureBounds</vodml-id>
             <name>exposureBounds</name>
-            <description>range of exposure within the bounds</description>
+            <description>The exposure bounds describes how the exposure time varies with other axis values. The variation
+                is typically dependent on position in DerivedObservation(s), but the exact dependence is not specified here.
+                Use case: stacked image data with partial overlap.</description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2405,7 +2449,7 @@
     <objectType>
         <vodml-id>Polarization</vodml-id>
         <name>Polarization</name>
-        <description>description of polarization measurements included in the data</description>
+        <description>The Polarization structure describes the polarization states that are included in the data.</description>
         <attribute>
             <vodml-id>Polarization.states</vodml-id>
             <name>states</name>
@@ -2420,7 +2464,7 @@
         </attribute><attribute>
             <vodml-id>Polarization.dimension</vodml-id>
             <name>dimension</name>
-            <description>number of polarization states included</description>
+            <description>The dimension is the number of polarization states in the data.</description>
             <datatype>
                 <vodml-ref>dt:int32</vodml-ref>
             </datatype>
@@ -2435,11 +2479,13 @@
     <objectType>
         <vodml-id>CustomAxis</vodml-id>
         <name>CustomAxis</name>
-        <description>description of a custom coordinate axis (new in CAOM-2.4)</description>
+        <description>A custom axis describes an additional axis in the data with a custom  coordinate type.
+            Use case: radio cubes with Faraday depth or rotation measure axis.</description>
         <attribute>
             <vodml-id>CustomAxis.ctype</vodml-id>
             <name>ctype</name>
-            <description>coordinate type code</description>
+            <description>The ctype is the coordinate type code as used in the community. This is
+                requivalent in meaning and usage as the FITS (ref) \verb|CTYPE| header keyword.</description>
             <datatype>
                 <vodml-ref>ivoa:string</vodml-ref>
             </datatype>
@@ -2451,7 +2497,9 @@
         <attribute>
             <vodml-id>CustomAxis.bounds</vodml-id>
             <name>bounds</name>
-            <description>custom coordinate coverage (cardinality changed in CAOM-2.5)</description>
+            <description>The bounds is an interval of the custom coordinate values that includes the valid data 
+                (CHANGED cardinality in CAOM-2.5). This field is typically used to search of data that contains 
+                specific coordinmate values or overlaps a range of values. </description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2463,7 +2511,8 @@
         <attribute>
             <vodml-id>CustomAxis.samples</vodml-id>
             <name>samples</name>
-            <description>detailed custom coordinate coverage (refactored in CAOM-2.5)</description>
+            <description>The samples provide a detailed custom coordinate coverage of the valid data (CHANGED in CAOM-2.5). 
+                The samples may be the same as or a subset of the interval described by the bounds (above).</description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2475,7 +2524,7 @@
         <attribute>
             <vodml-id>CustomAxis.dimension</vodml-id>
             <name>dimension</name>
-            <description>number of discrete samples (pixels) along custom axis</description>
+            <description>The dimension is the number of samples (pixels) in the data.</description>
             <datatype>
                 <vodml-ref>dt:int64</vodml-ref>
             </datatype>
@@ -2489,11 +2538,13 @@
     <objectType>
         <vodml-id>Visibility</vodml-id>
         <name>Visibility</name>
-        <description>description of a UV-plane for interferometry data (new in CAOM-2.5)</description>
+        <description>The Visibility structure provides a description of the UV-plane for interferometry data (new in CAOM-2.5).
+            This information may be present for actual visibility data (Plane.dataProductType \verb|visibility| or for
+            other products (\verb|image| or \verb|cube|) that are derived from interferometry data.</description>
         <attribute>
             <vodml-id>Visibility.distance</vodml-id>
             <name>distance</name>
-            <description>range of distances in the UV plane</description>
+            <description>The diastance is an interval specifying the range of distances in the UV plane.</description>
             <datatype>
                 <vodml-ref>dt:Interval</vodml-ref>
             </datatype>
@@ -2505,7 +2556,7 @@
         <attribute>
             <vodml-id>Visibility.distributionEccentricity</vodml-id>
             <name>distance</name>
-            <description>eccentricity of the distribtuion of ??? in [0,1]</description>
+            <description>The eccentricity of the distribution of ??? (in [0,1]).</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>
@@ -2517,7 +2568,7 @@
         <attribute>
             <vodml-id>Visibility.distributionFill</vodml-id>
             <name>distance</name>
-            <description>fill-factor of the distribtuion of ??? in [0,1]</description>
+            <description>The fractional fill of the distribution of ??? (in [0,1]).</description>
             <datatype>
                 <vodml-ref>dt:double</vodml-ref>
             </datatype>

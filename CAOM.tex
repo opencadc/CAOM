@@ -15,7 +15,11 @@
 
 \begin{document}
 \begin{abstract}
-???? Abstract ????
+The Common Archive Observation Model (CAOM) is a metadata model that describes
+astronomical data stored in archives and make that data findable and accessible.
+It provides a practical model that can be implemented as the core of an astronomical
+data archive and supports a wide range of data description, a wide range of 
+data discovery queries, and supports key operational activities.
 \end{abstract}
 
 
@@ -41,10 +45,17 @@ infrastructure that enable VO applications.
 \section{Introduction}
 
 The Common Archive Observation Model (CAOM) is a metadata model that describes
-astronomical data stored in archives and make that data findable and accessible
-(the first two concepts of the FAIR principles: Findable, Accessible, Interoperable,
-Reusable). CAOM places no constraints on the format of the data itself and thus does 
-not support or enable interoperable and reusable data.
+astronomical data stored in archives and make that data findable and accessible: 
+the first two concepts of the FAIR principles (Findable, Accessible, Interoperable,
+Reusable). 
+
+It provides a practical model that can be implemented as the core of an astronomical
+data archive and supports the description of a wide range of astronomical data and thus
+a wide range of data discovery use cases.
+
+CAOM also supports key operational activities for metadata sharing and synchronisation,
+metadata validation, and loosely coupled integration with astronomical data access services.
+
 
 \subsection{Role within the VO Architecture}
 
@@ -65,7 +76,19 @@ not support or enable interoperable and reusable data.
 Fig.~\ref{fig:archdiag} shows the role this document plays within the
 IVOA architecture \citep{2021ivoa.spec.1101D}.
 
-???? and so on, LaTeX as you know and love it. ????
+The core CAOM model is specified using VODML and is intended to be a superset
+of the much simpler ObsCore data model. Parts of the model make use of Vocabularies,
+including UCD, DataLink semantics, and the draft product-type vocabulary (from ObsCore).
+CAOM data types are tighly coupled with \verb|xtype| usage defined in DALI.
+
+The Plane-Artifact relation in CAOM is designed to be used primarily to support a
+DataLink links service: data discovery generally discovers planes and those are linked
+to artifacts in a 1-to-n relationship, with the relationship described by the DataLink
+semantics vocabulary.
+
+CAOM supports concepts of public and proprietary data and metadata; access to proprietary
+data and metadata can be enabled by using GMS group identifiers in the observation and
+plane metadata.
 
 \section{Use Cases}
 
@@ -208,7 +231,9 @@ to persist complete instances).
 
 
 % include external generated file so this tex doc is easy to edit
-\input{generated.tex}
+\input{generated-caom2.tex}
+
+\input{generated-data-types.tex}
 
 \appendix
 \section{Changes from Previous Versions}

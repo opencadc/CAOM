@@ -1,0 +1,115 @@
+
+% -------------------------------------------
+% Items to substitute into the ivoatex document template.
+%
+%\ivoagroup{Data Model Working Group}
+
+%\title{DataTypes}
+
+
+%\author{Patrick Dowler}
+    
+%\author{Canadian Astronomy Data Centre}
+    
+% -------------------------------------------
+
+\pagebreak
+\section{Model: dt }
+  
+  % INSERT FIGURE HERE
+  %\begin{figure}[h]
+  %\begin{center}
+  %  \includegraphics[width=\textwidth]{????.png}
+  %  \caption{???}\label{fig:????}
+  %\end{center}
+  %\end{figure}
+
+  This model is a general purpose collection of data types required for CAOM but reusable in other data models.
+
+  \subsection{Circle}
+  \label{sect:Circle}
+    a circular region in two-dimensions
+
+    \subsubsection{Circle.center}
+      \textbf{vodml-id: Circle.center} \newline
+      \textbf{type: \hyperref[sect:Point]{dt:Point}} \newline
+      \textbf{multiplicity: 1} \newline
+      [TODO add description!]
+
+    \subsubsection{Circle.radius}
+      \textbf{vodml-id: Circle.radius} \newline
+      \textbf{type: \hyperref[sect:double]{dt:double}} \newline
+      \textbf{multiplicity: 1} \newline
+      [TODO add description!]
+
+  \subsection{Interval}
+  \label{sect:Interval}
+    a set of numeric values defined by a lower and upper bound (bounds included: [a,b])
+
+    \subsubsection{Interval.lower}
+      \textbf{vodml-id: Interval.lower} \newline
+      \textbf{type: \hyperref[sect:double]{dt:double}} \newline
+      \textbf{multiplicity: 1} \newline
+      [TODO add description!]
+
+    \subsubsection{Interval.upper}
+      \textbf{vodml-id: Interval.upper} \newline
+      \textbf{type: \hyperref[sect:double]{dt:double}} \newline
+      \textbf{multiplicity: 1} \newline
+      [TODO add description!]
+
+  \subsection{MultiShape}
+  \label{sect:MultiShape}
+    multiple simple shapes describing regions in two-dimensions
+
+    \subsubsection{MultiShape.shapes}
+      \textbf{vodml-id: MultiShape.shapes} \newline
+      \textbf{type: \hyperref[sect:Shape]{dt:Shape}} \newline
+      \textbf{multiplicity: 1..*} \newline
+      [TODO add description!]
+
+  \subsection{Point}
+  \label{sect:Point}
+    location in two-dimensions
+
+    \subsubsection{Point.cval1}
+      \textbf{vodml-id: Point.cval1} \newline
+      \textbf{type: \hyperref[sect:double]{dt:double}} \newline
+      \textbf{multiplicity: 1} \newline
+      [TODO add description!]
+
+    \subsubsection{Point.cval1}
+      \textbf{vodml-id: Point.cval2} \newline
+      \textbf{type: \hyperref[sect:double]{dt:double}} \newline
+      \textbf{multiplicity: 1} \newline
+      [TODO add description!]
+
+  \subsection{Polygon}
+  \label{sect:Polygon}
+    a simple polygon region in two-dimensions defined a sequence of points
+
+    \subsubsection{Polygon.points}
+      \textbf{vodml-id: Polygon.points} \newline
+      \textbf{type: \hyperref[sect:Point]{dt:Point}} \newline
+      \textbf{multiplicity: 3..*} \newline
+      [TODO add description!]
+
+  \subsection{Shape (Abstract)}
+  \label{sect:Shape}
+    [TODO add description!]
+
+  \subsection{uuid}
+  \label{sect:uuid}
+  a 128-bit globally unique binary identifier
+
+  \subsection{double}
+  \label{sect:double}
+  an IEEE double precision (64-bit) floating point value
+
+  \subsection{int32}
+  \label{sect:int32}
+  a 32-bit signed integer
+
+  \subsection{int64}
+  \label{sect:int64}
+  a 64-bit signed integer
