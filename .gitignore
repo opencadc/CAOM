@@ -12,7 +12,6 @@ ivoatexmeta.tex
 *.fls
 gitmeta.tex
 *.swp
-role_diagram.svg
 
 # OS-specific
 .DS_Store

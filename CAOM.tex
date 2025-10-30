@@ -1,6 +1,7 @@
 \documentclass[11pt,a4paper]{ivoa}
 \input tthdefs
 \usepackage{todonotes}
+\usepackage{caption}
 
 \title{Common Archive Observation Model}
 
@@ -188,17 +189,6 @@ source site; in that case, the source site would create a DeletedArtifactDescrip
 the same entity identifier (Entity.id) and logical identifier (ArtifactDescription.uri) so that 
 other sites can synchronise the event and perform the correct deletion locally.
 
-\subsection{Data Types}
-Some of the classes in the model are intended to be used as data types (e.g. columns
-types in a database and exposed as such in a TAP service).
-
-\begin{figure}
-\centering
-\includegraphics[width=0.9\textwidth]{src/uml/CAOM2datatypes.png}
-\caption{CAOM Data Types}
-\label{fig:datatypes}
-\end{figure}
-
 \subsection{Vocabularies}
 
 CAOM uses a mixture of enumerations and vocabulary references. As it has evolved,
@@ -206,12 +196,14 @@ several concepts began as enumerations and were later converted to use a vocabul
 when it became clear that the IVOA Vocabularies process was a more appropriate way
 to support the gradual evolution of set of concepts needed by the community.
 
-\begin{figure}
-\centering
+\begin{center}
+%\begin{figure}
+%\centering
 \includegraphics[width=0.9\textwidth]{src/uml/CAOM3vocabularies.png}
-\caption{Enumerations and Vocabularies}
+\captionof{figure}{Enumerations and Vocabularies}
 \label{fig:vocab}
-\end{figure}
+%\end{figure}
+\end{center}
 
 \subsection{Entity}
 
@@ -222,16 +214,32 @@ implementing (e.g. in a relational mapping, each entity has to be in a separate
 table and one table per entity would be the minimum number of tables required 
 to persist complete instances).
 
-\begin{figure}
-\centering
+\begin{center}
+%\begin{figure}
+%\centering
 \includegraphics[width=0.9\textwidth]{src/uml/CAOM4entities.png}
-\caption{CAOM Entities}
+\captionof{figure}{CAOM Entities}
 \label{fig:entity}
-\end{figure}
-
+%\end{figure}
+\end{center}
 
 % include external generated file so this tex doc is easy to edit
 \input{generated-caom2.tex}
+
+\section{Data Types Overview}
+Some of the classes in the model are intended to be used as data types (e.g. columns
+types in a database and exposed as such in a TAP service) and are inherently more reusable.
+The types required by the \verb|caom2| data model are specified in the separate \verb|dt| model
+below.
+
+\begin{center}
+%\begin{figure}
+%\centering
+\includegraphics[width=0.9\textwidth]{src/uml/DataTypes.png}
+\captionof{figure}{Data Types}
+\label{fig:datatypes}
+%\end{figure}
+\end{center}
 
 \input{generated-data-types.tex}
 
