@@ -8,7 +8,7 @@ DOCNAME = CAOM
 DOCVERSION = 2.5
 
 # Publication date, ISO format; update manually for "releases"
-DOCDATE = 2024-09-27
+DOCDATE = 2025-10-31
 
 # What is it you're writing: NOTE, WD, PR, REC, PEN, or EN
 DOCTYPE = WD
@@ -30,7 +30,7 @@ FIGURES = role_diagram.svg src/main/resources/draft-CAOM-2.5.png
 VECTORFIGURES = role_diagram.pdf
 
 # Additional files to distribute (e.g., CSS, schema files, examples...)
-AUX_FILES = generated.tex src/main/resources/CAOM-current-vodml.xml
+AUX_FILES = generated-caom2.tex generated-data-types.tex src/main/resources/CAOM-current-vodml.xml
 
 -include ivoatex/Makefile
 
