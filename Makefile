@@ -19,18 +19,18 @@ AUTHOR_EMAIL=pdowler.cadc@gmail.com
 
 # Source files for the TeX document (but the main file must always
 # be called $(DOCNAME).tex)
-SOURCES = $(DOCNAME).tex
+SOURCES = $(DOCNAME).tex role_diagram.pdf
 
 # List of image files to be included in submitted package (anything that
 # can be rendered directly by common web browsers)
-FIGURES = role_diagram.svg src/main/resources/draft-CAOM-2.5.png
+FIGURES = role_diagram.svg src/uml/CAOM1core.png src/uml/CAOM3vocabularies.png src/uml/CAOM4entities.png src/uml/DataTypes.png
 
 # List of PDF figures (figures that must be converted to pixel images to
 # work in web browsers).
 VECTORFIGURES = role_diagram.pdf
 
 # Additional files to distribute (e.g., CSS, schema files, examples...)
-AUX_FILES = generated-caom2.tex generated-data-types.tex src/main/resources/CAOM-current-vodml.xml
+AUX_FILES = generated-caom2.tex generated-data-types.tex src/main/resources/CAOM-current-vodml.xml src/main/resources/DataTypes-current-vodml.xml
 
 -include ivoatex/Makefile
 
@@ -45,4 +45,3 @@ test:
 vodml:
 	xsltproc --huge --output generated-caom2.tex ivoatex/vo-dml2ivoatex.xslt src/main/resources/CAOM-current-vodml.xml
 	xsltproc --huge --output generated-data-types.tex ivoatex/vo-dml2ivoatex.xslt src/main/resources/DataTypes-current-vodml.xml
-
